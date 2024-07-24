@@ -14,10 +14,16 @@ import '../modules/internet_speed/bindings/internet_speed_binding.dart';
 import '../modules/internet_speed/views/internet_speed_view.dart';
 import '../modules/live_TV/bindings/live_t_v_binding.dart';
 import '../modules/live_TV/views/live_t_v_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/multiscreen/bindings/multiscreen_binding.dart';
+import '../modules/multiscreen/views/multiscreen_view.dart';
 import '../modules/parental/bindings/parental_binding.dart';
 import '../modules/parental/views/parental_view.dart';
 import '../modules/playlist/bindings/playlist_binding.dart';
 import '../modules/playlist/views/playlist_view.dart';
+import '../modules/series/bindings/series_binding.dart';
+import '../modules/series/views/series_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -119,6 +125,21 @@ class AppPages {
       name: _Paths.LIVE_T_V,
       page: () => const LiveTVView(),
       binding: LiveTVBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERIES,
+      page: () => SeriesView(),
+      binding: SeriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.MULTISCREEN,
+      page: () => const MultiscreenView(),
+      binding: MultiscreenBinding(),
     ),
   ];
 }

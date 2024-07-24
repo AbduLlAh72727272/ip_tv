@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../controllers/live_t_v_controller.dart';
+import 'live_t_v_view2.dart';
 
 class LiveTVView extends GetView<LiveTVController> {
   const LiveTVView({Key? key}) : super(key: key);
@@ -24,33 +26,33 @@ class LiveTVView extends GetView<LiveTVController> {
               Container(
                 color: Colors.black.withOpacity(0.5),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                   child: PreferredSize(
-                    preferredSize: Size.fromHeight(50.0), // Decrease the height of the AppBar
+                    preferredSize: Size.fromHeight(20.0.h), // Decrease the height of the AppBar
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          height: 70, // Adjust the height of the back button
-                          width: 50, // Adjust the width of the back button
+                          height: 45.h, // Adjust the height of the back button
+                          width: 25.w, // Adjust the width of the back button
                           child: IconButton(
                             icon: Image.asset('assets/images/back_button.png'),
                             onPressed: () => Get.back(),
-                            iconSize: 20, // Adjust the size of the icon inside the button
+                            iconSize: 10.w, // Adjust the size of the icon inside the button
                           ),
                         ),
                         Expanded(
                           child: Center(
                             child: Text(
                               'Live TV',
-                              style: TextStyle(color: Colors.white, fontSize: 18),
+                              style: TextStyle(color: Colors.white, fontSize: 9.sp),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 20),
+                        SizedBox(width: 45.w),
                         Text(
                           'Channel 01 HD',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                          style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold),
                         ),
                         Spacer(),
                         IconButton(
@@ -58,14 +60,14 @@ class LiveTVView extends GetView<LiveTVController> {
                           onPressed: () {
                             // Handle search action
                           },
-                          iconSize: 20, // Adjust the size of the search icon
+                          iconSize: 10.w, // Adjust the size of the search icon
                         ),
                         IconButton(
                           icon: Icon(Icons.settings, color: Colors.white),
                           onPressed: () {
                             // Handle settings action
                           },
-                          iconSize: 20, // Adjust the size of the settings icon
+                          iconSize: 10.w, // Adjust the size of the settings icon
                         ),
                       ],
                     ),
@@ -78,7 +80,7 @@ class LiveTVView extends GetView<LiveTVController> {
                   children: [
                     // Left Sidebar
                     Container(
-                      width: 180,
+                      width: 90.w,
                       color: Colors.black.withOpacity(0.5),
                       child: ListView.builder(
                         itemCount: 10, // Update this with actual channel count
@@ -105,7 +107,7 @@ class LiveTVView extends GetView<LiveTVController> {
                     // Main Content
                     Expanded(
                       child: GridView.builder(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.0.w),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: 10,
@@ -113,9 +115,19 @@ class LiveTVView extends GetView<LiveTVController> {
                         ),
                         itemCount: 12, // Update this with actual video count
                         itemBuilder: (context, index) {
-                          return Image.asset(
-                            'assets/images/sample.png', // Replace with actual video thumbnail
-                            fit: BoxFit.cover,
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(() => LiveTVView2(
+                                imageUrl: 'assets/images/sample.png', // Replace with actual video thumbnail
+                                channelName: 'Channel 01 HD',
+                                programInfo: 'A hidden truth',
+                                date: '21-june-2022',
+                              ));
+                            },
+                            child: Image.asset(
+                              'assets/images/sample.png', // Replace with actual video thumbnail
+                              fit: BoxFit.cover,
+                            ),
                           );
                         },
                       ),

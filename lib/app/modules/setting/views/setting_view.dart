@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
-import '../../automation/views/automation_view.dart';
-import '../../external_player/views/external_player_view.dart';
-import '../../general_setting/views/general_setting_view.dart';
-import '../../internet_speed/views/internet_speed_view.dart';
-import '../../stream_format/views/stream_format_view.dart';
-import '../../themes/views/themes_view.dart';
-import '../../time_format/views/time_format_view.dart';
+import '../../../routes/app_pages.dart';
+//import 'app_pages.dart'; // Import the routes
 import '../controllers/setting_controller.dart';
 
 class SettingView extends GetView<SettingController> {
@@ -16,7 +11,7 @@ class SettingView extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
-   // ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       body: Stack(
@@ -68,27 +63,27 @@ class SettingView extends GetView<SettingController> {
                   mainAxisSpacing: 30.h, // Spacing using ScreenUtil
                   children: [
                     _buildSettingItem('General Settings', context, 'assets/icons/gs.png', onTap: () {
-                      Get.to(() => GeneralSettingView());
+                      Get.toNamed(Routes.GENERAL_SETTING);
                     }),
                     _buildSettingItem('Stream Format', context, 'assets/icons/stream.png', onTap: () {
-                      Get.to(() => StreamFormatView());
+                      Get.toNamed(Routes.STREAM_FORMAT);
                     }),
                     _buildSettingItem('Time Format', context, 'assets/icons/clock.png', onTap: () {
-                      Get.to(() => TimeFormatView());
+                      Get.toNamed(Routes.TIME_FORMAT);
                     }),
                     _buildSettingItem('Parental Control', context, 'assets/icons/parental-control.png'),
                     _buildSettingItem('Automation', context, 'assets/icons/automation.png', onTap: () {
-                      Get.to(() => AutomationView());
+                      Get.toNamed(Routes.AUTOMATION);
                     }),
                     _buildSettingItem('EPG', context, 'assets/icons/epg.png'),
                     _buildSettingItem('Themes', context, 'assets/icons/themes.png', onTap: () {
-                      Get.to(() => ThemesView());
+                      Get.toNamed(Routes.THEMES);
                     }),
                     _buildSettingItem('External Players', context, 'assets/icons/player.png', onTap: () {
-                      Get.to(() => ExternalPlayerView());
+                      Get.toNamed(Routes.EXTERNAL_PLAYER);
                     }),
                     _buildSettingItem('Internet Speed Test', context, 'assets/icons/speed.png', onTap: () {
-                      Get.to(() => InternetSpeedView());
+                      Get.toNamed(Routes.INTERNET_SPEED);
                     }),
                   ],
                 ),

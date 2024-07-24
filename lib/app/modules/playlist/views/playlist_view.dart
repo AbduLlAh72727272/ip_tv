@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../routes/app_pages.dart';
 import '../../M3U_playlist/views/m3_u_playlist_view.dart';
 import '../../parental/views/parental_view.dart';
-//import '../parental/parental_view.dart'; // Import the ParentalView
+//import 'app_pages.dart'; // Import the routes
 
 class PlaylistView extends StatefulWidget {
   @override
@@ -77,8 +78,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: () async {
-                        // Navigate to HomeView and wait for result
-                        final result = await Get.to(() => M3UPlaylistView());
+                        // Navigate to M3UPlaylistView and wait for result
+                        final result = await Get.toNamed(Routes.M3_U_PLAYLIST);
                         if (result != null && result is Map<String, String>) {
                           setState(() {
                             playlists.add(result);
@@ -88,8 +89,6 @@ class _PlaylistViewState extends State<PlaylistView> {
                       icon: Icon(Icons.add),
                       label: Text('Add Playlist'),
                       style: ElevatedButton.styleFrom(
-                        // foregroundColor: Colors.white,
-                        // backgroundColor: Color(0xFFB1060F),
                         padding: EdgeInsets.symmetric(
                           horizontal: 8.0.w, // Padding using ScreenUtil
                           vertical: 8.0.h, // Padding using ScreenUtil
@@ -113,7 +112,7 @@ class _PlaylistViewState extends State<PlaylistView> {
   Widget _buildPlaylistItem(Map<String, String> playlist, int index) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ParentalView());
+        Get.toNamed(Routes.PARENTAL);
       },
       child: Container(
         width: 120.w, // Adjusted width using ScreenUtil

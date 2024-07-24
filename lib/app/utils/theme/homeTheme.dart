@@ -67,7 +67,7 @@ final AppHomeTheme homeScreen1Theme = AppHomeTheme(
     elevatedButtonTheme: VoidElevatedButtonTheme.firstHomeElevatedButtonTheme,
 
   ),
-  homeScreenWidget: FirstHomeView(),
+  homeScreenWidget: HomeView(),
 );
 
 final AppHomeTheme homeScreen2Theme = AppHomeTheme(

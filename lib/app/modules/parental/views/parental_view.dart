@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 import 'package:ip_tv/app/modules/home/views/home_screen_wrapper.dart';
+import '../../../routes/app_pages.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/parental_controller.dart';
+//import 'app_pages.dart'; // Import the routes
 
 class ParentalView extends GetView<ParentalController> {
   const ParentalView({Key? key}) : super(key: key);
@@ -89,32 +91,23 @@ class ParentalView extends GetView<ParentalController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                          ElevatedButton(
-                          onPressed: () {
-                            Get.to(() => HomeScreenWrapper());
-                  },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black.withOpacity(0.4),
-                            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
-                            textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
-                            ),
-                          ),
-                          child: Text(
-                            'Skip',
-                            // style: TextStyle(color: textColor),
-                          ),
-                        ),
-                            //
-                            // _buildButton('Skip', Colors.black.withOpacity(0.4), () {
-                            //   // Get.to(() => HomeView()); // Navigate to HomeView
-                            //   Get.to(() => HomeScreenWrapper());
-                            // }),
-
                             ElevatedButton(
                               onPressed: () {
-
+                                Get.offNamed(Routes.HOME); // Use named route for navigation
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black.withOpacity(0.4),
+                                padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
+                                textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
+                                ),
+                              ),
+                              child: Text('Skip'),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                // Handle set action
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
@@ -123,14 +116,8 @@ class ParentalView extends GetView<ParentalController> {
                                   borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
                                 ),
                               ),
-                              child: Text(
-                                'Set',
-                                // style: TextStyle(color: textColor),
-                              ),
+                              child: Text('Set'),
                             ),
-                            // _buildButton('Set', Colors.red, () {
-                            //   // Handle set action
-                            // }),
                           ],
                         ),
                       ],
@@ -163,22 +150,4 @@ class ParentalView extends GetView<ParentalController> {
       ),
     );
   }
-
-  // Widget _buildButton(String text, Color? bgColor, VoidCallback onPressed) {
-  //   return ElevatedButton(
-  //     onPressed: onPressed,
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: bgColor,
-  //       padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
-  //       // textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
-  //       ),
-  //     ),
-  //     child: Text(
-  //       text,
-  //       // style: TextStyle(color: textColor),
-  //     ),
-  //   );
-  // }
 }

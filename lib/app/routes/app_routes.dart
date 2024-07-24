@@ -17,6 +17,9 @@ abstract class Routes {
   static const INTERNET_SPEED = _Paths.INTERNET_SPEED;
   static const THEMES = _Paths.THEMES;
   static const LIVE_T_V = _Paths.LIVE_T_V;
+  static const SERIES = _Paths.SERIES;
+  static const LOGIN = _Paths.LOGIN;
+  static const MULTISCREEN = _Paths.MULTISCREEN;
 }
 
 abstract class _Paths {
@@ -35,4 +38,7 @@ abstract class _Paths {
   static const INTERNET_SPEED = '/internet-speed';
   static const THEMES = '/themes';
   static const LIVE_T_V = '/live-t-v';
+  static const SERIES = '/series';
+  static const LOGIN = '/login';
+  static const MULTISCREEN = '/multiscreen';
 }

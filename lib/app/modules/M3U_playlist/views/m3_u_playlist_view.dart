@@ -82,30 +82,23 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                        ElevatedButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black.withOpacity(0.4),
-                        padding: EdgeInsets.symmetric(
-                        horizontal: 8.0.w, // Padding using ScreenUtil
-                        vertical: 6.0.h, // Padding using ScreenUtil
-                        ),
-                        textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
-                        ),
-                        ),
-                        child: Text(
-                        'Cancel',
-                        ),
-                        ),
-
-                          // _buildButton('Cancel', Colors.black.withOpacity(0.4), Colors.white, () {
-                          //   Get.back(); // Navigate back without saving
-                          // }),
-
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black.withOpacity(0.4),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.0.w, // Padding using ScreenUtil
+                                vertical: 6.0.h, // Padding using ScreenUtil
+                              ),
+                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                              ),
+                            ),
+                            child: Text('Cancel'),
+                          ),
                           ElevatedButton(
                             onPressed: () {
                               Get.back(result: {
@@ -125,19 +118,8 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                                 borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
                               ),
                             ),
-                            child: Text(
-                              'Save',
-                            ),
+                            child: Text('Save'),
                           ),
-                          // _buildButton('Save', Colors.red, Colors.white, () {
-                          //   // Pass the entered data back to the PlaylistView
-                          //   Get.back(result: {
-                          //     'playlistName': playlistNameController.text,
-                          //     'playlistUrl': playlistUrlController.text,
-                          //     'userName': userNameController.text,
-                          //     'password': passwordController.text,
-                          //   });
-                          // }),
                         ],
                       ),
                     ],
@@ -165,27 +147,6 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
         ),
       ),
       style: TextStyle(color: Colors.black), // Black text color
-    );
-  }
-
-  Widget _buildButton(String text, Color? bgColor, Color textColor, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: bgColor,
-        padding: EdgeInsets.symmetric(
-          horizontal: 8.0.w, // Padding using ScreenUtil
-          vertical: 6.0.h, // Padding using ScreenUtil
-        ),
-        textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
-        ),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(color: textColor),
-      ),
     );
   }
 }

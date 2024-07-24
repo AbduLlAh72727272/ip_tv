@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
-import '../../live_TV/views/live_t_v_view.dart';
-import '../../setting/views/setting_view.dart';
-import '../controllers/home_controller.dart';
+import '../../../routes/app_pages.dart';
+
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
-  // final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       body: Stack(
@@ -40,7 +38,6 @@ class HomeView extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        // color: Color(0xFF450509), // Background color for the logo section
                         color: Theme.of(context).colorScheme.secondary,
                         padding: EdgeInsets.symmetric(vertical: 20.h),
                         child: Row(
@@ -69,11 +66,15 @@ class HomeView extends StatelessWidget {
                             children: [
                               _buildMenuItem(Icons.home, 'Home', selected: true),
                               _buildMenuItem(Icons.live_tv, 'Live TV', onTap: () {
-                                Get.to(() => LiveTVView()); // Navigate to LiveTVView
+                                Get.toNamed(Routes.LIVE_T_V); // Navigate to LiveTVView
                               }),
                               _buildMenuItem(Icons.movie, 'Movies'),
-                              _buildMenuItem(Icons.screen_share, 'Multi Screen'),
-                              _buildMenuItem(Icons.tv, 'Series'),
+                              _buildMenuItem(Icons.screen_share, 'Multi Screen', onTap: () {
+                                Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiscreenView
+                              }),
+                              _buildMenuItem(Icons.tv, 'Series', onTap: () {
+                                Get.toNamed(Routes.SERIES); // Navigate to SeriesScreen
+                              }),
                               _buildMenuItem(Icons.sports, 'Sports'),
                               _buildMenuItem(Icons.playlist_play, 'Playlist'),
                               _buildMenuItem(Icons.videocam, 'Recording'),
@@ -90,7 +91,7 @@ class HomeView extends StatelessWidget {
                             showHomeScreenDialog();
                           }),
                           _buildIconButton('assets/images/setting.png', onTap: () {
-                            Get.to(() => SettingView());
+                            Get.toNamed(Routes.SETTING); // Navigate to SettingView
                           }),
                         ],
                       ),
@@ -148,7 +149,7 @@ class HomeView extends StatelessWidget {
           title,
           style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjust font size using ScreenUtil
         ),
-        onTap: onTap,
+        onTap: onTap ?? () {},
       ),
     );
   }
