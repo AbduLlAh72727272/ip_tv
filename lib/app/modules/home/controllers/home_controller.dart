@@ -1,23 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/theme/custom_themes/theme.dart';
+import '../../../utils/theme/homeTheme.dart';
+
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  var currentAppTheme = homeScreen1Theme.obs;
+  // var globalTheme = ThemeData.light().obs;
+  // var globalTheme = homeScreen1Theme.themeData.obs;
+  var globalTheme = primaryTheme.themeData.obs;
+  var selectedColorTheme = primaryTheme.obs;
+
+  void switchHomeScreen(AppHomeTheme newAppTheme) {
+    currentAppTheme.value = newAppTheme;
+    globalTheme.value = newAppTheme.themeData;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void switchGlobalTheme(AppColorTheme newTheme) {
+    // globalTheme.value = newTheme;
+    selectedColorTheme.value = newTheme;
+    globalTheme.value = newTheme.themeData;
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

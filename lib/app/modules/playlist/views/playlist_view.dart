@@ -88,8 +88,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                       icon: Icon(Icons.add),
                       label: Text('Add Playlist'),
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color(0xFFB1060F),
+                        // foregroundColor: Colors.white,
+                        // backgroundColor: Color(0xFFB1060F),
                         padding: EdgeInsets.symmetric(
                           horizontal: 8.0.w, // Padding using ScreenUtil
                           vertical: 8.0.h, // Padding using ScreenUtil
@@ -145,7 +145,7 @@ class _PlaylistViewState extends State<PlaylistView> {
               ),
             ),
             IconButton(
-              icon: Icon(Icons.delete, color: Color(0xFFB1060F)),
+              icon: Icon(Icons.delete, color: Theme.of(context).iconTheme.color),
               onPressed: () {
                 setState(() {
                   playlists.removeAt(index);

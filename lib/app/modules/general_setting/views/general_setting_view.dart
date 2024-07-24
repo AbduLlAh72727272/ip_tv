@@ -134,7 +134,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                     // Handle save action
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    // backgroundColor: Colors.red,
                     padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h), // Adjusted padding using ScreenUtil
                     textStyle: TextStyle(fontSize: 7.sp), // Adjusted font size using ScreenUtil
                     shape: RoundedRectangleBorder(

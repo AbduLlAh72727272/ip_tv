@@ -33,9 +33,9 @@ class VoidAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () => Get.back(),
                 icon: Icon(
                   Iconsax.arrow_left,
-                  color: VoidHelperFunctions.isDarkMode(context)
-                      ? VoidColors.white
-                      : VoidColors.black,
+                  // color: VoidHelperFunctions.isDarkMode(context)
+                  //     ? VoidColors.white
+                  //     : VoidColors.black,
                 ))
             : leadingIcon != null
                 ? IconButton(

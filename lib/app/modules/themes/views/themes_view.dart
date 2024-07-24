@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../utils/constraints/colors.dart';
+import '../../../utils/theme/custom_themes/theme.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/themes_controller.dart';
 
 class ThemesView extends GetView<ThemesController> {
@@ -10,6 +13,7 @@ class ThemesView extends GetView<ThemesController> {
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
     ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    final HomeController homeController = Get.find<HomeController>();
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -50,15 +54,16 @@ class ThemesView extends GetView<ThemesController> {
                     spacing: 8.w, // Adjusted spacing using ScreenUtil
                     runSpacing: 8.h, // Adjusted run spacing using ScreenUtil
                     children: [
-                      _buildColorOption(Colors.red),
-                      _buildColorOption(Colors.grey),
-                      _buildColorOption(Colors.pink),
-                      _buildColorOption(Colors.orange),
-                      _buildColorOption(Colors.yellow),
-                      _buildColorOption(Colors.purple),
-                      _buildColorOption(Colors.blue),
-                      _buildColorOption(Colors.cyan),
-                      _buildColorOption(Colors.green),
+                      _buildColorOption(VoidColors.primary, primaryTheme),
+                      _buildColorOption(VoidColors.greyColor, greyTheme),
+                      _buildColorOption(VoidColors.redColor, redTheme),
+                      _buildColorOption(VoidColors.orangeColor, orangeTheme),
+                      _buildColorOption(VoidColors.yellowColor, yellowTheme),
+                      _buildColorOption(VoidColors.purpleColor, purpleTheme),
+                      _buildColorOption(VoidColors.blueColor, blueTheme),
+                      _buildColorOption(VoidColors.cyanColor, cyanTheme),
+                      _buildColorOption(VoidColors.lightGreen, lightGreenTheme),
+                      _buildColorOption(VoidColors.parrotColor, parrotTheme),
                     ],
                   ),
                 ],
@@ -75,14 +80,14 @@ class ThemesView extends GetView<ThemesController> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.back(); // Navigate back to previous screen
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black.withOpacity(0.4),
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
@@ -92,10 +97,11 @@ class ThemesView extends GetView<ThemesController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Handle save action
+                    homeController.switchGlobalTheme(homeController.selectedColorTheme.value);
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    // backgroundColor: Colors.red,
                     padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
                     textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
                     shape: RoundedRectangleBorder(
@@ -115,29 +121,39 @@ class ThemesView extends GetView<ThemesController> {
     );
   }
 
-  Widget _buildColorOption(Color color) {
+  Widget _buildColorOption(Color color, AppColorTheme colorTheme) {
     bool isSelected = false;
+    final HomeController homeController = Get.find<HomeController>();
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              isSelected = !isSelected;
-            });
-          },
-          child: Container(
-            width: 20.w, // Adjusted size using ScreenUtil
-            height: 40.h, // Adjusted size using ScreenUtil
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.rectangle,
-            //  borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
-              border: isSelected ? Border.all(color: Colors.white, width: 3.w) : null, // Adjusted border width using ScreenUtil
+        return Obx(() {
+          bool isSelected = homeController.selectedColorTheme.value ==
+              colorTheme;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                isSelected = !isSelected;
+                homeController.selectedColorTheme.value = colorTheme;
+              });
+            },
+            child: Container(
+              width: 20.w, // Adjusted size using ScreenUtil
+              height: 40.h, // Adjusted size using ScreenUtil
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.rectangle,
+                //  borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                border: isSelected
+                    ? Border.all(color: Colors.white, width: 3.w)
+                    : null, // Adjusted border width using ScreenUtil
+              ),
+              child: isSelected
+                  ? Icon(Icons.check, color: Colors.white,
+                  size: 30.w) // Adjusted icon size using ScreenUtil
+                  : null,
             ),
-            child: isSelected
-                ? Icon(Icons.check, color: Colors.white, size: 30.w) // Adjusted icon size using ScreenUtil
-                : null,
-          ),
+          );
+        }
         );
       },
     );

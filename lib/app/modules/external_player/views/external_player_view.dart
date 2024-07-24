@@ -45,11 +45,11 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     ),
                   ),
                   SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('Default'),
+                  _buildRadioItem('Default', context),
                   SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('Vlc Player'),
+                  _buildRadioItem('Vlc Player', context),
                   SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('MX Player'),
+                  _buildRadioItem('MX Player', context),
                 ],
               ),
             ),
@@ -84,7 +84,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     // Handle OK action
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    // backgroundColor: Colors.red,
                     padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
                     textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
                     shape: RoundedRectangleBorder(
@@ -104,7 +104,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
     );
   }
 
-  Widget _buildRadioItem(String title) {
+  Widget _buildRadioItem(String title, BuildContext context) {
     final controller = Get.put(ExternalPlayerController());
     return Obx(() {
       return Row(
@@ -120,9 +120,9 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
             onChanged: (String? value) {
               controller.selectedPlayer.value = value!;
             },
-            activeColor: Colors.red,
+            activeColor: Theme.of(context).colorScheme.primary,
             fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-              return states.contains(MaterialState.selected) ? Colors.red : Colors.white;
+              return states.contains(MaterialState.selected) ? Theme.of(context).colorScheme.primary : Colors.white;
             }),
           ),
         ],

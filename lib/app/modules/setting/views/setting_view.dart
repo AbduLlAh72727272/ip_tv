@@ -67,27 +67,27 @@ class SettingView extends GetView<SettingController> {
                   crossAxisSpacing: 30.w, // Spacing using ScreenUtil
                   mainAxisSpacing: 30.h, // Spacing using ScreenUtil
                   children: [
-                    _buildSettingItem('General Settings', 'assets/icons/gs.png', onTap: () {
+                    _buildSettingItem('General Settings', context, 'assets/icons/gs.png', onTap: () {
                       Get.to(() => GeneralSettingView());
                     }),
-                    _buildSettingItem('Stream Format', 'assets/icons/stream.png', onTap: () {
+                    _buildSettingItem('Stream Format', context, 'assets/icons/stream.png', onTap: () {
                       Get.to(() => StreamFormatView());
                     }),
-                    _buildSettingItem('Time Format', 'assets/icons/clock.png', onTap: () {
+                    _buildSettingItem('Time Format', context, 'assets/icons/clock.png', onTap: () {
                       Get.to(() => TimeFormatView());
                     }),
-                    _buildSettingItem('Parental Control', 'assets/icons/parental-control.png'),
-                    _buildSettingItem('Automation', 'assets/icons/automation.png', onTap: () {
+                    _buildSettingItem('Parental Control', context, 'assets/icons/parental-control.png'),
+                    _buildSettingItem('Automation', context, 'assets/icons/automation.png', onTap: () {
                       Get.to(() => AutomationView());
                     }),
-                    _buildSettingItem('EPG', 'assets/icons/epg.png'),
-                    _buildSettingItem('Themes', 'assets/icons/themes.png', onTap: () {
+                    _buildSettingItem('EPG', context, 'assets/icons/epg.png'),
+                    _buildSettingItem('Themes', context, 'assets/icons/themes.png', onTap: () {
                       Get.to(() => ThemesView());
                     }),
-                    _buildSettingItem('External Players', 'assets/icons/player.png', onTap: () {
+                    _buildSettingItem('External Players', context, 'assets/icons/player.png', onTap: () {
                       Get.to(() => ExternalPlayerView());
                     }),
-                    _buildSettingItem('Internet Speed Test', 'assets/icons/speed.png', onTap: () {
+                    _buildSettingItem('Internet Speed Test', context, 'assets/icons/speed.png', onTap: () {
                       Get.to(() => InternetSpeedView());
                     }),
                   ],
@@ -100,14 +100,14 @@ class SettingView extends GetView<SettingController> {
     );
   }
 
-  Widget _buildSettingItem(String title, String iconPath, {VoidCallback? onTap}) {
+  Widget _buildSettingItem(String title, BuildContext context, String iconPath, {VoidCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.6),
           borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
-          border: Border.all(color: Colors.red),
+          border: Border.all(color: Theme.of(context).colorScheme.secondary),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

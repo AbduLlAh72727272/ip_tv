@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
 import '../../live_TV/views/live_t_v_view.dart';
 import '../../setting/views/setting_view.dart';
+import '../controllers/home_controller.dart';
 
 class HomeView extends StatelessWidget {
+  const HomeView({super.key});
+  // final HomeController homeController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
@@ -15,7 +20,7 @@ class HomeView extends StatelessWidget {
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/bg2.png'),
                 fit: BoxFit.cover,
@@ -35,22 +40,23 @@ class HomeView extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        color: Color(0xFF450509), // Background color for the logo section
-                        padding: EdgeInsets.symmetric(vertical: 20.h), // Padding using ScreenUtil
+                        // color: Color(0xFF450509), // Background color for the logo section
+                        color: Theme.of(context).colorScheme.secondary,
+                        padding: EdgeInsets.symmetric(vertical: 20.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              'assets/images/iptv logo.png', // Replace with your logo
-                              height: 50.h, // Adjusted height using ScreenUtil
+                              'assets/images/iptv logo.png',
+                              height: 50.h,
                             ),
-                            SizedBox(width: 8.w), // Spacing using ScreenUtil
+                            SizedBox(width: 8.w),
                             Text(
                               'ARK VIP',
                               style: TextStyle(
                                 fontFamily: 'Arial',
                                 fontWeight: FontWeight.w700,
-                                fontSize: 8.sp, // Font size using ScreenUtil
+                                fontSize: 8.sp,
                                 color: Colors.white,
                               ),
                             ),
@@ -80,6 +86,9 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           _buildIconButton('assets/images/vpn.png'),
+                          _buildIconButton('assets/icons/themes.png', onTap: () {
+                            showHomeScreenDialog();
+                          }),
                           _buildIconButton('assets/images/setting.png', onTap: () {
                             Get.to(() => SettingView());
                           }),

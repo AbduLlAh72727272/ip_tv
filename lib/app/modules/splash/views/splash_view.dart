@@ -88,7 +88,8 @@ class _CustomCircularProgressIndicatorState
         animation: _controller,
         builder: (context, child) {
           return CustomPaint(
-            painter: _CircularProgressPainter(_controller.value),
+            painter: _CircularProgressPainter(_controller.value,
+                Theme.of(context).colorScheme.primary),
           );
         },
       ),
@@ -98,13 +99,15 @@ class _CustomCircularProgressIndicatorState
 
 class _CircularProgressPainter extends CustomPainter {
   final double progress;
+  final Color color;
 
-  _CircularProgressPainter(this.progress);
+  _CircularProgressPainter(this.progress, this.color);
 
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Colors.red
+      // ..color = Colors.red
+      ..color = color
       ..style = PaintingStyle.fill;
 
     final double radius = size.width / 2;

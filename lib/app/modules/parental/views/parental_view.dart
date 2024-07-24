@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:ip_tv/app/modules/home/views/home_screen_wrapper.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/parental_controller.dart';
 
@@ -88,12 +89,48 @@ class ParentalView extends GetView<ParentalController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            _buildButton('Skip', Colors.black.withOpacity(0.4), Colors.white, () {
-                              Get.to(() => HomeView()); // Navigate to HomeView
-                            }),
-                            _buildButton('Set', Colors.red, Colors.white, () {
-                              // Handle set action
-                            }),
+                          ElevatedButton(
+                          onPressed: () {
+                            Get.to(() => HomeScreenWrapper());
+                  },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black.withOpacity(0.4),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
+                            textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
+                            ),
+                          ),
+                          child: Text(
+                            'Skip',
+                            // style: TextStyle(color: textColor),
+                          ),
+                        ),
+                            //
+                            // _buildButton('Skip', Colors.black.withOpacity(0.4), () {
+                            //   // Get.to(() => HomeView()); // Navigate to HomeView
+                            //   Get.to(() => HomeScreenWrapper());
+                            // }),
+
+                            ElevatedButton(
+                              onPressed: () {
+
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
+                                textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
+                                ),
+                              ),
+                              child: Text(
+                                'Set',
+                                // style: TextStyle(color: textColor),
+                              ),
+                            ),
+                            // _buildButton('Set', Colors.red, () {
+                            //   // Handle set action
+                            // }),
                           ],
                         ),
                       ],
@@ -127,21 +164,21 @@ class ParentalView extends GetView<ParentalController> {
     );
   }
 
-  Widget _buildButton(String text, Color bgColor, Color textColor, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: bgColor,
-        padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
-        textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
-        ),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(color: textColor),
-      ),
-    );
-  }
+  // Widget _buildButton(String text, Color? bgColor, VoidCallback onPressed) {
+  //   return ElevatedButton(
+  //     onPressed: onPressed,
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: bgColor,
+  //       padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
+  //       // textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
+  //       shape: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.circular(5.r), // Border radius using ScreenUtil
+  //       ),
+  //     ),
+  //     child: Text(
+  //       text,
+  //       // style: TextStyle(color: textColor),
+  //     ),
+  //   );
+  // }
 }

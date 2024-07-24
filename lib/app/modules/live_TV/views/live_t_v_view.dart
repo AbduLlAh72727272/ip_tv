@@ -84,9 +84,9 @@ class LiveTVView extends GetView<LiveTVController> {
                         itemCount: 10, // Update this with actual channel count
                         itemBuilder: (context, index) {
                           return Container(
-                            color: index == 0 ? Colors.red : Colors.transparent,
+                            color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
                             child: ListTile(
-                              title: Text(
+                              title: const Text(
                                 'Channel 01 HD',
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -106,7 +106,7 @@ class LiveTVView extends GetView<LiveTVController> {
                     Expanded(
                       child: GridView.builder(
                         padding: const EdgeInsets.all(16.0),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 7,

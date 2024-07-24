@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constraints/colors.dart';
 
 class VoidElevatedButtonTheme {
   VoidElevatedButtonTheme._();
-  static final lightElevatedButtonTheme = ElevatedButtonThemeData(
+  static final firstHomeElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: Colors.white,
+      foregroundColor: VoidColors.whiteColor,
       backgroundColor: VoidColors.primary,
-      disabledForegroundColor: Colors.grey,
-      disabledBackgroundColor: Colors.grey,
-      side: const BorderSide(color: VoidColors.primary),
-      padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 20),
-      textStyle: const TextStyle(fontSize: 16,color: Colors.white, fontWeight: FontWeight.w600),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      textStyle: TextStyle(color: VoidColors.whiteColor),
     ),
   );
-  static final darkElevatedButtonTheme = ElevatedButtonThemeData(
+  static final secHomeElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: Colors.white,
-      backgroundColor: VoidColors.primary,
-      disabledForegroundColor: Colors.grey,
-      disabledBackgroundColor: Colors.grey,
-      side: const BorderSide(color: VoidColors.primary),
-      padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 20),
-      textStyle: const TextStyle(fontSize: 16,color: Colors.white, fontWeight: FontWeight.w600),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      foregroundColor: VoidColors.whiteColor,
+      backgroundColor: VoidColors.greenColor,
+      textStyle: TextStyle(color: VoidColors.whiteColor),
     ),
   );
 }

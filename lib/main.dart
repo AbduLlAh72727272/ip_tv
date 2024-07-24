@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'app/modules/home/controllers/home_controller.dart';
 import 'app/modules/splash/views/splash_view.dart';
 import 'app/routes/app_pages.dart';
 
@@ -16,19 +17,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: Size(360, 690), // Update this based on your design
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) => GetMaterialApp(
-        title: 'ARK VIP',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      builder: (_, child) => Obx(() =>
+        GetMaterialApp(
+          title: 'ARK VIP',
+          debugShowCheckedModeBanner: false,
+            theme: homeController.globalTheme.value,
+          // theme: ThemeData(
+          //   primarySwatch: Colors.blue,
+          // ),
+          home: SplashView(),
+          getPages: AppPages.routes,
         ),
-        home: SplashView(),
-        getPages: AppPages.routes,
       ),
     );
   }
