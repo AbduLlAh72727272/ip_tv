@@ -68,7 +68,9 @@ class HomeView extends StatelessWidget {
                               _buildMenuItem(Icons.live_tv, 'Live TV', onTap: () {
                                 Get.toNamed(Routes.LIVE_T_V); // Navigate to LiveTVView
                               }),
-                              _buildMenuItem(Icons.movie, 'Movies'),
+                              _buildMenuItem(Icons.movie, 'Movies' , onTap:(){
+                                Get.toNamed(Routes.MOVIES);
+                              }),
                               _buildMenuItem(Icons.screen_share, 'Multi Screen', onTap: () {
                                 Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiscreenView
                               }),

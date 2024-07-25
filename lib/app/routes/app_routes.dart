@@ -20,6 +20,7 @@ abstract class Routes {
   static const SERIES = _Paths.SERIES;
   static const LOGIN = _Paths.LOGIN;
   static const MULTISCREEN = _Paths.MULTISCREEN;
+  static const MOVIES = _Paths.MOVIES;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const SERIES = '/series';
   static const LOGIN = '/login';
   static const MULTISCREEN = '/multiscreen';
+  static const MOVIES = '/movies';
 }

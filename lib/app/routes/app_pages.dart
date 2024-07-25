@@ -2,6 +2,9 @@ import 'package:get/get.dart';
 
 import '../modules/M3U_playlist/bindings/m3_u_playlist_binding.dart';
 import '../modules/M3U_playlist/views/m3_u_playlist_view.dart';
+import '../modules/Movies/bindings/movies_binding.dart';
+import '../modules/Movies/views/movies_view.dart';
+import '../modules/Movies/views/movies_view2.dart';
 import '../modules/automation/bindings/automation_binding.dart';
 import '../modules/automation/views/automation_view.dart';
 import '../modules/external_player/bindings/external_player_binding.dart';
@@ -24,6 +27,7 @@ import '../modules/playlist/bindings/playlist_binding.dart';
 import '../modules/playlist/views/playlist_view.dart';
 import '../modules/series/bindings/series_binding.dart';
 import '../modules/series/views/series_view.dart';
+import '../modules/series/views/series_view2.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -140,6 +144,19 @@ class AppPages {
       name: _Paths.MULTISCREEN,
       page: () => const MultiscreenView(),
       binding: MultiscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOVIES,
+      page: () => const MoviesView(),
+      binding: MoviesBinding(),
+    ),
+    GetPage(
+        name: '/movies_view2',
+        page: () =>  const MoviesView2()
+    ),
+    GetPage(
+        name: '/series_view2',
+        page: () => const SeriesView2()
     ),
   ];
 }
