@@ -18,6 +18,8 @@ import '../modules/parental/bindings/parental_binding.dart';
 import '../modules/parental/views/parental_view.dart';
 import '../modules/playlist/bindings/playlist_binding.dart';
 import '../modules/playlist/views/playlist_view.dart';
+import '../modules/selectLanguage/bindings/select_language_binding.dart';
+import '../modules/selectLanguage/views/select_language_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -119,6 +121,11 @@ class AppPages {
       name: _Paths.LIVE_T_V,
       page: () => const LiveTVView(),
       binding: LiveTVBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_LANGUAGE,
+      page: () => SelectLanguageView(),
+      binding: SelectLanguageBinding(),
     ),
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../controllers/general_setting_controller.dart';
 
 class GeneralSettingView extends GetView<GeneralSettingController> {
@@ -29,7 +30,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
             top: 20.h, // Adjusted position using ScreenUtil
             left: 25.w, // Adjusted position using ScreenUtil
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 10.sp, // Adjusted font size using ScreenUtil
@@ -48,7 +49,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'General Settings',
+                    LocaleKeys.GeneralSettings.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12.sp, // Adjusted font size using ScreenUtil
@@ -59,9 +60,11 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Autoplay Next Episode in 30s',
-                        style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                      Expanded(
+                        child: Text(
+                          LocaleKeys.AutoPlay.tr,
+                          style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                        ),
                       ),
                       Checkbox(
                         value: false,
@@ -76,18 +79,18 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Change Theme',
+                        LocaleKeys.ChangeTheme.tr,
                         style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
                       ),
                       DropdownButton<String>(
                         dropdownColor: Colors.black,
                         value: null,
                         hint: Text(
-                          'Select Theme',
+                          LocaleKeys.ChangeTheme.tr,
                           style: TextStyle(color: Colors.white),
                         ),
                         icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                        items: <String>['Light', 'Dark']
+                        items: <String>[LocaleKeys.Light.tr, LocaleKeys.Dark.tr]
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -125,7 +128,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -142,7 +145,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

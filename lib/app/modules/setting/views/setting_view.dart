@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../../automation/views/automation_view.dart';
 import '../../external_player/views/external_player_view.dart';
 import '../../general_setting/views/general_setting_view.dart';
@@ -50,7 +51,7 @@ class SettingView extends GetView<SettingController> {
                     ),
                     SizedBox(width: 5.w), // Spacing using ScreenUtil
                     Text(
-                      'Settings',
+                      LocaleKeys.Settings.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 10.sp, // Font size using ScreenUtil
@@ -67,27 +68,27 @@ class SettingView extends GetView<SettingController> {
                   crossAxisSpacing: 30.w, // Spacing using ScreenUtil
                   mainAxisSpacing: 30.h, // Spacing using ScreenUtil
                   children: [
-                    _buildSettingItem('General Settings', context, 'assets/icons/gs.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.GeneralSettings.tr, context, 'assets/icons/gs.png', onTap: () {
                       Get.to(() => GeneralSettingView());
                     }),
-                    _buildSettingItem('Stream Format', context, 'assets/icons/stream.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.StreamFormat.tr, context, 'assets/icons/stream.png', onTap: () {
                       Get.to(() => StreamFormatView());
                     }),
-                    _buildSettingItem('Time Format', context, 'assets/icons/clock.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.TimeFormat.tr, context, 'assets/icons/clock.png', onTap: () {
                       Get.to(() => TimeFormatView());
                     }),
-                    _buildSettingItem('Parental Control', context, 'assets/icons/parental-control.png'),
-                    _buildSettingItem('Automation', context, 'assets/icons/automation.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.ParentalControl.tr, context, 'assets/icons/parental-control.png'),
+                    _buildSettingItem(LocaleKeys.Automation.tr, context, 'assets/icons/automation.png', onTap: () {
                       Get.to(() => AutomationView());
                     }),
                     _buildSettingItem('EPG', context, 'assets/icons/epg.png'),
-                    _buildSettingItem('Themes', context, 'assets/icons/themes.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.Themes.tr, context, 'assets/icons/themes.png', onTap: () {
                       Get.to(() => ThemesView());
                     }),
-                    _buildSettingItem('External Players', context, 'assets/icons/player.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.ExternalPlayers.tr, context, 'assets/icons/player.png', onTap: () {
                       Get.to(() => ExternalPlayerView());
                     }),
-                    _buildSettingItem('Internet Speed Test', context, 'assets/icons/speed.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.InternetSpeedTest.tr, context, 'assets/icons/speed.png', onTap: () {
                       Get.to(() => InternetSpeedView());
                     }),
                   ],

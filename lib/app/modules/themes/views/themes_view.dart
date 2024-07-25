@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/theme/custom_themes/theme.dart';
 import '../../home/controllers/home_controller.dart';
@@ -42,7 +43,7 @@ class ThemesView extends GetView<ThemesController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Select Theme Colour',
+                    LocaleKeys.SelectThemeColor.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 10.sp, // Adjusted font size using ScreenUtil
@@ -91,7 +92,7 @@ class ThemesView extends GetView<ThemesController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -109,7 +110,7 @@ class ThemesView extends GetView<ThemesController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

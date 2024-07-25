@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../controllers/stream_format_controller.dart';
 
 class StreamFormatView extends GetView<StreamFormatController> {
@@ -29,7 +30,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
             top: 20.h, // Adjusted position using ScreenUtil
             left: 25.w, // Adjusted position using ScreenUtil
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 10.sp, // Adjusted font size using ScreenUtil
@@ -50,7 +51,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Stream Format',
+                      LocaleKeys.StreamFormat.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp, // Adjusted font size using ScreenUtil
@@ -58,11 +59,11 @@ class StreamFormatView extends GetView<StreamFormatController> {
                       ),
                     ),
                     //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
-                    _buildCheckboxItem('Default'),
+                    _buildCheckboxItem(LocaleKeys.Default.tr),
                     //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
-                    _buildCheckboxItem('MPEGTS'),
+                    _buildCheckboxItem(LocaleKeys.MPEGTS.tr),
                    // SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
-                    _buildCheckboxItem('HSL'),
+                    _buildCheckboxItem(LocaleKeys.Hsl.tr),
                   ],
                 ),
               ),
@@ -89,7 +90,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -106,7 +107,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

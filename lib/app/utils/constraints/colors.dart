@@ -5,7 +5,9 @@ class VoidColors {
 
   static const Color primary = Color(0xFFB1060F);
   static const Color secondary = Color(0xFF450509);
+  static const Color secPrimary = Color(0xFF5C0808);
   static const Color blackColor = Color(0xFF000000);
+  static const Color lightBlack = Color(0xFF2B2B2B);
   static const Color halfWhite = Color(0xFFF0EBEB);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color greenColor = Color(0xFF1A854C);

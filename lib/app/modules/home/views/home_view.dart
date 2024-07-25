@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
+import '../../../../generated/locales.g.dart';
 import '../../live_TV/views/live_t_v_view.dart';
 import '../../setting/views/setting_view.dart';
 import '../controllers/home_controller.dart';
@@ -20,11 +21,17 @@ class HomeView extends StatelessWidget {
         children: [
           // Background image
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
               image: DecorationImage(
-                image: AssetImage('assets/images/bg2.png'),
+                image: AssetImage('assets/images/firstHomeBgImg.png'),
                 fit: BoxFit.cover,
               ),
+            ),
+            child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: Image.asset('assets/images/darkShadeImg.png', fit: BoxFit.cover)
             ),
           ),
           // Content
@@ -67,16 +74,16 @@ class HomeView extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              _buildMenuItem(Icons.home, 'Home', selected: true),
-                              _buildMenuItem(Icons.live_tv, 'Live TV', onTap: () {
+                              _buildMenuItem(Icons.home, LocaleKeys.Home.tr, selected: true),
+                              _buildMenuItem(Icons.live_tv, LocaleKeys.LiveTv.tr, onTap: () {
                                 Get.to(() => LiveTVView()); // Navigate to LiveTVView
                               }),
-                              _buildMenuItem(Icons.movie, 'Movies'),
-                              _buildMenuItem(Icons.screen_share, 'Multi Screen'),
-                              _buildMenuItem(Icons.tv, 'Series'),
-                              _buildMenuItem(Icons.sports, 'Sports'),
-                              _buildMenuItem(Icons.playlist_play, 'Playlist'),
-                              _buildMenuItem(Icons.videocam, 'Recording'),
+                              _buildMenuItem(Icons.movie, LocaleKeys.Movies.tr),
+                              _buildMenuItem(Icons.screen_share, LocaleKeys.MultiScreen.tr),
+                              _buildMenuItem(Icons.tv, LocaleKeys.Series.tr),
+                              _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
+                              _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
+                              _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
                               SizedBox(height: 20.h), // Spacing using ScreenUtil
                             ],
                           ),
@@ -124,7 +131,7 @@ class HomeView extends StatelessWidget {
                         top: 16.h,
                         right: 16.w,
                         child: Text(
-                          'Expiration : 24/09/2022',
+                          '${LocaleKeys.Expiration.tr} : 24/09/2022',
                           style: TextStyle(color: Colors.white, fontSize: 7.sp), // Adjust font size using ScreenUtil
                         ),
                       ),

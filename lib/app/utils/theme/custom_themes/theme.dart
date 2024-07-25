@@ -14,8 +14,8 @@ final AppColorTheme primaryTheme = AppColorTheme(
   themeData: ThemeData(
     primaryColor: VoidColors.primary,
     colorScheme: ColorScheme.light(
-      primary: VoidColors.primary,
-      secondary: VoidColors.secondary,
+      primary: VoidColors.secondary,
+      secondary: VoidColors.secPrimary,
     ),
     iconTheme: IconThemeData(color: VoidColors.primary),
     elevatedButtonTheme: ElevatedButtonThemeForColors.primaryButtonTheme,

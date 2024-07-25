@@ -1,17 +1,26 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app/modules/home/controllers/home_controller.dart';
+import 'app/modules/selectLanguage/controllers/select_language_controller.dart';
 import 'app/modules/splash/views/splash_view.dart';
 import 'app/routes/app_pages.dart';
+import 'generated/locales.g.dart';
 
-void main() {
+String language = "";
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
-  ]).then((_) {
+  ]).then((_) async {
+    final languageController = Get.put(SelectLanguageController());
+    language = await languageController
+        .loadSavedLanguage(); // Load saved language preference
+    log("My Saved Language:${language}");
     runApp(MyApp());
   });
 }
@@ -33,6 +42,12 @@ class MyApp extends StatelessWidget {
           //   primarySwatch: Colors.blue,
           // ),
           home: SplashView(),
+          locale: Locale(
+            language != "es" ? "en" : "es",
+            language != "es" ? "US" : "ES",
+          ),
+          fallbackLocale: Locale("en", "US"),
+          translationsKeys: AppTranslation.translations,
           getPages: AppPages.routes,
         ),
       ),

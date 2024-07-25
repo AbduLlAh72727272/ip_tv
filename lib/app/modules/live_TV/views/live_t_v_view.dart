@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../generated/locales.g.dart';
 import '../controllers/live_t_v_controller.dart';
 
 class LiveTVView extends GetView<LiveTVController> {
@@ -42,14 +43,14 @@ class LiveTVView extends GetView<LiveTVController> {
                         Expanded(
                           child: Center(
                             child: Text(
-                              'Live TV',
+                              LocaleKeys.LiveTv.tr,
                               style: TextStyle(color: Colors.white, fontSize: 18),
                             ),
                           ),
                         ),
                         const SizedBox(width: 20),
                         Text(
-                          'Channel 01 HD',
+                          LocaleKeys.ChannelHd.tr,
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         Spacer(),
@@ -86,12 +87,12 @@ class LiveTVView extends GetView<LiveTVController> {
                           return Container(
                             color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
                             child: ListTile(
-                              title: const Text(
-                                'Channel 01 HD',
+                              title: Text(
+                                LocaleKeys.ChannelHd.tr,
                                 style: TextStyle(color: Colors.white),
                               ),
                               subtitle: Text(
-                                'Program Info',
+                                LocaleKeys.ProgramInfo.tr,
                                 style: TextStyle(color: Colors.white.withOpacity(0.7)),
                               ),
                               onTap: () {

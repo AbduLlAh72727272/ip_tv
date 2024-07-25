@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../generated/locales.g.dart';
 import '../../M3U_playlist/views/m3_u_playlist_view.dart';
 import '../../parental/views/parental_view.dart';
 //import '../parental/parental_view.dart'; // Import the ParentalView
@@ -45,7 +46,8 @@ class _PlaylistViewState extends State<PlaylistView> {
                 crossAxisAlignment: CrossAxisAlignment.start, // Align text to start
                 children: [
                   Text(
-                    'Playlist',
+                    // 'Playlist',
+                  LocaleKeys.Playlist.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 10.sp, // Font size using ScreenUtil
@@ -86,7 +88,7 @@ class _PlaylistViewState extends State<PlaylistView> {
                         }
                       },
                       icon: Icon(Icons.add),
-                      label: Text('Add Playlist'),
+                      label: Text(LocaleKeys.AddPlaylist.tr),
                       style: ElevatedButton.styleFrom(
                         // foregroundColor: Colors.white,
                         // backgroundColor: Color(0xFFB1060F),

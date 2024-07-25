@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../controllers/external_player_controller.dart';
 
 class ExternalPlayerView extends GetView<ExternalPlayerController> {
@@ -37,7 +38,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Select External Players',
+                    LocaleKeys.SelectExternalPlayer.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 10.sp, // Adjusted font size using ScreenUtil
@@ -45,11 +46,11 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     ),
                   ),
                   SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('Default', context),
+                  _buildRadioItem(LocaleKeys.Default.tr, context),
                   SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('Vlc Player', context),
+                  _buildRadioItem(LocaleKeys.VlcPlayer.tr, context),
                   SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('MX Player', context),
+                  _buildRadioItem(LocaleKeys.MxPlayer.tr, context),
                 ],
               ),
             ),
@@ -75,25 +76,28 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     ),
                   ),
                   child: Text(
-                    'Cancel',
+                    LocaleKeys.Cancel.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle OK action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    // backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle OK action
+                    },
+                    style: ElevatedButton.styleFrom(
+                      // backgroundColor: Colors.red,
+                      padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
+                      textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'OK',
-                    style: TextStyle(color: Colors.white),
+                    child: Text(
+                      LocaleKeys.Ok.tr,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -120,9 +124,9 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
             onChanged: (String? value) {
               controller.selectedPlayer.value = value!;
             },
-            activeColor: Theme.of(context).colorScheme.primary,
+            activeColor: Theme.of(context).colorScheme.secondary,
             fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-              return states.contains(MaterialState.selected) ? Theme.of(context).colorScheme.primary : Colors.white;
+              return states.contains(MaterialState.selected) ? Theme.of(context).colorScheme.secondary : Colors.white;
             }),
           ),
         ],

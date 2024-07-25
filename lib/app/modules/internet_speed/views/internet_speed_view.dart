@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../controllers/internet_speed_controller.dart';
 
 class InternetSpeedView extends StatelessWidget {
@@ -53,7 +54,7 @@ class InternetSpeedView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Internet Speed Test',
+                      LocaleKeys.InternetSpeedTest.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 10.sp, // Adjusted font size using ScreenUtil
@@ -92,7 +93,7 @@ class InternetSpeedView extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'OK',
+                        LocaleKeys.Ok.tr,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

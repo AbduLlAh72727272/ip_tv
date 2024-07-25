@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 import 'package:ip_tv/app/modules/home/views/home_screen_wrapper.dart';
+import '../../../../generated/locales.g.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/parental_controller.dart';
 
@@ -74,7 +75,8 @@ class ParentalView extends GetView<ParentalController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Set Pin',
+                          // 'Set Pin',
+                    LocaleKeys.ParentalControl.tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10.sp, // Font size using ScreenUtil
@@ -82,15 +84,16 @@ class ParentalView extends GetView<ParentalController> {
                           ),
                         ),
                         SizedBox(height: 8.h), // Spacing using ScreenUtil
-                        _buildTextField('Enter Pin'),
+                        _buildTextField(LocaleKeys.EnterPin.tr),
                         SizedBox(height: 18.h), // Spacing using ScreenUtil
-                        _buildTextField('Confirm Pin'),
+                        _buildTextField(LocaleKeys.ConfirmPin.tr),
                         SizedBox(height: 30.h), // Spacing using ScreenUtil
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                           ElevatedButton(
                           onPressed: () {
+                            Get.back();
                             Get.to(() => HomeScreenWrapper());
                   },
                           style: ElevatedButton.styleFrom(
@@ -102,7 +105,7 @@ class ParentalView extends GetView<ParentalController> {
                             ),
                           ),
                           child: Text(
-                            'Skip',
+                            LocaleKeys.Skip.tr,
                             // style: TextStyle(color: textColor),
                           ),
                         ),
@@ -114,7 +117,7 @@ class ParentalView extends GetView<ParentalController> {
 
                             ElevatedButton(
                               onPressed: () {
-
+                                Get.back();
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
@@ -124,7 +127,7 @@ class ParentalView extends GetView<ParentalController> {
                                 ),
                               ),
                               child: Text(
-                                'Set',
+                                LocaleKeys.Set.tr,
                                 // style: TextStyle(color: textColor),
                               ),
                             ),

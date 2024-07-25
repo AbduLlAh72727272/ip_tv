@@ -17,6 +17,7 @@ abstract class Routes {
   static const INTERNET_SPEED = _Paths.INTERNET_SPEED;
   static const THEMES = _Paths.THEMES;
   static const LIVE_T_V = _Paths.LIVE_T_V;
+  static const SELECT_LANGUAGE = _Paths.SELECT_LANGUAGE;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const INTERNET_SPEED = '/internet-speed';
   static const THEMES = '/themes';
   static const LIVE_T_V = '/live-t-v';
+  static const SELECT_LANGUAGE = '/select-language';
 }

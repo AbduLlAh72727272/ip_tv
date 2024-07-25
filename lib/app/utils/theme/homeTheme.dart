@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ip_tv/app/modules/home/views/fourth_home_view.dart';
 import 'package:ip_tv/app/modules/home/views/home_screen_wrapper.dart';
 import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
+import 'package:ip_tv/app/modules/home/views/third_home_view.dart';
 import '../../modules/home/views/first_home_view.dart';
 import '../../modules/home/views/home_view.dart';
 import '../constraints/colors.dart';
@@ -60,8 +62,8 @@ final AppHomeTheme homeScreen1Theme = AppHomeTheme(
   themeData: ThemeData(
     primaryColor: VoidColors.primary,
     colorScheme: ColorScheme.light(
-      primary: VoidColors.primary,
-      secondary: VoidColors.secondary,
+      primary: VoidColors.secondary,
+      secondary: VoidColors.secPrimary,
     ),
     iconTheme: IconThemeData(color: VoidColors.primary),
     elevatedButtonTheme: VoidElevatedButtonTheme.firstHomeElevatedButtonTheme,
@@ -72,14 +74,43 @@ final AppHomeTheme homeScreen1Theme = AppHomeTheme(
 
 final AppHomeTheme homeScreen2Theme = AppHomeTheme(
   themeData: ThemeData(
-    primaryColor: VoidColors.greenColor,
+    primaryColor: VoidColors.primary,
     colorScheme: ColorScheme.light(
-      primary: VoidColors.greenColor,
-      secondary: VoidColors.greenColor,
+      primary: VoidColors.secondary,
+      secondary: VoidColors.secPrimary,
     ),
-    iconTheme: IconThemeData(color: VoidColors.greenColor),
-    elevatedButtonTheme: VoidElevatedButtonTheme.secHomeElevatedButtonTheme,
+    iconTheme: IconThemeData(color: VoidColors.primary),
+    elevatedButtonTheme: VoidElevatedButtonTheme.firstHomeElevatedButtonTheme,
+
   ),
-  homeScreenWidget: SecHomeView(),
+  homeScreenWidget: HomeView(),
+);
+
+final AppHomeTheme homeScreen3Theme = AppHomeTheme(
+  themeData: ThemeData(
+    primaryColor: VoidColors.primary,
+    colorScheme: ColorScheme.light(
+      primary: VoidColors.secondary,
+      secondary: VoidColors.secPrimary,
+    ),
+    iconTheme: IconThemeData(color: VoidColors.primary),
+    elevatedButtonTheme: VoidElevatedButtonTheme.firstHomeElevatedButtonTheme,
+
+  ),
+  homeScreenWidget: ThirdHomeView(),
+);
+
+final AppHomeTheme homeScreen4Theme = AppHomeTheme(
+  themeData: ThemeData(
+    primaryColor: VoidColors.primary,
+    colorScheme: ColorScheme.light(
+      primary: VoidColors.secondary,
+      secondary: VoidColors.secPrimary,
+    ),
+    iconTheme: IconThemeData(color: VoidColors.primary),
+    elevatedButtonTheme: VoidElevatedButtonTheme.firstHomeElevatedButtonTheme,
+
+  ),
+  homeScreenWidget: FourthHomeView(),
 );
 

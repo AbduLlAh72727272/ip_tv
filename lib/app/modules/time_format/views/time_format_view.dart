@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../controllers/time_format_controller.dart';
 
 class TimeFormatView extends GetView<TimeFormatController> {
@@ -29,7 +30,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
             top: 20.h, // Adjusted position using ScreenUtil
             left: 25.w, // Adjusted position using ScreenUtil
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 10.sp, // Adjusted font size using ScreenUtil
@@ -48,7 +49,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Time Format',
+                    LocaleKeys.TimeFormat.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12.sp, // Adjusted font size using ScreenUtil
@@ -56,9 +57,9 @@ class TimeFormatView extends GetView<TimeFormatController> {
                     ),
                   ),
                   SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  _buildCheckboxItem('12 Hour'),
+                  _buildCheckboxItem(LocaleKeys.Hr.tr),
                   SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  _buildCheckboxItem('24 Hour'),
+                  _buildCheckboxItem(LocaleKeys.twentyFourHr.tr),
                 ],
               ),
             ),
@@ -84,7 +85,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -101,7 +102,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -114,7 +115,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
   }
 
   Widget _buildCheckboxItem(String title) {
-    bool isChecked = title == '12 Hour';
+    bool isChecked = title == LocaleKeys.Hr.tr;
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Row(
