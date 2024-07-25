@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-//import 'live_t_v_view3.dart';
+import '../../../common/widgets/vlc_player_screen.dart';
+//import 'vlc_player_screen.dart';
 
 class LiveTVView2 extends StatelessWidget {
   final String imageUrl;
@@ -15,6 +16,15 @@ class LiveTVView2 extends StatelessWidget {
     required this.programInfo,
     required this.date,
   }) : super(key: key);
+
+  void _navigateToVlcPlayer(BuildContext context, String streamUrl) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VlcPlayerScreen(streamUrl: streamUrl),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +120,7 @@ class LiveTVView2 extends StatelessWidget {
                                 style: TextStyle(color: Colors.white.withOpacity(0.7)),
                               ),
                               onTap: () {
-                                // Handle channel selection
+                                _navigateToVlcPlayer(context, 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'); // Update with actual stream URL
                               },
                             ),
                           );
@@ -127,12 +137,7 @@ class LiveTVView2 extends StatelessWidget {
                             // Image and Info
                             GestureDetector(
                               onTap: () {
-                               // Navigator.push(
-                                  //context,
-                                  //MaterialPageRoute(
-                                  //  builder: (context) => LiveTVView3(imageUrl: imageUrl),
-                                 // ),
-                                //);
+                                _navigateToVlcPlayer(context, 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'); // Update with actual stream URL
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -161,7 +166,7 @@ class LiveTVView2 extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                 // color: Colors.red,
+                                  // color: Colors.red,
                                   padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
                                   child: Text(
                                     '10:10 - 12:20    A hidden truth',
@@ -179,7 +184,7 @@ class LiveTVView2 extends StatelessWidget {
                                 ),
                                 SizedBox(height: 4.0.h),
                                 Container(
-                                 // color: Colors.grey,
+                                  // color: Colors.grey,
                                   padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
                                   child: Text(
                                     '10:10 - 12:20    A hidden truth',
