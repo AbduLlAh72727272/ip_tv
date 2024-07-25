@@ -1,16 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:ip_tv/app/utils/extensions/cap_extension.dart';
-
 import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/colors.dart';
 import '../controllers/select_language_controller.dart';
-
-
 
 
 class SelectLanguageView extends StatefulWidget {
@@ -42,156 +37,291 @@ class _ChangeLanguageSheet extends State<SelectLanguageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: const Color(0xffFAFAFA),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.r),
-            topRight: Radius.circular(20.r),
-          )),
-      // width: 200.w,
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/image.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
-          // mainAxisSize: MainAxisSize.min,
-          mainAxisSize: MainAxisSize.max,
           children: [
+            SizedBox(height: 20.0.h,),
             Padding(
-              padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 15.0.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        LocaleKeys.SelectLanguage.tr,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18.sp,
-                          color: const Color(0xFF000000),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        selected = 0;
-                      });
-                      selectLanguage = LocaleKeys.English.tr;
-                      await SelectLanguageController()
-                          .changeLanguage(selectLanguage.toCode);
-
-                      Get.updateLocale(Locale(selectLanguage.toCode,
-                          selectLanguage.toCode.toUpperCase()));
-                      setState(() {});
-                      // Get.back();
-                      // Get.back();
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        color: selected == 0
-                            ? const Color(0xff064DAE).withOpacity(0.12)
-                            : Colors.white,
-                        border: Border.all(
-                          color: selected == 0
-                              ? const Color(0xff064DAE)
-                              : Colors.black.withOpacity(0.1),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            LocaleKeys.English.tr,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                              color: selected == 0
-                                  ? const Color(0xff064DAE)
-                                  : const Color(0xFF0A1828),
-                            ),
-                          ),
-                          selected == 0
-                              ? Icon(
-                            Icons.check,
-                            color: const Color(0xff064DAE),
-                            size: 20.sp,
-                          )
-                              : Container()
-                        ],
-                      ),
+                  Container(
+                    color: Theme.of(context).colorScheme.primary,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 3.0.h),
+                      child: Icon(Icons.keyboard_backspace, color: VoidColors.whiteColor,
+                      size: 10.sp,),
                     ),
                   ),
-                  SizedBox(
-                    height: 20.h,
+                  SizedBox(width: 10.0.w,),
+                  Text(LocaleKeys.SelectLanguage.tr, style: TextStyle(
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w500,
+                      color: VoidColors.whiteColor
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        selected = 1;
-                      });
-                      selectLanguage = LocaleKeys.Spanish.tr;
-                      await SelectLanguageController()
-                          .changeLanguage(selectLanguage.toCode);
-
-                      Get.updateLocale(Locale(selectLanguage.toCode,
-                          selectLanguage.toCode.toUpperCase()));
-                      setState(() {});
-                      // Get.back();
-                      // Get.back();
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.r),
-                        color: selected == 1
-                            ? const Color(0xff064DAE).withOpacity(0.12)
-                            : Colors.white,
-                        border: Border.all(
-                          color: selected == 1
-                              ? const Color(0xff064DAE)
-                              : Colors.black.withOpacity(0.1),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            LocaleKeys.Spanish.tr,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                              color: selected == 1
-                                  ? const Color(0xff064DAE)
-                                  : const Color(0xFF0A1828),
-                            ),
-                          ),
-                          selected == 1
-                              ? Icon(
-                            Icons.check,
-                            color: const Color(0xff064DAE),
-                            size: 20.sp,
-                          )
-                              : Container()
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
                   ),
                 ],
               ),
             ),
+            Expanded(
+              child: Container(
+                // width: 230.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0.r),
+                  color: VoidColors.blackColor.withOpacity(0.3),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0.h, horizontal: 10.0.w),
+                  child: Column(
+                    children: [
+                      LanguageCardWidget(img: 'assets/images/englishFlag.png',
+                        language: LocaleKeys.English.tr, onTap: () async {
+                          setState(() {
+                            selected = 0;
+                          });
+                          selectLanguage = LocaleKeys.English.tr;
+                          await SelectLanguageController()
+                              .changeLanguage(selectLanguage.toCode);
+
+                          Get.updateLocale(Locale(selectLanguage.toCode,
+                              selectLanguage.toCode.toUpperCase()));
+                          setState(() {});
+                        }, color: selected == 0 ?
+                        Theme.of(context).colorScheme.primary :
+                        VoidColors.whiteColor.withOpacity(0.3),),
+
+                      SizedBox(height: 10.0.h,),
+
+                      LanguageCardWidget(img: 'assets/images/spanishFlag.png',
+                        language: LocaleKeys.Spanish.tr, onTap: () async {
+                          setState(() {
+                            selected = 1;
+                          });
+                          selectLanguage = LocaleKeys.Spanish.tr;
+                          await SelectLanguageController()
+                              .changeLanguage(selectLanguage.toCode);
+
+                          Get.updateLocale(Locale(selectLanguage.toCode,
+                              selectLanguage.toCode.toUpperCase()));
+                          setState(() {});
+                        }, color: selected == 1 ? Theme.of(context).colorScheme.primary :
+                          VoidColors.whiteColor.withOpacity(0.3)),
+
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
+        ),
+      ),
+    );
+
+    //   Container(
+    //   decoration: BoxDecoration(
+    //       color: const Color(0xffFAFAFA),
+    //       borderRadius: BorderRadius.only(
+    //         topLeft: Radius.circular(20.r),
+    //         topRight: Radius.circular(20.r),
+    //       )),
+    //   // width: 200.w,
+    //   child: SingleChildScrollView(
+    //     child: Column(
+    //       // mainAxisSize: MainAxisSize.min,
+    //       mainAxisSize: MainAxisSize.max,
+    //       children: [
+    //         Padding(
+    //           padding: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+    //           child: Column(
+    //             crossAxisAlignment: CrossAxisAlignment.center,
+    //             children: [
+    //               Row(
+    //                 mainAxisAlignment: MainAxisAlignment.center,
+    //                 children: [
+    //                   Text(
+    //                     LocaleKeys.SelectLanguage.tr,
+    //                     style: TextStyle(
+    //                       fontWeight: FontWeight.w600,
+    //                       fontSize: 18.sp,
+    //                       color: const Color(0xFF000000),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //               SizedBox(
+    //                 height: 20.h,
+    //               ),
+    //               GestureDetector(
+    //                 onTap: () async {
+    //                   setState(() {
+    //                     selected = 0;
+    //                   });
+    //                   selectLanguage = LocaleKeys.English.tr;
+    //                   await SelectLanguageController()
+    //                       .changeLanguage(selectLanguage.toCode);
+    //
+    //                   Get.updateLocale(Locale(selectLanguage.toCode,
+    //                       selectLanguage.toCode.toUpperCase()));
+    //                   setState(() {});
+    //                   // Get.back();
+    //                   // Get.back();
+    //                 },
+    //                 child: Container(
+    //                   padding: EdgeInsets.symmetric(
+    //                       horizontal: 20.w, vertical: 15.h),
+    //                   decoration: BoxDecoration(
+    //                     borderRadius: BorderRadius.circular(8.r),
+    //                     color: selected == 0
+    //                         ? const Color(0xff064DAE).withOpacity(0.12)
+    //                         : Colors.white,
+    //                     border: Border.all(
+    //                       color: selected == 0
+    //                           ? const Color(0xff064DAE)
+    //                           : Colors.black.withOpacity(0.1),
+    //                     ),
+    //                   ),
+    //                   child: Row(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     children: [
+    //                       Text(
+    //                         LocaleKeys.English.tr,
+    //                         style: TextStyle(
+    //                           fontWeight: FontWeight.w700,
+    //                           fontSize: 14.sp,
+    //                           color: selected == 0
+    //                               ? const Color(0xff064DAE)
+    //                               : const Color(0xFF0A1828),
+    //                         ),
+    //                       ),
+    //                       selected == 0
+    //                           ? Icon(
+    //                         Icons.check,
+    //                         color: const Color(0xff064DAE),
+    //                         size: 20.sp,
+    //                       )
+    //                           : Container()
+    //                     ],
+    //                   ),
+    //                 ),
+    //               ),
+    //               SizedBox(
+    //                 height: 20.h,
+    //               ),
+    //               GestureDetector(
+    //                 onTap: () async {
+    //                   setState(() {
+    //                     selected = 1;
+    //                   });
+    //                   selectLanguage = LocaleKeys.Spanish.tr;
+    //                   await SelectLanguageController()
+    //                       .changeLanguage(selectLanguage.toCode);
+    //
+    //                   Get.updateLocale(Locale(selectLanguage.toCode,
+    //                       selectLanguage.toCode.toUpperCase()));
+    //                   setState(() {});
+    //                   // Get.back();
+    //                   // Get.back();
+    //                 },
+    //                 child: Container(
+    //                   padding: EdgeInsets.symmetric(
+    //                       horizontal: 20.w, vertical: 15.h),
+    //                   decoration: BoxDecoration(
+    //                     borderRadius: BorderRadius.circular(8.r),
+    //                     color: selected == 1
+    //                         ? const Color(0xff064DAE).withOpacity(0.12)
+    //                         : Colors.white,
+    //                     border: Border.all(
+    //                       color: selected == 1
+    //                           ? const Color(0xff064DAE)
+    //                           : Colors.black.withOpacity(0.1),
+    //                     ),
+    //                   ),
+    //                   child: Row(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     children: [
+    //                       Text(
+    //                         LocaleKeys.Spanish.tr,
+    //                         style: TextStyle(
+    //                           fontWeight: FontWeight.w700,
+    //                           fontSize: 14.sp,
+    //                           color: selected == 1
+    //                               ? const Color(0xff064DAE)
+    //                               : const Color(0xFF0A1828),
+    //                         ),
+    //                       ),
+    //                       selected == 1
+    //                           ? Icon(
+    //                         Icons.check,
+    //                         color: const Color(0xff064DAE),
+    //                         size: 20.sp,
+    //                       )
+    //                           : Container()
+    //                     ],
+    //                   ),
+    //                 ),
+    //               ),
+    //               SizedBox(
+    //                 height: 20.h,
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+  }
+}
+
+class LanguageCardWidget extends StatelessWidget {
+  final String img;
+  final String language;
+  final VoidCallback onTap;
+  final Color color;
+  const LanguageCardWidget({
+    super.key, required this.img,
+    required this.language, required this.onTap, required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Expanded(
+        flex: 2,
+        child: Container(
+          width: 170.w,
+          decoration: BoxDecoration(
+              // color: VoidColors.whiteColor.withOpacity(0.3),
+            color: color,
+              borderRadius: BorderRadius.circular(8.0.r)
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.0.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(img,
+                  height: 30.0.h,
+                  width: 30.0.w,),
+                SizedBox(width: 25.0.w),
+                Text(language, style: TextStyle(
+                    fontSize: 8.sp,
+                    fontWeight: FontWeight.w300,
+                    color: VoidColors.whiteColor
+                ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
