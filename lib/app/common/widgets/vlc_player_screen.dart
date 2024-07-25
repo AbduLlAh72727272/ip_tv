@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-//import 'package:video_player_control_panel/video_player_control_panel.dart';
+import 'package:ip_tv/app/utils/constraints/colors.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class VlcPlayerScreen extends StatefulWidget {
   final String streamUrl;
@@ -16,7 +17,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
   late VlcPlayerController _vlcPlayerController;
   bool isPlaying = true;
   double volume = 0.5;
-  double brightness = 0.5; // Placeholder for brightness control
+  double brightness = 0.5;
 
   @override
   void initState() {
@@ -25,6 +26,8 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
       widget.streamUrl,
       autoPlay: true,
     );
+    VolumeController().setVolume(volume);
+    // Initialize brightness control if needed
   }
 
   @override
@@ -55,14 +58,14 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
   void adjustVolume(double value) {
     setState(() {
       volume = value;
-      // Implement volume control here
+      VolumeController().setVolume(volume);
     });
   }
 
   void adjustBrightness(double value) {
     setState(() {
       brightness = value;
-      // Implement brightness control here if possible
+      // Implement platform-specific brightness control here if needed
     });
   }
 
@@ -82,10 +85,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
             top: 20.h,
             left: 20.w,
             child: IconButton(
-              icon: Image.asset(
-                'assets/images/back_button.png',
-                height: 40.h,
-              ),
+              icon: Icon(Icons.arrow_back, color: Colors.white, size: 40.h),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -101,7 +101,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
             bottom: 60.h,
             left: 20.w,
             child: IconButton(
-              icon: Icon(Icons.skip_previous, color: Colors.white),
+              icon: Icon(Icons.fast_rewind_outlined, color: Colors.white, size: 40.h),
               onPressed: rewind,
             ),
           ),
@@ -109,7 +109,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
             bottom: 60.h,
             right: 20.w,
             child: IconButton(
-              icon: Icon(Icons.skip_next, color: Colors.white),
+              icon: Icon(Icons.fast_forward_outlined, color: Colors.white, size: 40.h),
               onPressed: fastForward,
             ),
           ),
@@ -119,9 +119,9 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
             right: 100.w,
             child: IconButton(
               icon: Icon(
-                isPlaying ? Icons.pause : Icons.play_arrow,
-                color: Colors.red,
-                size: 50.h,
+                isPlaying ? Icons.pause_circle_sharp : Icons.play_circle_fill_sharp,
+                color: VoidColors.primary,
+                size: 70.h,
               ),
               onPressed: togglePlayPause,
             ),
@@ -131,7 +131,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
             left: 20.w,
             child: Row(
               children: [
-                Icon(Icons.brightness_6, color: Colors.white),
+                Icon(Icons.brightness_6, color: Colors.white, size: 30.h),
                 Slider(
                   value: brightness,
                   min: 0,
@@ -148,7 +148,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
             right: 20.w,
             child: Row(
               children: [
-                Icon(Icons.volume_up, color: Colors.white),
+                Icon(Icons.volume_up, color: Colors.white, size: 30.h),
                 Slider(
                   value: volume,
                   min: 0,
@@ -171,8 +171,8 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
               onChanged: (value) {
                 _vlcPlayerController.seekTo(Duration(seconds: value.toInt()));
               },
-              activeColor: Colors.red,
-              inactiveColor: Colors.grey,
+              activeColor: VoidColors.primary,
+              inactiveColor: VoidColors.white,
             ),
           ),
           Positioned(
@@ -204,5 +204,3 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> {
     return '$hours:$minutes:$seconds';
   }
 }
-
-
