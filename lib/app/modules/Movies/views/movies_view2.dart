@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/colors.dart';
 import '../controllers/movies_controller.dart';
+//import 'vlc_player_screen.dart';
 
 class MoviesView2 extends GetView<MoviesController> {
   const MoviesView2({Key? key}) : super(key: key);
@@ -97,7 +99,10 @@ class MoviesView2 extends GetView<MoviesController> {
                             Row(
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    // Navigate to VlcPlayerScreen
+                                    Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
+                                  },
                                   child: Text('Play'),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: VoidColors.primary,
@@ -107,7 +112,7 @@ class MoviesView2 extends GetView<MoviesController> {
                                 SizedBox(width: 8.w),
                                 OutlinedButton(
                                   onPressed: () {},
-                                  child: Text('Continue Watching',style: TextStyle(color: VoidColors.white)),
+                                  child: Text('Continue Watching', style: TextStyle(color: VoidColors.white)),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(color: Colors.white),
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -116,7 +121,7 @@ class MoviesView2 extends GetView<MoviesController> {
                                 SizedBox(width: 8.w),
                                 OutlinedButton(
                                   onPressed: () {},
-                                  child: Text('Watch Later',style: TextStyle(color: VoidColors.white),),
+                                  child: Text('Watch Later', style: TextStyle(color: VoidColors.white)),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(color: Colors.white),
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),

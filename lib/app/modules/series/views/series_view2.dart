@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
+import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/colors.dart';
 //import '../controllers/movies_controller.dart';
 
@@ -98,7 +99,10 @@ class SeriesView2 extends GetView<SeriesController> {
                             Row(
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
+
+                                  },
                                   child: Text('Play'),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: VoidColors.primary,
