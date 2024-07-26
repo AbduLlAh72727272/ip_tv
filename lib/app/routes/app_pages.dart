@@ -2,6 +2,9 @@ import 'package:get/get.dart';
 
 import '../modules/M3U_playlist/bindings/m3_u_playlist_binding.dart';
 import '../modules/M3U_playlist/views/m3_u_playlist_view.dart';
+import '../modules/Movies/bindings/movies_binding.dart';
+import '../modules/Movies/views/movies_view.dart';
+import '../modules/Movies/views/movies_view2.dart';
 import '../modules/automation/bindings/automation_binding.dart';
 import '../modules/automation/views/automation_view.dart';
 import '../modules/external_player/bindings/external_player_binding.dart';
@@ -14,12 +17,19 @@ import '../modules/internet_speed/bindings/internet_speed_binding.dart';
 import '../modules/internet_speed/views/internet_speed_view.dart';
 import '../modules/live_TV/bindings/live_t_v_binding.dart';
 import '../modules/live_TV/views/live_t_v_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/multiscreen/bindings/multiscreen_binding.dart';
+import '../modules/multiscreen/views/multiscreen_view.dart';
 import '../modules/parental/bindings/parental_binding.dart';
 import '../modules/parental/views/parental_view.dart';
 import '../modules/playlist/bindings/playlist_binding.dart';
 import '../modules/playlist/views/playlist_view.dart';
 import '../modules/selectLanguage/bindings/select_language_binding.dart';
 import '../modules/selectLanguage/views/select_language_view.dart';
+import '../modules/series/bindings/series_binding.dart';
+import '../modules/series/views/series_view.dart';
+import '../modules/series/views/series_view2.dart';
 import '../modules/setting/bindings/setting_binding.dart';
 import '../modules/setting/views/setting_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -50,6 +60,11 @@ class AppPages {
   static const INTERNET_SPEED = Routes.INTERNET_SPEED;
   static const THEMES = Routes.THEMES;
   static const LIVE_T_V = Routes.LIVE_T_V;
+  static const SELECT_LANGUAGE = Routes.SELECT_LANGUAGE;
+  static const SERIES = Routes.SERIES;
+  static const LOGIN = Routes.LOGIN;
+  static const MULTISCREEN = Routes.MULTISCREEN;
+  static const MOVIES = Routes.MOVIES;
 
   static final routes = [
     GetPage(
@@ -126,6 +141,34 @@ class AppPages {
       name: _Paths.SELECT_LANGUAGE,
       page: () => SelectLanguageView(),
       binding: SelectLanguageBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERIES,
+      page: () => SeriesView(),
+      binding: SeriesBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.MULTISCREEN,
+      page: () => const MultiscreenView(),
+      binding: MultiscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOVIES,
+      page: () => const MoviesView(),
+      binding: MoviesBinding(),
+    ),
+    GetPage(
+      name: '/movies_view2',
+      page: () => const MoviesView2(),
+    ),
+    GetPage(
+      name: '/series_view2',
+      page: () => const SeriesView2(),
     ),
   ];
 }

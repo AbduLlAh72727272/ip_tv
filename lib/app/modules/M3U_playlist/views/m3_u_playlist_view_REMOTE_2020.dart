@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
-import '../../../../generated/locales.g.dart';
 import '../controllers/m3_u_playlist_controller.dart';
 
 class M3UPlaylistView extends GetView<M3UPlaylistController> {
@@ -56,8 +55,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        // 'M3U playlist via URL',
-                        LocaleKeys.MUPlaylist.tr,
+                        'M3U playlist via URL',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10.sp, // Font size using ScreenUtil
@@ -67,46 +65,40 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                       SizedBox(height: 20.h), // Spacing using ScreenUtil
                       Row(
                         children: [
-                          Expanded(child: _buildTextField(LocaleKeys.PlayListName.tr, playlistNameController)),
+                          Expanded(child: _buildTextField('Playlist name', playlistNameController)),
                           SizedBox(width: 10.w), // Spacing using ScreenUtil
-                          Expanded(child: _buildTextField(LocaleKeys.PlayListUrl.tr, playlistUrlController)),
+                          Expanded(child: _buildTextField('Playlist URL', playlistUrlController)),
                         ],
                       ),
                       SizedBox(height: 20.h), // Spacing using ScreenUtil
                       Row(
                         children: [
-                          Expanded(child: _buildTextField(LocaleKeys.UserName.tr, userNameController)),
+                          Expanded(child: _buildTextField('User name', userNameController)),
                           SizedBox(width: 10.w), // Spacing using ScreenUtil
-                          Expanded(child: _buildTextField(LocaleKeys.Password.tr, passwordController)),
+                          Expanded(child: _buildTextField('Password', passwordController)),
                         ],
                       ),
                       SizedBox(height: 20.h), // Spacing using ScreenUtil
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                        ElevatedButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black.withOpacity(0.4),
-                        padding: EdgeInsets.symmetric(
-                        horizontal: 8.0.w, // Padding using ScreenUtil
-                        vertical: 6.0.h, // Padding using ScreenUtil
-                        ),
-                        textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
-                        ),
-                        ),
-                        child: Text(
-                          LocaleKeys.Cancel.tr,
-                        ),
-                        ),
-
-                          // _buildButton('Cancel', Colors.black.withOpacity(0.4), Colors.white, () {
-                          //   Get.back(); // Navigate back without saving
-                          // }),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black.withOpacity(0.4),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.0.w, // Padding using ScreenUtil
+                                vertical: 6.0.h, // Padding using ScreenUtil
+                              ),
+                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                              ),
+                            ),
+                            child: Text('Cancel'),
+                          ),
                           ElevatedButton(
                             onPressed: () {
                               Get.back(result: {
@@ -126,9 +118,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                                 borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
                               ),
                             ),
-                            child: Text(
-                              LocaleKeys.Save.tr,
-                            ),
+                            child: Text('Save'),
                           ),
                         ],
                       ),

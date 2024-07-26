@@ -2,9 +2,10 @@ import 'dart:math' as math; // Import the math library
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
-import '../../home/views/home_view.dart';
-import '../../playlist/views/playlist_view.dart';
+import '../../../routes/app_pages.dart';
+import '../../login/views/login_view.dart';
 import '../controllers/splash_controller.dart';
+
 
 class SplashView extends StatelessWidget {
   final SplashController controller = Get.put(SplashController());
@@ -17,7 +18,7 @@ class SplashView extends StatelessWidget {
     ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     Future.delayed(Duration(seconds: 3), () {
-      Get.off(() => PlaylistView());
+      Get.offNamed(Routes.LOGIN); // Use named route for navigation
     });
 
     return Scaffold(
@@ -106,7 +107,6 @@ class _CircularProgressPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      // ..color = Colors.red
       ..color = color
       ..style = PaintingStyle.fill;
 

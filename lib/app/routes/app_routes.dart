@@ -18,6 +18,10 @@ abstract class Routes {
   static const THEMES = _Paths.THEMES;
   static const LIVE_T_V = _Paths.LIVE_T_V;
   static const SELECT_LANGUAGE = _Paths.SELECT_LANGUAGE;
+  static const SERIES = _Paths.SERIES;
+  static const LOGIN = _Paths.LOGIN;
+  static const MULTISCREEN = _Paths.MULTISCREEN;
+  static const MOVIES = _Paths.MOVIES;
 }
 
 abstract class _Paths {
@@ -37,4 +41,9 @@ abstract class _Paths {
   static const THEMES = '/themes';
   static const LIVE_T_V = '/live-t-v';
   static const SELECT_LANGUAGE = '/select-language';
+  static const SERIES = '/series';
+  static const LOGIN = '/login';
+  static const MULTISCREEN = '/multiscreen';
+  static const MOVIES = '/movies';
 }
+

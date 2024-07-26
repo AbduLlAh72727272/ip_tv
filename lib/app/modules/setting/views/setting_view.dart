@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../generated/locales.g.dart';
-import '../../automation/views/automation_view.dart';
-import '../../external_player/views/external_player_view.dart';
-import '../../general_setting/views/general_setting_view.dart';
-import '../../internet_speed/views/internet_speed_view.dart';
-import '../../stream_format/views/stream_format_view.dart';
-import '../../themes/views/themes_view.dart';
-import '../../time_format/views/time_format_view.dart';
-import '../controllers/setting_controller.dart';
+import '../../../routes/app_pages.dart';
+import '../controllers/setting_controller.dart'; // Import ScreenUtil
+
 
 class SettingView extends GetView<SettingController> {
   const SettingView({Key? key}) : super(key: key);
@@ -17,7 +13,7 @@ class SettingView extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
-   // ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       body: Stack(
@@ -69,29 +65,30 @@ class SettingView extends GetView<SettingController> {
                   mainAxisSpacing: 30.h, // Spacing using ScreenUtil
                   children: [
                     _buildSettingItem(LocaleKeys.GeneralSettings.tr, context, 'assets/icons/gs.png', onTap: () {
-                      Get.to(() => GeneralSettingView());
+                      Get.toNamed(Routes.GENERAL_SETTING);
                     }),
                     _buildSettingItem(LocaleKeys.StreamFormat.tr, context, 'assets/icons/stream.png', onTap: () {
-                      Get.to(() => StreamFormatView());
+                      Get.toNamed(Routes.STREAM_FORMAT);
                     }),
                     _buildSettingItem(LocaleKeys.TimeFormat.tr, context, 'assets/icons/clock.png', onTap: () {
-                      Get.to(() => TimeFormatView());
+                      Get.toNamed(Routes.TIME_FORMAT);
                     }),
                     _buildSettingItem(LocaleKeys.ParentalControl.tr, context, 'assets/icons/parental-control.png'),
                     _buildSettingItem(LocaleKeys.Automation.tr, context, 'assets/icons/automation.png', onTap: () {
-                      Get.to(() => AutomationView());
+                      Get.toNamed(Routes.AUTOMATION);
                     }),
                     _buildSettingItem('EPG', context, 'assets/icons/epg.png'),
                     _buildSettingItem(LocaleKeys.Themes.tr, context, 'assets/icons/themes.png', onTap: () {
-                      Get.to(() => ThemesView());
+                      Get.toNamed(Routes.THEMES);
                     }),
                     _buildSettingItem(LocaleKeys.ExternalPlayers.tr, context, 'assets/icons/player.png', onTap: () {
-                      Get.to(() => ExternalPlayerView());
+                      Get.toNamed(Routes.EXTERNAL_PLAYER);
                     }),
                     _buildSettingItem(LocaleKeys.InternetSpeedTest.tr, context, 'assets/icons/speed.png', onTap: () {
-                      Get.to(() => InternetSpeedView());
+                      Get.toNamed(Routes.INTERNET_SPEED);
                     }),
                   ],
+
                 ),
               ),
             ],
