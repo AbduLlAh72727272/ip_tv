@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
+import '../../../utils/constraints/colors.dart';
 import '../controllers/internet_speed_controller.dart';
 
 class InternetSpeedView extends StatelessWidget {
@@ -8,8 +10,7 @@ class InternetSpeedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -26,27 +27,27 @@ class InternetSpeedView extends StatelessWidget {
           ),
           // Back button
           Positioned(
-            top: 20.h, // Adjusted position using ScreenUtil
-            left: 10.w, // Adjusted position using ScreenUtil
+            top: 20.h,
+            left: 10.w,
             child: GestureDetector(
               onTap: () {
-                Get.back(); // Navigate to the previous screen
+                Get.back();
               },
               child: Image.asset(
                 'assets/images/back_button.png',
-                height: 34.h, // Adjusted size using ScreenUtil
-                width: 24.w, // Adjusted size using ScreenUtil
+                height: 34.h,
+                width: 24.w,
               ),
             ),
           ),
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              width: 300.w,
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.r), // Adjusted border radius using ScreenUtil
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -56,44 +57,80 @@ class InternetSpeedView extends StatelessWidget {
                       'Internet Speed Test',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                    // Speedometer image
-                    Image.asset(
-                      'assets/images/speedometer.png', // Replace with your speedometer image
-                      height: 120.h, // Adjusted size using ScreenUtil
-                    ),
-                    SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                    // Speed text
+                    SizedBox(height: 10.h),
+                    // Real Speedometer
                     Obx(() {
-                      return Text(
-                        '${controller.speed.value} Mbps',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 9.sp, // Adjusted font size using ScreenUtil
-                          fontWeight: FontWeight.bold,
+                      return SizedBox(
+                        height: 200.h,
+                        child: SfRadialGauge(
+                          axes: <RadialAxis>[
+                            RadialAxis(
+                              minimum: 0,
+                              maximum: 100,
+                              ranges: <GaugeRange>[
+                                GaugeRange(
+                                  startValue: 0,
+                                  endValue: 50,
+                                  color: Colors.green,
+                                ),
+                                GaugeRange(
+                                  startValue: 50,
+                                  endValue: 80,
+                                  color: Colors.orange,
+                                ),
+                                GaugeRange(
+                                  startValue: 80,
+                                  endValue: 100,
+                                  color: Colors.red,
+                                ),
+                              ],
+                              pointers: <GaugePointer>[
+                                NeedlePointer(
+                                  value: controller.speed.value,
+                                  enableAnimation: true,
+                                  needleColor: VoidColors.primary,
+                                ),
+                              ],
+                              annotations: <GaugeAnnotation>[
+                                GaugeAnnotation(
+                                  widget: Container(
+                                    child: Text(
+                                      '${controller.speed.value.toStringAsFixed(2)} Mbps',
+                                      style: TextStyle(
+                                        fontSize: 9.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  angle: 90,
+                                  positionFactor: 0.5,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       );
                     }),
-                    SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
+                    SizedBox(height: 10.h),
                     ElevatedButton(
                       onPressed: () {
-                        // Handle OK action
+                        controller.testInternetSpeed();
                       },
                       style: ElevatedButton.styleFrom(
-                        // backgroundColor: Colors.red,
-                        padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
-                        textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                        padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                        textStyle: TextStyle(fontSize: 20.sp),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                          borderRadius: BorderRadius.circular(5.r),
                         ),
                       ),
                       child: Text(
-                        'OK',
-                        style: TextStyle(color: Colors.white),
+                        'Test Again',
+                        style: TextStyle(color: Colors.white,fontSize: 20),
                       ),
                     ),
                   ],

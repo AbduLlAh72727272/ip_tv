@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  connectivity_plus
   flutter_volume_controller
   fullscreen_window
   video_player_win
