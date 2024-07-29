@@ -8,7 +8,7 @@ import '../controllers/time_format_controller.dart';
 
 
 class TimeFormatView extends GetView<TimeFormatController> {
-  const TimeFormatView({Key? key}) : super(key: key);
+  const TimeFormatView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,

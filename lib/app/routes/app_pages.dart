@@ -119,7 +119,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EXTERNAL_PLAYER,
-      page: () => const ExternalPlayerView(),
+      page: () => ExternalPlayerView(),
       binding: ExternalPlayerBinding(),
     ),
     GetPage(

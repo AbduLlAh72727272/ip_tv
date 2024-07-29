@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ip_tv/app/utils/theme/custom_themes/button_theme_for_color.dart';
 import '../../constraints/colors.dart';
+import 'button_theme_for_color.dart';
 import 'elevated_button_theme.dart';
 
 

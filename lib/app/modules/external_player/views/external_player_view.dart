@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../controllers/external_player_controller.dart';
 
 
 class ExternalPlayerView extends GetView<ExternalPlayerController> {
-  const ExternalPlayerView({Key? key}) : super(key: key);
+  ExternalPlayerView({Key? key}) : super(key: key);
+
+  var selectedPlayer = 'MX Player'.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +113,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
   }
 
   Widget _buildRadioItem(String title, BuildContext context) {
-    final controller = Get.put(ExternalPlayerController());
+    // final controller = Get.put(ExternalPlayerController());
     return Obx(() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,13 +124,13 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           ),
           Radio<String>(
             value: title,
-            groupValue: controller.selectedPlayer.value,
+            groupValue: selectedPlayer.value,
             onChanged: (String? value) {
-              controller.selectedPlayer.value = value!;
+              selectedPlayer.value = value!;
             },
             activeColor: Theme.of(context).colorScheme.secondary,
-            fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-              return states.contains(MaterialState.selected) ? Theme.of(context).colorScheme.secondary : Colors.white;
+            fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+              return states.contains(WidgetState.selected) ? Theme.of(context).colorScheme.secondary : Colors.white;
             }),
           ),
         ],
@@ -136,6 +139,3 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
   }
 }
 
-class ExternalPlayerController extends GetxController {
-  var selectedPlayer = 'MX Player'.obs;
-}

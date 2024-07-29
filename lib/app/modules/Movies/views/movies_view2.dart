@@ -111,7 +111,7 @@ class MoviesView2 extends GetView<MoviesController> {
                                 SizedBox(width: 8.w),
                                 OutlinedButton(
                                   onPressed: () {},
-                                  child: Text('Continue Watching', style: TextStyle(color: VoidColors.white)),
+                                  child: Text('Continue Watching', style: TextStyle(color: VoidColors.whiteColor)),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(color: Colors.white),
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -120,7 +120,7 @@ class MoviesView2 extends GetView<MoviesController> {
                                 SizedBox(width: 8.w),
                                 OutlinedButton(
                                   onPressed: () {},
-                                  child: Text('Watch Later', style: TextStyle(color: VoidColors.white)),
+                                  child: Text('Watch Later', style: TextStyle(color: VoidColors.whiteColor)),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(color: Colors.white),
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),

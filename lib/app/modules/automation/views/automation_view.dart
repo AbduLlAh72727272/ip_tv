@@ -163,13 +163,14 @@ class AutomationView extends GetView<AutomationController> {
               activeColor: Colors.white,
             ),
             SizedBox(width: 10.w), // Adjusted spacing using ScreenUtil
-            Expanded(
+            SizedBox(
+              width: 130.w,
               child: Text(
                 title,
-                // overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
               ),
-        ),
+            ),
             SizedBox(width: 10.w),
             DropdownButton<String>(
               dropdownColor: Colors.black,

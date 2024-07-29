@@ -25,7 +25,7 @@ class LoginView extends StatelessWidget {
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
@@ -48,7 +48,7 @@ class LoginView extends StatelessWidget {
                   TextField(
                     controller: macAddressController,
                     style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Mac Address',
                       labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(

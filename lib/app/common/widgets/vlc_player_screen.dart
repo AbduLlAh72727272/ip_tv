@@ -231,7 +231,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                 _vlcPlayerController.seekTo(Duration(seconds: value.toInt()));
               },
               activeColor: Theme.of(context).colorScheme.primary,
-              inactiveColor: VoidColors.white,
+              inactiveColor: VoidColors.whiteColor,
             ),
           ),
           Positioned(
@@ -258,7 +258,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                 width: MediaQuery.of(context).size.width * 0.5,
                 color: isChannelListOpen
                     ? Theme.of(context).colorScheme.primary.withOpacity(0.6)
-                    : VoidColors.black.withOpacity(0.6),
+                    : VoidColors.blackColor.withOpacity(0.6),
                 child: Column(
                   children: [
                     IconButton(
