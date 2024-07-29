@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/constraints/image_strings.dart';
 
 
 class HomeView extends StatelessWidget {
@@ -20,7 +21,7 @@ class HomeView extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/bg2.png'),
+                image: AssetImage(VoidImages.background2),
                 fit: BoxFit.cover,
               ),
             ),
@@ -44,7 +45,7 @@ class HomeView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              'assets/images/iptv logo.png',
+                              VoidImages.logo,
                               height: 50.h,
                             ),
                             SizedBox(width: 8.w),
@@ -88,11 +89,11 @@ class HomeView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildIconButton('assets/images/vpn.png'),
-                          _buildIconButton('assets/icons/themes.png', onTap: () {
+                          _buildIconButton(VoidImages.vpn_red),
+                          _buildIconButton(VoidImages.themes, onTap: () {
                             showHomeScreenDialog();
                           }),
-                          _buildIconButton('assets/images/setting.png', onTap: () {
+                          _buildIconButton(VoidImages.setting_icon, onTap: () {
                             Get.toNamed(Routes.SETTING); // Navigate to SettingView
                           }),
                         ],
@@ -115,7 +116,7 @@ class HomeView extends StatelessWidget {
                               SizedBox(height: 30.h), // Spacing using ScreenUtil
                               Flexible(
                                 child: Image.asset(
-                                  'assets/images/sample.png', // Replace with your content image
+                                  VoidImages.sample, // Replace with your content image
                                   fit: BoxFit.cover,
                                 ),
                               ),

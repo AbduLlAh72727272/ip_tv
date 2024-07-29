@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/m3_u_playlist_controller.dart';
 
 class M3UPlaylistView extends GetView<M3UPlaylistController> {
@@ -20,7 +21,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'), // Background image
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -31,12 +32,12 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
             left: 16.w,
             child: GestureDetector(
               onTap: () {
-                Get.back(); // Navigate to the previous screen
+                Get.back();
               },
               child: Image.asset(
-                'assets/images/back_button.png',
-                height: 36.h, // Adjusted size using ScreenUtil
-                width: 36.w, // Adjusted size using ScreenUtil
+               VoidImages.back,
+                height: 36.h,
+                width: 36.w,
               ),
             ),
           ),
@@ -45,11 +46,11 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
             child: Center(
               child: SingleChildScrollView(
                 child: Container(
-                  width: 250.w, // Adjusted width using ScreenUtil
-                  padding: EdgeInsets.all(16.0.w), // Padding using ScreenUtil
+                  width: 250.w,
+                  padding: EdgeInsets.all(16.0.w),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -58,11 +59,11 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                         'M3U playlist via URL',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 10.sp, // Font size using ScreenUtil
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20.h), // Spacing using ScreenUtil
+                      SizedBox(height: 20.h),
                       Row(
                         children: [
                           Expanded(child: _buildTextField('Playlist name', playlistNameController)),
@@ -70,15 +71,15 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                           Expanded(child: _buildTextField('Playlist URL', playlistUrlController)),
                         ],
                       ),
-                      SizedBox(height: 20.h), // Spacing using ScreenUtil
+                      SizedBox(height: 20.h),
                       Row(
                         children: [
                           Expanded(child: _buildTextField('User name', userNameController)),
-                          SizedBox(width: 10.w), // Spacing using ScreenUtil
+                          SizedBox(width: 10.w),
                           Expanded(child: _buildTextField('Password', passwordController)),
                         ],
                       ),
-                      SizedBox(height: 20.h), // Spacing using ScreenUtil
+                      SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -89,12 +90,12 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black.withOpacity(0.4),
                               padding: EdgeInsets.symmetric(
-                                horizontal: 8.0.w, // Padding using ScreenUtil
-                                vertical: 6.0.h, // Padding using ScreenUtil
+                                horizontal: 8.0.w,
+                                vertical: 6.0.h,
                               ),
-                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
+                              textStyle: TextStyle(fontSize: 10.sp),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
                             ),
                             child: Text('Cancel'),
@@ -110,12 +111,12 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                             },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 8.0.w, // Padding using ScreenUtil
-                                vertical: 6.0.h, // Padding using ScreenUtil
+                                horizontal: 8.0.w,
+                                vertical: 6.0.h,
                               ),
-                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
+                              textStyle: TextStyle(fontSize: 10.sp),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
                             ),
                             child: Text('Save'),
@@ -138,15 +139,15 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
       controller: controller,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey), // Grey hint text
+        hintStyle: TextStyle(color: Colors.grey),
         filled: true,
-        fillColor: Colors.white, // White background
+        fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.white),
         ),
       ),
-      style: TextStyle(color: Colors.black), // Black text color
+      style: TextStyle(color: Colors.black),
     );
   }
 }

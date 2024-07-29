@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/multiscreen_controller.dart'; // Import your color file
 
 class MultiscreenView2 extends GetView<MultiscreenController> {
@@ -9,8 +10,7 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     final List<String> categories = [
       'All', 'Favourites', 'T20 World cup', 'Sports', 'Cricket', 'BEIN sport', 'Sky sport', 'Others'
@@ -19,14 +19,14 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
     return Scaffold(
       backgroundColor: VoidColors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40.h), // Decrease the height of the AppBar
+        preferredSize: Size.fromHeight(40.h),
         child: AppBar(
-          backgroundColor: VoidColors.black, // Set app bar color to black
-          automaticallyImplyLeading: false, // Remove the default back button
+          backgroundColor: VoidColors.black,
+          automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: Image.asset('assets/images/back_button.png'), // Custom back button
+            icon: Image.asset(VoidImages.back),
             onPressed: () {
-              Get.back(); // Navigate back
+              Get.back();
             },
           ),
           title: Text('Live TV', style: TextStyle(color: Colors.white)),
@@ -34,13 +34,12 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
             IconButton(
               icon: Icon(Icons.search, color: Colors.white),
               onPressed: () {
-                // Add search functionality here
+
               },
             ),
             IconButton(
               icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
               onPressed: () {
-                // Add settings functionality here
               },
             ),
           ],
@@ -52,7 +51,7 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [VoidColors.black, VoidColors.primary],
+                colors: [VoidColors.black, Theme.of(context).colorScheme.primary],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -61,28 +60,27 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
           // Category grid
           Center(
             child: GridView.builder(
-              padding: EdgeInsets.all(16.w), // Adjust padding using ScreenUtil
+              padding: EdgeInsets.all(16.w),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 8.w, // Adjust spacing using ScreenUtil
-                mainAxisSpacing: 8.h, // Adjust spacing using ScreenUtil
-                childAspectRatio: 4, // Adjust aspect ratio to make boxes rectangular
+                crossAxisSpacing: 8.w,
+                mainAxisSpacing: 8.h,
+                childAspectRatio: 4,
               ),
-              itemCount: categories.length, // Number of categories
+              itemCount: categories.length,
               itemBuilder: (context, index) {
                 return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w), // Add horizontal padding
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   decoration: BoxDecoration(
                     color: Colors.grey,
-                    // borderRadius: BorderRadius.circular(10.r), // Adjust border radius using ScreenUtil
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.tv, color: Colors.white, size: 24.sp), // Adjust icon size using ScreenUtil
+                      Icon(Icons.tv, color: Colors.white, size: 24.sp),
                       SizedBox(width: 8.w),
                       Text(
                         categories[index],
-                        style: TextStyle(color: Colors.white, fontSize: 12.sp), // Adjust text size using ScreenUtil
+                        style: TextStyle(color: Colors.white, fontSize: 12.sp),
                       ),
                     ],
                   ),

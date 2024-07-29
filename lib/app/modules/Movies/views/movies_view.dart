@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
 
 class MoviesView extends GetView<MoviesController> {
@@ -20,7 +21,7 @@ class MoviesView extends GetView<MoviesController> {
         leading: Padding(
           padding: EdgeInsets.all(2.0.w),
           child: Image.asset(
-            'assets/images/vpnImg.png',
+            VoidImages.vpn_blue,
             fit: BoxFit.contain,
           ),
         ),
@@ -60,7 +61,7 @@ class MoviesView extends GetView<MoviesController> {
                       height: 500.h,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/bg3.png'),
+                          image: AssetImage(VoidImages.background3),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -159,17 +160,17 @@ class MoviesView extends GetView<MoviesController> {
                   onTap: () {
                 Get.toNamed('/movies_view2');
               },
-                  child: _buildMovieCard('assets/images/sample.png', 'Recently Added')),
+                  child: _buildMovieCard(VoidImages.sample, 'Recently Added')),
               GestureDetector(
                   onTap: () {
                     Get.toNamed('/movies_view2');
                   },
-                  child: _buildMovieCard('assets/images/sample.png', '')),
+                  child: _buildMovieCard(VoidImages.sample, '')),
               GestureDetector(
                   onTap: () {
                     Get.toNamed('/movies_view2');
                   },
-                  child: _buildMovieCard('assets/images/sample.png', 'Leaving Soon')),
+                  child: _buildMovieCard(VoidImages.sample, 'Leaving Soon')),
             ],
           ),
         ),
@@ -189,9 +190,9 @@ class MoviesView extends GetView<MoviesController> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildMovieCard('assets/images/sample.png', 'Recently Added'),
-              _buildMovieCard('assets/images/sample.png', ''),
-              _buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
+              _buildMovieCard(VoidImages.sample, 'Recently Added'),
+              _buildMovieCard(VoidImages.sample, ''),
+              _buildMovieCard(VoidImages.sample, 'Leaving Soon'),
             ],
           ),
         ),

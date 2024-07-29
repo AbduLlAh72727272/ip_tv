@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(360, 690), // Update this based on your design
+      designSize: Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) => Obx(() =>
@@ -29,9 +29,7 @@ class MyApp extends StatelessWidget {
           title: 'ARK VIP',
           debugShowCheckedModeBanner: false,
             theme: homeController.globalTheme.value,
-          // theme: ThemeData(
-          //   primarySwatch: Colors.blue,
-          // ),
+
           home: SplashView(),
           getPages: AppPages.routes,
         ),

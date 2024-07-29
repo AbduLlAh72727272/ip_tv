@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../utils/constraints/image_strings.dart';
 import '../../../utils/theme/homeTheme.dart';
 import '../controllers/home_controller.dart';
 
@@ -16,7 +17,7 @@ class SecHomeView extends GetView {
          Container(
            decoration: const BoxDecoration(
              image: DecorationImage(
-               image: AssetImage('assets/images/bg2.png'),
+               image: AssetImage(VoidImages.background2),
                fit: BoxFit.cover,
              ),
            ),
@@ -34,7 +35,7 @@ class SecHomeView extends GetView {
                    onTap: () {
                      showHomeScreenDialog();
                    },
-                     child: Image.asset('assets/icons/themes.png', height: 35.h, width: 15.w,)),
+                     child: Image.asset(VoidImages.themes, height: 35.h, width: 15.w,)),
                ),
              ],
            ),

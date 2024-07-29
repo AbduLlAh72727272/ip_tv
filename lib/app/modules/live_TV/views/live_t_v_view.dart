@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
 import 'live_t_v_view2.dart';
 
@@ -15,7 +16,7 @@ class LiveTVView extends GetView<LiveTVController> {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/images/image.png',
+              VoidImages.background1,
               fit: BoxFit.cover,
             ),
           ),
@@ -36,7 +37,7 @@ class LiveTVView extends GetView<LiveTVController> {
                           height: 45.h, // Adjust the height of the back button
                           width: 25.w, // Adjust the width of the back button
                           child: IconButton(
-                            icon: Image.asset('assets/images/back_button.png'),
+                            icon: Image.asset(VoidImages.back),
                             onPressed: () => Get.back(),
                             iconSize: 10.w, // Adjust the size of the icon inside the button
                           ),
@@ -118,14 +119,14 @@ class LiveTVView extends GetView<LiveTVController> {
                           return GestureDetector(
                             onTap: () {
                               Get.to(() => LiveTVView2(
-                                imageUrl: 'assets/images/sample.png', // Replace with actual video thumbnail
+                                imageUrl: VoidImages.sample,
                                 channelName: 'Channel 01 HD',
                                 programInfo: 'A hidden truth',
                                 date: '21-june-2022',
                               ));
                             },
                             child: Image.asset(
-                              'assets/images/sample.png', // Replace with actual video thumbnail
+                              VoidImages.sample, // Replace with actual video thumbnail
                               fit: BoxFit.cover,
                             ),
                           );

@@ -24,6 +24,7 @@ dependencies:
   logger: ^2.3.0
   shimmer: ^3.0.0
   syncfusion_flutter_gauges: ^26.2.5
+  url_launcher: ^6.3.0
   video_player_control_panel: ^1.1.1
   volume_control: ^0.1.5
   volume_controller: ^2.0.7

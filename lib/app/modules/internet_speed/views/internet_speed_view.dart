@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/internet_speed_controller.dart';
 
 class InternetSpeedView extends StatelessWidget {
@@ -10,7 +10,6 @@ class InternetSpeedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -20,7 +19,7 @@ class InternetSpeedView extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -34,7 +33,7 @@ class InternetSpeedView extends StatelessWidget {
                 Get.back();
               },
               child: Image.asset(
-                'assets/images/back_button.png',
+                VoidImages.back,
                 height: 34.h,
                 width: 24.w,
               ),
@@ -92,7 +91,7 @@ class InternetSpeedView extends StatelessWidget {
                                 NeedlePointer(
                                   value: controller.speed.value,
                                   enableAnimation: true,
-                                  needleColor: VoidColors.primary,
+                                  needleColor: Theme.of(context).colorScheme.primary,
                                 ),
                               ],
                               annotations: <GaugeAnnotation>[
