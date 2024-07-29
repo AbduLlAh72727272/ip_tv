@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
 import 'package:volume_controller/volume_controller.dart';
 
+import '../../utils/constraints/image_strings.dart';
+
 class VlcPlayerScreen extends StatefulWidget {
   final String streamUrl;
 
@@ -78,7 +80,6 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   void adjustBrightness(double value) {
     setState(() {
       brightness = value;
-      // Implement platform-specific brightness control here if needed
     });
   }
 
@@ -118,11 +119,11 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
             child: Row(
               children: [
                 IconButton(
-                  icon: Image.asset('assets/images/back_button.png', height: 30.h),
+                  icon: Image.asset(VoidImages.back, height: 30.h),
                   onPressed: () => Navigator.pop(context),
                 ),
                 SizedBox(width: 2.w),
-                Image.asset('assets/images/iptv logo.png', height: 70.h),
+                Image.asset(VoidImages.logo, height: 70.h),
               ],
             ),
           ),
@@ -141,7 +142,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                 IconButton(
                   icon: Icon(
                     isPlaying ? Icons.pause_circle_sharp : Icons.play_circle_fill_sharp,
-                    color: VoidColors.primary,
+                    color: Theme.of(context).colorScheme.primary,
                     size: 70.h,
                   ),
                   onPressed: togglePlayPause,
@@ -229,7 +230,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
               onChanged: (value) {
                 _vlcPlayerController.seekTo(Duration(seconds: value.toInt()));
               },
-              activeColor: VoidColors.primary,
+              activeColor: Theme.of(context).colorScheme.primary,
               inactiveColor: VoidColors.white,
             ),
           ),
@@ -256,7 +257,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.5,
                 color: isChannelListOpen
-                    ? VoidColors.primary.withOpacity(0.6)
+                    ? Theme.of(context).colorScheme.primary.withOpacity(0.6)
                     : VoidColors.black.withOpacity(0.6),
                 child: Column(
                   children: [

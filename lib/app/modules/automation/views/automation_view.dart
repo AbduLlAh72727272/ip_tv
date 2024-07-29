@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+
 import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/automation_controller.dart';
+
 
 class AutomationView extends GetView<AutomationController> {
   const AutomationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -20,28 +21,28 @@ class AutomationView extends GetView<AutomationController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           // Settings title
           Positioned(
-            top: 20.h, // Adjusted position using ScreenUtil
-            left: 25.w, // Adjusted position using ScreenUtil
+            top: 20.h,
+            left: 25.w,
             child: Text(
               LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                fontSize: 10.sp,
               ),
             ),
           ),
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              width: 300.w,
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
               ),
@@ -52,7 +53,7 @@ class AutomationView extends GetView<AutomationController> {
                     LocaleKeys.Automation.tr,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12.sp, // Adjusted font size using ScreenUtil
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -66,7 +67,7 @@ class AutomationView extends GetView<AutomationController> {
           ),
           // Buttons
           Positioned(
-            bottom: 10.h, // Adjusted position using ScreenUtil
+            bottom: 10.h,
             left: MediaQuery.of(context).size.width / 4,
             right: MediaQuery.of(context).size.width / 4,
             child: Row(
@@ -74,14 +75,14 @@ class AutomationView extends GetView<AutomationController> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.back(); // Navigate back to previous screen
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black.withOpacity(0.4),
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
@@ -95,10 +96,10 @@ class AutomationView extends GetView<AutomationController> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
@@ -168,8 +169,8 @@ class AutomationView extends GetView<AutomationController> {
                 // overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
               ),
-            ),
-            SizedBox(width: 10.w), // Adjusted spacing using ScreenUtil
+        ),
+            SizedBox(width: 10.w),
             DropdownButton<String>(
               dropdownColor: Colors.black,
               value: '1',
@@ -185,10 +186,10 @@ class AutomationView extends GetView<AutomationController> {
                 // Handle dropdown change
               },
             ),
-            SizedBox(width: 10.w), // Adjusted spacing using ScreenUtil
+            SizedBox(width: 10.w),
             Text(
               unit,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+              style: TextStyle(color: Colors.white, fontSize: 9.sp),
             ),
           ],
         );

@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../utils/constraints/colors.dart';
-import '../controllers/multiscreen_controller.dart'; // Import your color file
-import 'multiscreen_view2.dart'; // Import MultiscreenView2
+import '../../../utils/constraints/image_strings.dart';
+import '../controllers/multiscreen_controller.dart';
+import 'multiscreen_view2.dart';
 
 class MultiscreenView extends GetView<MultiscreenController> {
   const MultiscreenView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40.h), // Decrease the height of the AppBar
+        preferredSize: Size.fromHeight(40.h),
         child: AppBar(
-          backgroundColor: Colors.black, // Set app bar color to black
-          automaticallyImplyLeading: false, // Remove the default back button
+          backgroundColor: Colors.black,
+          automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: Image.asset('assets/images/back_button.png'), // Custom back button
+            icon: Image.asset(VoidImages.back),
             onPressed: () {
               Get.back(); // Navigate back
             },
@@ -35,7 +33,7 @@ class MultiscreenView extends GetView<MultiscreenController> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.black, VoidColors.primary],
+                colors: [Colors.black, Theme.of(context).colorScheme.primary],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -44,26 +42,26 @@ class MultiscreenView extends GetView<MultiscreenController> {
           // Multi-screen grid
           Center(
             child: GridView.builder(
-              padding: EdgeInsets.all(16.w), // Adjust padding using ScreenUtil
+              padding: EdgeInsets.all(16.w),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 16.w, // Adjust spacing using ScreenUtil
-                mainAxisSpacing: 16.h, // Adjust spacing using ScreenUtil
-                childAspectRatio: 2, // Adjust aspect ratio to make boxes rectangular
+                crossAxisSpacing: 16.w,
+                mainAxisSpacing: 16.h,
+                childAspectRatio: 2,
               ),
-              itemCount: 4, // Number of screens
+              itemCount: 4,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Get.to(() => MultiscreenView2()); // Navigate to MultiscreenView2
+                    Get.to(() => MultiscreenView2());
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: VoidColors.primary,
-                      borderRadius: BorderRadius.circular(10.r), // Adjust border radius using ScreenUtil
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                     child: Center(
-                      child: Icon(Icons.add_circle, color: Colors.white, size: 50.sp), // Adjust icon size using ScreenUtil
+                      child: Icon(Icons.add_circle, color: Colors.white, size: 50.sp),
                     ),
                   ),
                 );

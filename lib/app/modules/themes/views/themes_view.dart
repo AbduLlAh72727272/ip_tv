@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+
 import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../../../utils/theme/custom_themes/theme.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/themes_controller.dart';
+
 
 class ThemesView extends GetView<ThemesController> {
   const ThemesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
     final HomeController homeController = Get.find<HomeController>();
 
     return Scaffold(
@@ -24,7 +26,7 @@ class ThemesView extends GetView<ThemesController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -32,11 +34,11 @@ class ThemesView extends GetView<ThemesController> {
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              width: 300.w,
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.r), // Adjusted border radius using ScreenUtil
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -46,14 +48,14 @@ class ThemesView extends GetView<ThemesController> {
                     LocaleKeys.SelectThemeColor.tr,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
+                  SizedBox(height: 20.h),
                   Wrap(
-                    spacing: 8.w, // Adjusted spacing using ScreenUtil
-                    runSpacing: 8.h, // Adjusted run spacing using ScreenUtil
+                    spacing: 8.w,
+                    runSpacing: 8.h,
                     children: [
                       _buildColorOption(VoidColors.primary, primaryTheme),
                       _buildColorOption(VoidColors.greyColor, greyTheme),
@@ -138,19 +140,19 @@ class ThemesView extends GetView<ThemesController> {
               });
             },
             child: Container(
-              width: 20.w, // Adjusted size using ScreenUtil
-              height: 40.h, // Adjusted size using ScreenUtil
+              width: 20.w,
+              height: 40.h,
               decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.rectangle,
-                //  borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+
                 border: isSelected
                     ? Border.all(color: Colors.white, width: 3.w)
-                    : null, // Adjusted border width using ScreenUtil
+                    : null,
               ),
               child: isSelected
                   ? Icon(Icons.check, color: Colors.white,
-                  size: 30.w) // Adjusted icon size using ScreenUtil
+                  size: 30.w)
                   : null,
             ),
           );

@@ -8,8 +8,11 @@ import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 import '../../setting/views/setting_view.dart';
+
+
 
 class FirstHomeView extends GetView {
   FirstHomeView({super.key});
@@ -20,12 +23,12 @@ class FirstHomeView extends GetView {
   @override
   Widget build(BuildContext context) {
     List<String> images = [
-      'assets/images/movieInfoImg.png',
-      'assets/images/movieInfoImg.png',
-      'assets/images/movieInfoImg.png',
-      'assets/images/movieInfoImg.png',
-      'assets/images/movieInfoImg.png',
-      'assets/images/movieInfoImg.png',
+      VoidImages.movieInfo,
+      VoidImages.movieInfo,
+      VoidImages.movieInfo,
+      VoidImages.movieInfo,
+      VoidImages.movieInfo,
+      VoidImages.movieInfo,
     ];
 
     List<String> newImages = [
@@ -50,7 +53,7 @@ class FirstHomeView extends GetView {
             color: Theme.of(context).colorScheme.secondary,
             child: Row(
               children: [
-                Image.asset('assets/images/vpnImg.png',
+                Image.asset(VoidImages.vpn_blue,
                   height: 30.0.h, width: 30.0.w,),
                 Text('VPN', style: TextStyle(
                   fontSize: 10.sp,
@@ -59,7 +62,7 @@ class FirstHomeView extends GetView {
                 ),
                 ),
                 Spacer(),
-                Image.asset('assets/images/iptv logo.png',
+                Image.asset(VoidImages.logo,
                   height: 50.0.h, width: 50.0.w,),
                 Text('ARK VIP', style: TextStyle(
                     fontSize: 12.sp,
@@ -68,21 +71,21 @@ class FirstHomeView extends GetView {
                 ),
                 ),
                 Spacer(),
-                Image.asset('assets/icons/searchIcon.png',
+                Image.asset(VoidImages.search,
                   height: 20.0.h, width: 20.0.w,),
                 GestureDetector(
                   onTap: () {
                     showHomeScreenDialog();
                   },
-                  child: Image.asset('assets/icons/homeTheme.png',
+                  child:  Image.asset(VoidImages.homeTheme,
                     height: 20.0.h, width: 20.0.w,),
                 ),
                 GestureDetector(
                   onTap: () {
                     Get.to(() => SelectLanguageView());
                   },
-                  child: Image.asset('assets/icons/languagesIcon.png',
-                    height: 20.0.h, width: 20.0.w,),
+                  child: Image.asset(VoidImages.language,
+                     height: 20.0.h, width: 20.0.w,),
                 ),
               ],
             ),
@@ -95,7 +98,7 @@ class FirstHomeView extends GetView {
                     height: 180.h,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/bg3.png'),
+                        image: AssetImage(VoidImages.background3),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -110,7 +113,7 @@ class FirstHomeView extends GetView {
                               onTap: () {
 
                               },
-                              child: Image.asset('assets/images/liveTvImg.png',
+                              child: Image.asset(VoidImages.live_Tv,
                                 height: 110.0.h, width: 130.0.w,),
                             ),
                           ),
@@ -120,7 +123,7 @@ class FirstHomeView extends GetView {
                               onTap: () {
 
                               },
-                              child: Image.asset('assets/images/movieImg.png',
+                              child: Image.asset(VoidImages.movie,
                                 height: 110.0.h, width: 130.0.w,),
                             ),
                           ),
@@ -130,7 +133,7 @@ class FirstHomeView extends GetView {
                               onTap: () {
 
                               },
-                              child: Image.asset('assets/images/seriesImg.png',
+                              child: Image.asset(VoidImages.series,
                                 height: 110.0.h, width: 130.0.w,),
                             ),
                           ),
@@ -140,7 +143,7 @@ class FirstHomeView extends GetView {
                               onTap: () {
                                 Get.to(() => SettingView());
                               },
-                              child: Image.asset('assets/images/settingsImg.png',
+                              child: Image.asset(VoidImages.setting,
                                 height: 110.0.h, width: 130.0.w,),
                             ),
                           ),

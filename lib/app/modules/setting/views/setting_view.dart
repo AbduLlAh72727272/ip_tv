@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
-import '../controllers/setting_controller.dart'; // Import ScreenUtil
+import '../../../utils/constraints/image_strings.dart';
+import '../controllers/setting_controller.dart';
 
 
 class SettingView extends GetView<SettingController> {
@@ -12,8 +13,7 @@ class SettingView extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     return Scaffold(
       body: Stack(
@@ -22,7 +22,7 @@ class SettingView extends GetView<SettingController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'), // Background image
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -32,7 +32,7 @@ class SettingView extends GetView<SettingController> {
             children: [
               // Back button and title
               Padding(
-                padding: EdgeInsets.all(16.0.w), // Padding using ScreenUtil
+                padding: EdgeInsets.all(16.0.w),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -40,17 +40,17 @@ class SettingView extends GetView<SettingController> {
                         Get.back();
                       },
                       child: Image.asset(
-                        'assets/images/back_button.png',
-                        height: 30.h, // Adjusted size using ScreenUtil
-                        width: 24.w, // Adjusted size using ScreenUtil
+                         VoidImages.back ,
+                        height: 30.h,
+                        width: 24.w,
                       ),
                     ),
-                    SizedBox(width: 5.w), // Spacing using ScreenUtil
+                    SizedBox(width: 5.w),
                     Text(
                       LocaleKeys.Settings.tr,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 10.sp, // Font size using ScreenUtil
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -60,31 +60,31 @@ class SettingView extends GetView<SettingController> {
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 3,
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w), // Padding using ScreenUtil
-                  crossAxisSpacing: 30.w, // Spacing using ScreenUtil
-                  mainAxisSpacing: 30.h, // Spacing using ScreenUtil
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  crossAxisSpacing: 30.w,
+                  mainAxisSpacing: 30.h,
                   children: [
-                    _buildSettingItem(LocaleKeys.GeneralSettings.tr, context, 'assets/icons/gs.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.GeneralSettings.tr, context, VoidImages.general_setting, onTap: () {
                       Get.toNamed(Routes.GENERAL_SETTING);
                     }),
-                    _buildSettingItem(LocaleKeys.StreamFormat.tr, context, 'assets/icons/stream.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.StreamFormat.tr, context, VoidImages.stream, onTap: () {
                       Get.toNamed(Routes.STREAM_FORMAT);
                     }),
-                    _buildSettingItem(LocaleKeys.TimeFormat.tr, context, 'assets/icons/clock.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.TimeFormat.tr, context, VoidImages.clock, onTap: () {
                       Get.toNamed(Routes.TIME_FORMAT);
                     }),
-                    _buildSettingItem(LocaleKeys.ParentalControl.tr, context, 'assets/icons/parental-control.png'),
-                    _buildSettingItem(LocaleKeys.Automation.tr, context, 'assets/icons/automation.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.ParentalControl.tr, context, VoidImages.parental_control),
+                    _buildSettingItem(LocaleKeys.Automation.tr, context, VoidImages.automation, onTap: () {
                       Get.toNamed(Routes.AUTOMATION);
                     }),
-                    _buildSettingItem('EPG', context, 'assets/icons/epg.png'),
-                    _buildSettingItem(LocaleKeys.Themes.tr, context, 'assets/icons/themes.png', onTap: () {
+                    _buildSettingItem('EPG', context, VoidImages.epg),
+                    _buildSettingItem(LocaleKeys.Themes.tr, context, VoidImages.themes, onTap: () {
                       Get.toNamed(Routes.THEMES);
                     }),
-                    _buildSettingItem(LocaleKeys.ExternalPlayers.tr, context, 'assets/icons/player.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.ExternalPlayers.tr, context, VoidImages.player, onTap: () {
                       Get.toNamed(Routes.EXTERNAL_PLAYER);
                     }),
-                    _buildSettingItem(LocaleKeys.InternetSpeedTest.tr, context, 'assets/icons/speed.png', onTap: () {
+                    _buildSettingItem(LocaleKeys.InternetSpeedTest.tr, context, VoidImages.speed, onTap: () {
                       Get.toNamed(Routes.INTERNET_SPEED);
                     }),
                   ],
@@ -104,7 +104,7 @@ class SettingView extends GetView<SettingController> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.6),
-          borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: Theme.of(context).colorScheme.secondary),
         ),
         child: Column(
@@ -112,15 +112,15 @@ class SettingView extends GetView<SettingController> {
           children: [
             Image.asset(
               iconPath,
-              height: 70.h, // Adjusted height using ScreenUtil
-              width: 70.w, // Adjusted width using ScreenUtil
+              height: 70.h,
+              width: 70.w,
             ),
-            SizedBox(height: 10.h), // Spacing using ScreenUtil
+            SizedBox(height: 10.h),
             Text(
               title,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 7.sp, // Font size using ScreenUtil
+                fontSize: 7.sp,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,

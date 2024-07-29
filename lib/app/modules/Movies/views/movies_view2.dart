@@ -3,16 +3,15 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
-//import 'vlc_player_screen.dart';
 
 class MoviesView2 extends GetView<MoviesController> {
   const MoviesView2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     return Scaffold(
       body: Stack(
@@ -21,7 +20,7 @@ class MoviesView2 extends GetView<MoviesController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,7 +50,7 @@ class MoviesView2 extends GetView<MoviesController> {
                         icon: SizedBox(
                           width: 28.w,
                           height: 28.h,
-                          child: Image.asset('assets/images/back_button.png'),
+                          child: Image.asset(VoidImages.back),
                         ),
                         onPressed: () => Get.back(),
                       ),
@@ -69,7 +68,7 @@ class MoviesView2 extends GetView<MoviesController> {
                         height: 150.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/sample.png'),
+                            image: AssetImage(VoidImages.sample),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -149,10 +148,10 @@ class MoviesView2 extends GetView<MoviesController> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
+                        _buildSimilarMovieCard(VoidImages.sample),
+                        _buildSimilarMovieCard(VoidImages.sample),
+                        _buildSimilarMovieCard(VoidImages.sample),
+                        _buildSimilarMovieCard(VoidImages.sample),
                       ],
                     ),
                   ),

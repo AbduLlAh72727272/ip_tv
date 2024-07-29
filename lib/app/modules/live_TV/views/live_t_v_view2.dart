@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
+import '../../../utils/constraints/image_strings.dart';
 //import 'vlc_player_screen.dart';
 
 class LiveTVView2 extends StatelessWidget {
@@ -34,7 +35,7 @@ class LiveTVView2 extends StatelessWidget {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/images/image.png',
+              VoidImages.background1,
               fit: BoxFit.cover,
             ),
           ),
@@ -55,7 +56,7 @@ class LiveTVView2 extends StatelessWidget {
                           height: 45.h, // Adjust the height of the back button
                           width: 25.w, // Adjust the width of the back button
                           child: IconButton(
-                            icon: Image.asset('assets/images/back_button.png'),
+                            icon: Image.asset(VoidImages.back),
                             onPressed: () => Navigator.pop(context),
                             iconSize: 10.w, // Adjust the size of the icon inside the button
                           ),
@@ -120,7 +121,7 @@ class LiveTVView2 extends StatelessWidget {
                                 style: TextStyle(color: Colors.white.withOpacity(0.7)),
                               ),
                               onTap: () {
-                                _navigateToVlcPlayer(context, 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'); // Update with actual stream URL
+                                _navigateToVlcPlayer(context, 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
                               },
                             ),
                           );
@@ -137,7 +138,7 @@ class LiveTVView2 extends StatelessWidget {
                             // Image and Info
                             GestureDetector(
                               onTap: () {
-                                _navigateToVlcPlayer(context, 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'); // Update with actual stream URL
+                                _navigateToVlcPlayer(context, 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
                               },
                               child: Container(
                                 decoration: BoxDecoration(

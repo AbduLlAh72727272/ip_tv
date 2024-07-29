@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   flutter_volume_controller
   fullscreen_window
+  url_launcher_windows
   video_player_win
 )
 

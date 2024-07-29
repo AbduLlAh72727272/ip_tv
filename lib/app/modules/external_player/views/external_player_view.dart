@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+
 import '../../../../generated/locales.g.dart';
-import '../controllers/external_player_controller.dart';
+import '../../../utils/constraints/image_strings.dart';
+
 
 class ExternalPlayerView extends GetView<ExternalPlayerController> {
   const ExternalPlayerView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -20,7 +21,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -28,11 +29,11 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              width: 300.w,
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.r), // Adjusted border radius using ScreenUtil
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -41,7 +42,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     LocaleKeys.SelectExternalPlayer.tr,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -57,7 +58,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           ),
           // Buttons
           Positioned(
-            bottom: 50.h, // Adjusted position using ScreenUtil
+            bottom: 50.h,
             left: MediaQuery.of(context).size.width / 4,
             right: MediaQuery.of(context).size.width / 4,
             child: Row(
@@ -65,14 +66,14 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.back(); // Navigate back to previous screen
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black.withOpacity(0.4),
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
@@ -97,8 +98,8 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                       LocaleKeys.Ok.tr,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: Colors.white),
-                    ),
-                  ),
+    ),
+    ),
                 ),
               ],
             ),
@@ -116,7 +117,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
         children: [
           Text(
             title,
-            style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+            style: TextStyle(color: Colors.white, fontSize: 9.sp),
           ),
           Radio<String>(
             value: title,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
 import '../models/movie_model.dart';
 
@@ -24,7 +25,7 @@ class MoviesView extends GetView<MoviesController> {
         leading: Padding(
           padding: EdgeInsets.all(2.0.w),
           child: Image.asset(
-            'assets/images/vpnImg.png',
+            VoidImages.vpn_blue,
             fit: BoxFit.contain,
           ),
         ),
@@ -64,7 +65,7 @@ class MoviesView extends GetView<MoviesController> {
                       height: 500.h,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/bg3.png'),
+                          image: AssetImage(VoidImages.background3),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -166,8 +167,8 @@ class MoviesView extends GetView<MoviesController> {
                   Movie movie = moviesController.movies[index];
               return _buildMovieCard('https://image.tmdb.org/t/p/w500${movie.posterPath}', movie.title);
             }),
-          ),
-        ),
+    )
+    ),
         // SingleChildScrollView(
         //   scrollDirection: Axis.horizontal,
         //   child: Row(
