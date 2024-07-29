@@ -30,4 +30,17 @@ class VoidImages {
   static const String illustration1 = "assets/images/illustration1.png";
   static const String illustration2 = "assets/images/illustration2.png";
   static const String illustration3 = "assets/images/illustration3.png";
+
+  static const String logo = "assets/images/iptv logo.png";
+  static const String background1="assets/images/image.png";
+  static const String background2="assets/images/bg2.png";
+  static const String background3="assets/images/bg3.png";
+  static const String back="assets/images/back_button.png";
+  static const String movie="assets/images/movieImg.png";
+  static const String movieInfo="assets/images/movieInfoImg.png";
+  static const String series="assets/images/seriesImg.png";
+  static const String setting_icon="assets/images/setting.png";
+  static const String setting="assets/images/settingsImg.png";
+
+
 }

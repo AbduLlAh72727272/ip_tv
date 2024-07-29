@@ -1,23 +1,48 @@
+import 'dart:async';
+import 'package:flutter_internet_speed_test/flutter_internet_speed_test.dart';
 import 'package:get/get.dart';
 
 class InternetSpeedController extends GetxController {
-  var speed = 5.5.obs;
+  final RxDouble speed = 0.0.obs;
+  final FlutterInternetSpeedTest _internetSpeedTest = FlutterInternetSpeedTest();
+  Timer? _timer;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    testInternetSpeed();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void testInternetSpeed() {
+    _timer?.cancel(); // Cancel any existing timer
+    speed.value = 0.0; // Reset speed value
+
+    _internetSpeedTest.startTesting(
+      onCompleted: (TestResult download, TestResult upload) {
+        if (_timer != null && _timer!.isActive) {
+          speed.value = download.transferRate;
+        }
+        _timer?.cancel(); // Ensure timer is canceled
+      },
+      onError: (String errorMessage, String errorDetails) {
+        print('Error: $errorMessage');
+      },
+      onProgress: (double percent, TestResult data) {
+        if (_timer != null && _timer!.isActive) {
+          speed.value = data.transferRate;
+        }
+      },
+      onStarted: () {
+        _timer = Timer(Duration(seconds: 10), () {
+          _internetSpeedTest.cancelTest(); // This cancels the current testing process
+        });
+      },
+    );
   }
 
   @override
   void onClose() {
+    _timer?.cancel();
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
