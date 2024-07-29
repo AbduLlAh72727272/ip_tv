@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../Movies/controllers/movies_controller.dart';
 import '../../playlist/views/playlist_view.dart';
@@ -63,8 +64,8 @@ class LoginView extends StatelessWidget {
                   SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
                   TextField(
                     controller: pinController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
                       labelText: 'Pin',
                       labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
@@ -78,26 +79,23 @@ class LoginView extends StatelessWidget {
                   SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
                   SizedBox(
                     width: double.infinity,
-                    child: Obx(() =>
-                      ElevatedButton(
+                    child: ElevatedButton(
                         onPressed: () {
                           // // Navigate to PlaylistView using named route
                           Get.offNamed(Routes.PLAYLIST);
-                          print('Movie');
-                          moviesController.fetchMovieLists();
+                          // print('Movie');
+                          // moviesController.fetchMovieLists();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: VoidColors.primary,
                           padding: EdgeInsets.symmetric(vertical: 15.h),
                           textStyle: TextStyle(fontSize: 8.sp),
                         ),
-                        child: moviesController.isLoading.value ?
-                        CircularProgressIndicator() : Text(
-                          'Add Playlist',
+                        child: Text(
+                           LocaleKeys.AddPlaylist.tr,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    ),
                   ),
                 ],
               ),

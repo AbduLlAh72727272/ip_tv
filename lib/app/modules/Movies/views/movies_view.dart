@@ -158,13 +158,13 @@ class MoviesView extends GetView<MoviesController> {
         // Movies List
         Obx(() => moviesController.isLoading.value ? CircularProgressIndicator() :
           SizedBox(
-            height: 160.h,
+            height: 180.h,
             child: ListView.builder(
               itemCount: moviesController.movies.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   Movie movie = moviesController.movies[index];
-              return _buildMovieCard('assets/images/sample.png', movie.title);
+              return _buildMovieCard('https://image.tmdb.org/t/p/w500${movie.posterPath}', movie.title);
             }),
           ),
         ),
@@ -202,16 +202,16 @@ class MoviesView extends GetView<MoviesController> {
         ),
         SizedBox(height: 8.h),
         // Movies List (Second Row)
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _buildMovieCard('assets/images/sample.png', 'Recently Added'),
-              _buildMovieCard('assets/images/sample.png', ''),
-              _buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
-            ],
-          ),
-        ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child: Row(
+        //     children: [
+        //       _buildMovieCard('assets/images/sample.png', 'Recently Added'),
+        //       _buildMovieCard('assets/images/sample.png', ''),
+        //       _buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
+        //     ],
+        //   ),
+        // ),
         SizedBox(height: 16.h),
         // Expiration Date
         Text(
@@ -231,23 +231,27 @@ class MoviesView extends GetView<MoviesController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             width: 100.w,
             height: 150.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
-            ),
+            child: Image.network(imagePath, fit: BoxFit.cover,),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     image: Image.network(imagePath),
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
           ),
           SizedBox(height: 4.h),
-          Text(
-            label,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Colors.white,
+          SizedBox(
+            width: 80.w,
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 7.sp,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

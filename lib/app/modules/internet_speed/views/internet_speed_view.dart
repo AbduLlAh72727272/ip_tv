@@ -125,8 +125,8 @@ class InternetSpeedView extends StatelessWidget {
                         controller.testInternetSpeed();
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
-                        textStyle: TextStyle(fontSize: 20.sp),
+                        padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 5.0.h),
+                        textStyle: TextStyle(fontSize: 10.sp),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.r),
                         ),
