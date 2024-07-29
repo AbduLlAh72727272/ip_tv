@@ -80,42 +80,44 @@ class _ChangeLanguageSheet extends State<SelectLanguageView> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.0.h, horizontal: 10.0.w),
-                  child: Column(
-                    children: [
-                      LanguageCardWidget(img: 'assets/images/englishFlag.png',
-                        language: LocaleKeys.English.tr, onTap: () async {
-                          setState(() {
-                            selected = 0;
-                          });
-                          selectLanguage = LocaleKeys.English.tr;
-                          await SelectLanguageController()
-                              .changeLanguage(selectLanguage.toCode);
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        LanguageCardWidget(img: 'assets/images/englishFlag.png',
+                          language: LocaleKeys.English.tr, onTap: () async {
+                            setState(() {
+                              selected = 0;
+                            });
+                            selectLanguage = LocaleKeys.English.tr;
+                            await SelectLanguageController()
+                                .changeLanguage(selectLanguage.toCode);
 
-                          Get.updateLocale(Locale(selectLanguage.toCode,
-                              selectLanguage.toCode.toUpperCase()));
-                          setState(() {});
-                        }, color: selected == 0 ?
-                        Theme.of(context).colorScheme.primary :
-                        VoidColors.whiteColor.withOpacity(0.3),),
+                            Get.updateLocale(Locale(selectLanguage.toCode,
+                                selectLanguage.toCode.toUpperCase()));
+                            setState(() {});
+                          }, color: selected == 0 ?
+                          Theme.of(context).colorScheme.primary :
+                          VoidColors.whiteColor.withOpacity(0.3),),
 
-                      SizedBox(height: 10.0.h,),
+                        SizedBox(height: 10.0.h,),
 
-                      LanguageCardWidget(img: 'assets/images/spanishFlag.png',
-                        language: LocaleKeys.Spanish.tr, onTap: () async {
-                          setState(() {
-                            selected = 1;
-                          });
-                          selectLanguage = LocaleKeys.Spanish.tr;
-                          await SelectLanguageController()
-                              .changeLanguage(selectLanguage.toCode);
+                        LanguageCardWidget(img: 'assets/images/spanishFlag.png',
+                          language: LocaleKeys.Spanish.tr, onTap: () async {
+                            setState(() {
+                              selected = 1;
+                            });
+                            selectLanguage = LocaleKeys.Spanish.tr;
+                            await SelectLanguageController()
+                                .changeLanguage(selectLanguage.toCode);
 
-                          Get.updateLocale(Locale(selectLanguage.toCode,
-                              selectLanguage.toCode.toUpperCase()));
-                          setState(() {});
-                        }, color: selected == 1 ? Theme.of(context).colorScheme.primary :
-                          VoidColors.whiteColor.withOpacity(0.3)),
+                            Get.updateLocale(Locale(selectLanguage.toCode,
+                                selectLanguage.toCode.toUpperCase()));
+                            setState(() {});
+                          }, color: selected == 1 ? Theme.of(context).colorScheme.primary :
+                            VoidColors.whiteColor.withOpacity(0.3)),
 
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -295,32 +297,30 @@ class LanguageCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Expanded(
-        flex: 2,
-        child: Container(
-          width: 170.w,
-          decoration: BoxDecoration(
-              // color: VoidColors.whiteColor.withOpacity(0.3),
-            color: color,
-              borderRadius: BorderRadius.circular(8.0.r)
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.0.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(img,
-                  height: 30.0.h,
-                  width: 30.0.w,),
-                SizedBox(width: 25.0.w),
-                Text(language, style: TextStyle(
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w300,
-                    color: VoidColors.whiteColor
-                ),
-                ),
-              ],
-            ),
+      child: Container(
+        width: 170.w,
+        height: 50.h,
+        decoration: BoxDecoration(
+            // color: VoidColors.whiteColor.withOpacity(0.3),
+          color: color,
+            borderRadius: BorderRadius.circular(8.0.r)
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.0.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(img,
+                height: 30.0.h,
+                width: 30.0.w,),
+              SizedBox(width: 25.0.w),
+              Text(language, style: TextStyle(
+                  fontSize: 8.sp,
+                  fontWeight: FontWeight.w300,
+                  color: VoidColors.whiteColor
+              ),
+              ),
+            ],
           ),
         ),
       ),

@@ -3,9 +3,13 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constraints/colors.dart';
 import '../controllers/movies_controller.dart';
+import '../models/movie_model.dart';
 
 class MoviesView extends GetView<MoviesController> {
-  const MoviesView({Key? key}) : super(key: key);
+  MoviesView({Key? key}) : super(key: key);
+
+  final MoviesController moviesController = Get.put(MoviesController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +141,7 @@ class MoviesView extends GetView<MoviesController> {
   }
 
   Widget _buildMatchedSection() {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -151,28 +156,40 @@ class MoviesView extends GetView<MoviesController> {
         ),
         SizedBox(height: 8.h),
         // Movies List
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              GestureDetector(
-                  onTap: () {
-                Get.toNamed('/movies_view2');
-              },
-                  child: _buildMovieCard('assets/images/sample.png', 'Recently Added')),
-              GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/movies_view2');
-                  },
-                  child: _buildMovieCard('assets/images/sample.png', '')),
-              GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/movies_view2');
-                  },
-                  child: _buildMovieCard('assets/images/sample.png', 'Leaving Soon')),
-            ],
+        Obx(() => moviesController.isLoading.value ? CircularProgressIndicator() :
+          SizedBox(
+            height: 160.h,
+            child: ListView.builder(
+              itemCount: moviesController.movies.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  Movie movie = moviesController.movies[index];
+              return _buildMovieCard('assets/images/sample.png', movie.title);
+            }),
           ),
         ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child: Row(
+        //     children: [
+        //       GestureDetector(
+        //           onTap: () {
+        //         Get.toNamed('/movies_view2');
+        //       },
+        //           child: _buildMovieCard('assets/images/sample.png', 'Recently Added')),
+        //       GestureDetector(
+        //           onTap: () {
+        //             Get.toNamed('/movies_view2');
+        //           },
+        //           child: _buildMovieCard('assets/images/sample.png', '')),
+        //       GestureDetector(
+        //           onTap: () {
+        //             Get.toNamed('/movies_view2');
+        //           },
+        //           child: _buildMovieCard('assets/images/sample.png', 'Leaving Soon')),
+        //     ],
+        //   ),
+        // ),
         SizedBox(height: 16.h),
         // Matched to You Title (Second Row)
         Text(
@@ -227,6 +244,7 @@ class MoviesView extends GetView<MoviesController> {
           SizedBox(height: 4.h),
           Text(
             label,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 12.sp,
               color: Colors.white,

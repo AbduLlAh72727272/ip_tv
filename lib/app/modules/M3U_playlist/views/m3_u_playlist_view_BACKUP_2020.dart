@@ -19,7 +19,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/image.png'), // Background image
                 fit: BoxFit.cover,
@@ -84,7 +84,6 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-<<<<<<< HEAD
                         ElevatedButton(
                         onPressed: () {
                           Get.back();
@@ -108,26 +107,6 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                           // _buildButton('Cancel', Colors.black.withOpacity(0.4), Colors.white, () {
                           //   Get.back(); // Navigate back without saving
                           // }),
-
-=======
-                          ElevatedButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black.withOpacity(0.4),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0.w, // Padding using ScreenUtil
-                                vertical: 6.0.h, // Padding using ScreenUtil
-                              ),
-                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
-                              ),
-                            ),
-                            child: Text('Cancel'),
-                          ),
->>>>>>> origin/master
                           ElevatedButton(
                             onPressed: () {
                               Get.back(result: {
@@ -147,13 +126,9 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                                 borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
                               ),
                             ),
-<<<<<<< HEAD
                             child: Text(
                               LocaleKeys.Save.tr,
                             ),
-=======
-                            child: Text('Save'),
->>>>>>> origin/master
                           ),
                         ],
                       ),

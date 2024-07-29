@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../routes/app_pages.dart';
+import '../../Movies/controllers/movies_controller.dart';
 import '../../playlist/views/playlist_view.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/theme/custom_themes/theme.dart';
@@ -12,6 +13,7 @@ class LoginView extends StatelessWidget {
 
   final TextEditingController macAddressController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
+  final MoviesController moviesController = Get.put(MoviesController());
 
   @override
   Widget build(BuildContext context) {
@@ -76,19 +78,24 @@ class LoginView extends StatelessWidget {
                   SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Navigate to PlaylistView using named route
-                        Get.offNamed(Routes.PLAYLIST);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: VoidColors.primary,
-                        padding: EdgeInsets.symmetric(vertical: 15.h),
-                        textStyle: TextStyle(fontSize: 8.sp),
-                      ),
-                      child: Text(
-                        'Add Playlist',
-                        style: TextStyle(color: Colors.white),
+                    child: Obx(() =>
+                      ElevatedButton(
+                        onPressed: () {
+                          // // Navigate to PlaylistView using named route
+                          Get.offNamed(Routes.PLAYLIST);
+                          print('Movie');
+                          moviesController.fetchMovieLists();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: VoidColors.primary,
+                          padding: EdgeInsets.symmetric(vertical: 15.h),
+                          textStyle: TextStyle(fontSize: 8.sp),
+                        ),
+                        child: moviesController.isLoading.value ?
+                        CircularProgressIndicator() : Text(
+                          'Add Playlist',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),

@@ -159,7 +159,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MOVIES,
-      page: () => const MoviesView(),
+      page: () => MoviesView(),
       binding: MoviesBinding(),
     ),
     GetPage(
