@@ -16,6 +16,10 @@ class VoidImages {
   static const String live_Tv="assets/images/liveTvImg.png";
   static const String bg_icons="assets/images/bg_icons.png";
   static const String sample="assets/images/sample.png";
+  static const String home1="assets/images/home1.png";
+  static const String home2="assets/images/home2.png";
+  static const String home3="assets/images/home3.png";
+  static const String home4="assets/images/home4.png";
 
   static const String automation="assets/icons/automation.png";
   static const String channel="assets/icons/channel.png";

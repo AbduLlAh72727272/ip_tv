@@ -61,28 +61,65 @@ void showHomeScreenDialog() {
               homeController.switchHomeScreen(homeScreen1Theme);
               Get.back();
             },
-            child: Text(LocaleKeys.FirstHomeTheme.tr),
+            child: Row(mainAxisSize: MainAxisSize.min,
+              children: [
+
+                Image.asset(VoidImages.home1,height: 20.h,width: 20.h),
+                Text("ARK VIP",style: TextStyle(
+                  fontFamily: 'Arial',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),),
+              ],
+            ),
           ),
           ElevatedButton(
             onPressed: () {
               homeController.switchHomeScreen(homeScreen2Theme);
               Get.back();
             },
-            child: Text(LocaleKeys.SecondHomeTheme.tr),
+            child: Row(mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(VoidImages.home2,height: 20.h,width: 20.h),
+                Text("ARK VIP",style: TextStyle(
+                  fontFamily: 'Arial',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),),
+              ],
+            ),
           ),
           ElevatedButton(
             onPressed: () {
               homeController.switchHomeScreen(homeScreen3Theme);
               Get.back();
             },
-            child: Text(LocaleKeys.ThirdHomeTheme.tr),
+            child: Row(mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(VoidImages.home3,height: 20.h,width: 20.h),
+                Text("ARK VIP",style: TextStyle(
+                  fontFamily: 'Arial',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),),
+              ],
+            ),
           ),
           ElevatedButton(
             onPressed: () {
               homeController.switchHomeScreen(homeScreen4Theme);
               Get.back();
             },
-            child: Text(LocaleKeys.FourthHomeTheme.tr),
+            child:  Row(mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(VoidImages.home3,height: 20.h,width: 20.h),
+                Text("ARK VIP",style: TextStyle(
+                  fontFamily: 'Arial',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),),
+              ],
+            ),
           ),
         ],
       ),

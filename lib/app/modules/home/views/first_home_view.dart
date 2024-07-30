@@ -55,7 +55,7 @@ class FirstHomeView extends GetView {
               children: [
                 Image.asset(VoidImages.vpn_blue,
                   height: 30.0.h, width: 30.0.w,),
-                Text('VPN', style: TextStyle(
+                Text('', style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
                   color: VoidColors.whiteColor
