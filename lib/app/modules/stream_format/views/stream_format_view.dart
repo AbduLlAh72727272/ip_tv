@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/stream_format_controller.dart';
+
 
 class StreamFormatView extends GetView<StreamFormatController> {
   const StreamFormatView({Key? key}) : super(key: key);
@@ -29,7 +32,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
             top: 20.h,
             left: 25.w,
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 10.sp,
@@ -50,19 +53,19 @@ class StreamFormatView extends GetView<StreamFormatController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Stream Format',
+                      LocaleKeys.StreamFormat.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
-                    _buildCheckboxItem('Default'),
-
-                    _buildCheckboxItem('MPEGTS'),
-
-                    _buildCheckboxItem('HSL'),
+                    //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
+                    _buildCheckboxItem(LocaleKeys.Default.tr),
+                    //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
+                    _buildCheckboxItem(LocaleKeys.MPEGTS.tr),
+                   // SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
+                    _buildCheckboxItem(LocaleKeys.Hsl.tr),
                   ],
                 ),
               ),
@@ -89,7 +92,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -106,7 +109,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

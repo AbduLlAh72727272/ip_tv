@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/internet_speed_controller.dart';
+
+
 
 class InternetSpeedView extends StatelessWidget {
   final InternetSpeedController controller = Get.put(InternetSpeedController());
@@ -53,7 +57,7 @@ class InternetSpeedView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Internet Speed Test',
+                      LocaleKeys.InternetSpeedTest.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,
@@ -121,15 +125,15 @@ class InternetSpeedView extends StatelessWidget {
                         controller.testInternetSpeed();
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
-                        textStyle: TextStyle(fontSize: 20.sp),
+                        padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 5.0.h),
+                        textStyle: TextStyle(fontSize: 10.sp),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.r),
                         ),
                       ),
                       child: Text(
-                        'Test Again',
-                        style: TextStyle(color: Colors.white,fontSize: 20),
+                        LocaleKeys.Ok.tr,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

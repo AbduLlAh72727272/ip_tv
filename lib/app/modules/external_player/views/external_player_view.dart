@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../controllers/external_player_controller.dart';
+
 
 class ExternalPlayerView extends GetView<ExternalPlayerController> {
-  const ExternalPlayerView({Key? key}) : super(key: key);
+  ExternalPlayerView({Key? key}) : super(key: key);
+
+  var selectedPlayer = 'MX Player'.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +42,19 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Select External Players',
+                    LocaleKeys.SelectExternalPlayer.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  _buildRadioItem('Default', context),
-                  SizedBox(height: 8.h),
-                  _buildRadioItem('Vlc Player', context),
-                  SizedBox(height: 8.h),
-                  _buildRadioItem('MX Player', context),
+                  SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
+                  _buildRadioItem(LocaleKeys.Default.tr, context),
+                  SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
+                  _buildRadioItem(LocaleKeys.VlcPlayer.tr, context),
+                  SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
+                  _buildRadioItem(LocaleKeys.MxPlayer.tr, context),
                 ],
               ),
             ),
@@ -74,26 +80,29 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     ),
                   ),
                   child: Text(
-                    'Cancel',
+                    LocaleKeys.Cancel.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle OK action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    // backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h),
-                    textStyle: TextStyle(fontSize: 9.sp),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle OK action
+                    },
+                    style: ElevatedButton.styleFrom(
+                      // backgroundColor: Colors.red,
+                      padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
+                      textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'OK',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                    child: Text(
+                      LocaleKeys.Ok.tr,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.white),
+    ),
+    ),
                 ),
               ],
             ),
@@ -104,7 +113,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
   }
 
   Widget _buildRadioItem(String title, BuildContext context) {
-    final controller = Get.put(ExternalPlayerController());
+    // final controller = Get.put(ExternalPlayerController());
     return Obx(() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,13 +124,13 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           ),
           Radio<String>(
             value: title,
-            groupValue: controller.selectedPlayer.value,
+            groupValue: selectedPlayer.value,
             onChanged: (String? value) {
-              controller.selectedPlayer.value = value!;
+              selectedPlayer.value = value!;
             },
-            activeColor: Theme.of(context).colorScheme.primary,
-            fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-              return states.contains(MaterialState.selected) ? Theme.of(context).colorScheme.primary : Colors.white;
+            activeColor: Theme.of(context).colorScheme.secondary,
+            fillColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+              return states.contains(WidgetState.selected) ? Theme.of(context).colorScheme.secondary : Colors.white;
             }),
           ),
         ],
@@ -130,6 +139,3 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
   }
 }
 
-class ExternalPlayerController extends GetxController {
-  var selectedPlayer = 'MX Player'.obs;
-}

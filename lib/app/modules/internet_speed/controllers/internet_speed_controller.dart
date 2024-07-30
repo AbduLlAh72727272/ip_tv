@@ -22,7 +22,7 @@ class InternetSpeedController extends GetxController {
         if (_timer != null && _timer!.isActive) {
           speed.value = download.transferRate;
         }
-        _timer?.cancel(); // Ensure timer is canceled
+        _timer?.cancel();
       },
       onError: (String errorMessage, String errorDetails) {
         print('Error: $errorMessage');
@@ -34,7 +34,7 @@ class InternetSpeedController extends GetxController {
       },
       onStarted: () {
         _timer = Timer(Duration(seconds: 10), () {
-          _internetSpeedTest.cancelTest(); // This cancels the current testing process
+          _internetSpeedTest.cancelTest();
         });
       },
     );

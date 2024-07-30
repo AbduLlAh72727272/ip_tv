@@ -17,11 +17,11 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
     ];
 
     return Scaffold(
-      backgroundColor: VoidColors.black,
+      backgroundColor: VoidColors.blackColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.h),
         child: AppBar(
-          backgroundColor: VoidColors.black,
+          backgroundColor: VoidColors.blackColor,
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Image.asset(VoidImages.back),
@@ -51,7 +51,7 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [VoidColors.black, Theme.of(context).colorScheme.primary],
+                colors: [VoidColors.blackColor, Theme.of(context).colorScheme.primary],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),

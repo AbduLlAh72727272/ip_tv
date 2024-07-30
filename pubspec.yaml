@@ -23,6 +23,7 @@ dependencies:
   intl: ^0.19.0
   logger: ^2.3.0
   shimmer: ^3.0.0
+  shared_preferences: ^2.2.3
   syncfusion_flutter_gauges: ^26.2.5
   url_launcher: ^6.3.0
   video_player_control_panel: ^1.1.1
@@ -39,4 +40,5 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/locale/
 

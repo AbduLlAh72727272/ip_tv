@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../routes/app_pages.dart';
+import 'package:get/get.dart';
 
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../../home/views/home_screen_wrapper.dart';
 import '../controllers/parental_controller.dart';
 
 
+
 class ParentalView extends GetView<ParentalController> {
-  const ParentalView({Key? key}) : super(key: key);
+  const ParentalView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,35 +76,46 @@ class ParentalView extends GetView<ParentalController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Set Pin',
+                          // 'Set Pin',
+                    LocaleKeys.ParentalControl.tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 8.h),
-                        _buildTextField('Enter Pin'),
-                        SizedBox(height: 18.h),
-                        _buildTextField('Confirm Pin'),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 8.h), // Spacing using ScreenUtil
+                        _buildTextField(LocaleKeys.EnterPin.tr),
+                        SizedBox(height: 18.h), // Spacing using ScreenUtil
+                        _buildTextField(LocaleKeys.ConfirmPin.tr),
+                        SizedBox(height: 30.h), // Spacing using ScreenUtil
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                Get.offNamed(Routes.HOME);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black.withOpacity(0.4),
-                                padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h),
-                                textStyle: TextStyle(fontSize: 8.sp),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                ),
-                              ),
-                              child: Text('Skip'),
+                          ElevatedButton(
+                          onPressed: () {
+                            // Get.back();
+                            Get.offAll(() => HomeScreenWrapper());
+                  },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black.withOpacity(0.4),
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 8.0.h), // Padding using ScreenUtil
+                            textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r),
                             ),
+                          ),// Border radius using ScreenUtil
+                          child: Text(
+                            LocaleKeys.Skip.tr,
+                            // style: TextStyle(color: textColor),
+                          ),
+                        ),
+                            //
+                            // _buildButton('Skip', Colors.black.withOpacity(0.4), () {
+                            //   // Get.to(() => HomeView()); // Navigate to HomeView
+                            //   Get.to(() => HomeScreenWrapper());
+                            // }),
+
                             ElevatedButton(
                               onPressed: () {
                                 // Handle set action
@@ -114,7 +127,10 @@ class ParentalView extends GetView<ParentalController> {
                                   borderRadius: BorderRadius.circular(5.r),
                                 ),
                               ),
-                              child: Text('Set'),
+                              child: Text(
+                                LocaleKeys.Set.tr,
+                                // style: TextStyle(color: textColor),
+                              ),
                             ),
                           ],
                         ),

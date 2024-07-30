@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
 import 'live_t_v_view2.dart';
+
 
 class LiveTVView extends GetView<LiveTVController> {
   const LiveTVView({Key? key}) : super(key: key);
@@ -45,15 +49,15 @@ class LiveTVView extends GetView<LiveTVController> {
                         Expanded(
                           child: Center(
                             child: Text(
-                              'Live TV',
-                              style: TextStyle(color: Colors.white, fontSize: 9.sp),
+                              LocaleKeys.LiveTv.tr,
+                              style: TextStyle(color: Colors.white, fontSize: 18),
                             ),
                           ),
                         ),
                         SizedBox(width: 45.w),
                         Text(
-                          'Channel 01 HD',
-                          style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold),
+                          LocaleKeys.ChannelHd.tr,
+                          style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                         Spacer(),
                         IconButton(
@@ -89,12 +93,12 @@ class LiveTVView extends GetView<LiveTVController> {
                           return Container(
                             color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
                             child: ListTile(
-                              title: const Text(
-                                'Channel 01 HD',
+                              title: Text(
+                                LocaleKeys.ChannelHd.tr,
                                 style: TextStyle(color: Colors.white),
                               ),
                               subtitle: Text(
-                                'Program Info',
+                                LocaleKeys.ProgramInfo.tr,
                                 style: TextStyle(color: Colors.white.withOpacity(0.7)),
                               ),
                               onTap: () {

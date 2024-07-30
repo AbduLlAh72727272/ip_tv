@@ -25,6 +25,8 @@ import '../modules/parental/bindings/parental_binding.dart';
 import '../modules/parental/views/parental_view.dart';
 import '../modules/playlist/bindings/playlist_binding.dart';
 import '../modules/playlist/views/playlist_view.dart';
+import '../modules/selectLanguage/bindings/select_language_binding.dart';
+import '../modules/selectLanguage/views/select_language_view.dart';
 import '../modules/series/bindings/series_binding.dart';
 import '../modules/series/views/series_view.dart';
 import '../modules/series/views/series_view2.dart';
@@ -58,6 +60,11 @@ class AppPages {
   static const INTERNET_SPEED = Routes.INTERNET_SPEED;
   static const THEMES = Routes.THEMES;
   static const LIVE_T_V = Routes.LIVE_T_V;
+  static const SELECT_LANGUAGE = Routes.SELECT_LANGUAGE;
+  static const SERIES = Routes.SERIES;
+  static const LOGIN = Routes.LOGIN;
+  static const MULTISCREEN = Routes.MULTISCREEN;
+  static const MOVIES = Routes.MOVIES;
 
   static final routes = [
     GetPage(
@@ -112,7 +119,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EXTERNAL_PLAYER,
-      page: () => const ExternalPlayerView(),
+      page: () => ExternalPlayerView(),
       binding: ExternalPlayerBinding(),
     ),
     GetPage(
@@ -131,6 +138,11 @@ class AppPages {
       binding: LiveTVBinding(),
     ),
     GetPage(
+      name: _Paths.SELECT_LANGUAGE,
+      page: () => SelectLanguageView(),
+      binding: SelectLanguageBinding(),
+    ),
+    GetPage(
       name: _Paths.SERIES,
       page: () => SeriesView(),
       binding: SeriesBinding(),
@@ -147,16 +159,16 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MOVIES,
-      page: () => const MoviesView(),
+      page: () => MoviesView(),
       binding: MoviesBinding(),
     ),
     GetPage(
-        name: '/movies_view2',
-        page: () =>  const MoviesView2()
+      name: '/movies_view2',
+      page: () => const MoviesView2(),
     ),
     GetPage(
-        name: '/series_view2',
-        page: () => const SeriesView2()
+      name: '/series_view2',
+      page: () => const SeriesView2(),
     ),
   ];
 }

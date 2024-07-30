@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
+import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../../live_TV/views/live_t_v_view.dart';
+
 
 
 class HomeView extends StatelessWidget {
@@ -19,11 +23,17 @@ class HomeView extends StatelessWidget {
         children: [
           // Background image
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
               image: DecorationImage(
                 image: AssetImage(VoidImages.background2),
                 fit: BoxFit.cover,
               ),
+            ),
+            child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: Image.asset('assets/images/darkShadeImg.png', fit: BoxFit.cover)
             ),
           ),
           // Content
@@ -65,24 +75,25 @@ class HomeView extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              _buildMenuItem(Icons.home, 'Home', selected: true),
-                              _buildMenuItem(Icons.live_tv, 'Live TV', onTap: () {
-                                Get.toNamed(Routes.LIVE_T_V); // Navigate to LiveTVView
+                              _buildMenuItem(Icons.home, LocaleKeys.Home.tr, selected: true),
+                              _buildMenuItem(Icons.live_tv, LocaleKeys.LiveTv.tr, onTap: () {
+                                Get.to(() => LiveTVView()); // Navigate to LiveTVView
                               }),
-                              _buildMenuItem(Icons.movie, 'Movies' , onTap:(){
-                                Get.toNamed(Routes.MOVIES);
+                              _buildMenuItem(Icons.movie, LocaleKeys.Movies.tr, onTap: () {
+                                Get.toNamed(Routes.MOVIES); // Navigate to Movies
                               }),
-                              _buildMenuItem(Icons.screen_share, 'Multi Screen', onTap: () {
-                                Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiscreenView
+                              _buildMenuItem(Icons.screen_share, LocaleKeys.MultiScreen.tr, onTap: () {
+                                Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiScreen
                               }),
-                              _buildMenuItem(Icons.tv, 'Series', onTap: () {
+                              _buildMenuItem(Icons.tv, LocaleKeys.Series.tr, onTap: () {
                                 Get.toNamed(Routes.SERIES); // Navigate to SeriesScreen
                               }),
-                              _buildMenuItem(Icons.sports, 'Sports'),
-                              _buildMenuItem(Icons.playlist_play, 'Playlist'),
-                              _buildMenuItem(Icons.videocam, 'Recording'),
+                              _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
+                              _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
+                              _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
                               SizedBox(height: 20.h), // Spacing using ScreenUtil
                             ],
+
                           ),
                         ),
                       ),
@@ -128,7 +139,7 @@ class HomeView extends StatelessWidget {
                         top: 16.h,
                         right: 16.w,
                         child: Text(
-                          'Expiration : 24/09/2022',
+                          '${LocaleKeys.Expiration.tr} : 24/09/2022',
                           style: TextStyle(color: Colors.white, fontSize: 7.sp), // Adjust font size using ScreenUtil
                         ),
                       ),

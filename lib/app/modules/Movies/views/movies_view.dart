@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../common/widgets/movies_card.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
+import '../models/movie_model.dart';
 
 class MoviesView extends GetView<MoviesController> {
-  const MoviesView({Key? key}) : super(key: key);
+  MoviesView({super.key});
+
+  // final MoviesController moviesController = Get.put(MoviesController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +143,7 @@ class MoviesView extends GetView<MoviesController> {
   }
 
   Widget _buildMatchedSection() {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -152,28 +158,45 @@ class MoviesView extends GetView<MoviesController> {
         ),
         SizedBox(height: 8.h),
         // Movies List
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              GestureDetector(
-                  onTap: () {
-                Get.toNamed('/movies_view2');
-              },
-                  child: _buildMovieCard(VoidImages.sample, 'Recently Added')),
-              GestureDetector(
+        // Obx(() => moviesController.isLoading.value ? CircularProgressIndicator() :
+          SizedBox(
+            height: 180.h,
+            child: ListView.builder(
+              itemCount: 5,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                return GestureDetector(
                   onTap: () {
                     Get.toNamed('/movies_view2');
                   },
-                  child: _buildMovieCard(VoidImages.sample, '')),
-              GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/movies_view2');
-                  },
-                  child: _buildMovieCard(VoidImages.sample, 'Leaving Soon')),
-            ],
-          ),
-        ),
+                    child: buildMovieCard('assets/images/sample.png', 'Recently Added'));
+                  // Movie movie = moviesController.movies[index];
+              // return _buildMovieCard('https://image.tmdb.org/t/p/w500${movie.posterPath}', movie.title);
+            }),
+    ),
+    // ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child: Row(
+        //     children: [
+        //       GestureDetector(
+        //           onTap: () {
+        //         Get.toNamed('/movies_view2');
+        //       },
+        //           child: _buildMovieCard('assets/images/sample.png', 'Recently Added')),
+        //       GestureDetector(
+        //           onTap: () {
+        //             Get.toNamed('/movies_view2');
+        //           },
+        //           child: _buildMovieCard('assets/images/sample.png', '')),
+        //       GestureDetector(
+        //           onTap: () {
+        //             Get.toNamed('/movies_view2');
+        //           },
+        //           child: _buildMovieCard('assets/images/sample.png', 'Leaving Soon')),
+        //     ],
+        //   ),
+        // ),
         SizedBox(height: 16.h),
         // Matched to You Title (Second Row)
         Text(
@@ -190,9 +213,9 @@ class MoviesView extends GetView<MoviesController> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildMovieCard(VoidImages.sample, 'Recently Added'),
-              _buildMovieCard(VoidImages.sample, ''),
-              _buildMovieCard(VoidImages.sample, 'Leaving Soon'),
+              buildMovieCard('assets/images/sample.png', 'Recently Added'),
+              buildMovieCard('assets/images/sample.png', ''),
+              buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
             ],
           ),
         ),
@@ -206,35 +229,6 @@ class MoviesView extends GetView<MoviesController> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildMovieCard(String imagePath, String label) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8.0.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 100.w,
-            height: 150.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

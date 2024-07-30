@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/time_format_controller.dart';
 
+
 class TimeFormatView extends GetView<TimeFormatController> {
-  const TimeFormatView({Key? key}) : super(key: key);
+  const TimeFormatView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
@@ -28,7 +31,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
             top: 20.h,
             left: 25.w,
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 10.sp,
@@ -47,17 +50,17 @@ class TimeFormatView extends GetView<TimeFormatController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Time Format',
+                    LocaleKeys.TimeFormat.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20.h),
-                  _buildCheckboxItem('12 Hour'),
-                  SizedBox(height: 20.h),
-                  _buildCheckboxItem('24 Hour'),
+                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
+                  _buildCheckboxItem(LocaleKeys.Hr.tr),
+                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
+                  _buildCheckboxItem(LocaleKeys.twentyFourHr.tr),
                 ],
               ),
             ),
@@ -83,7 +86,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -99,7 +102,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -112,7 +115,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
   }
 
   Widget _buildCheckboxItem(String title) {
-    bool isChecked = title == '12 Hour';
+    bool isChecked = title == LocaleKeys.Hr.tr;
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Row(

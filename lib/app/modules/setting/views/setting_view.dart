@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../routes/app_pages.dart';
 
+import '../../../../generated/locales.g.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/setting_controller.dart';
+
 
 class SettingView extends GetView<SettingController> {
   const SettingView({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class SettingView extends GetView<SettingController> {
                     ),
                     SizedBox(width: 5.w),
                     Text(
-                      'Settings',
+                      LocaleKeys.Settings.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 10.sp,
@@ -62,30 +64,31 @@ class SettingView extends GetView<SettingController> {
                   crossAxisSpacing: 30.w,
                   mainAxisSpacing: 30.h,
                   children: [
-                    _buildSettingItem('General Settings', context, VoidImages.general_setting, onTap: () {
+                    _buildSettingItem(LocaleKeys.GeneralSettings.tr, context, VoidImages.general_setting, onTap: () {
                       Get.toNamed(Routes.GENERAL_SETTING);
                     }),
-                    _buildSettingItem('Stream Format', context, VoidImages.stream, onTap: () {
+                    _buildSettingItem(LocaleKeys.StreamFormat.tr, context, VoidImages.stream, onTap: () {
                       Get.toNamed(Routes.STREAM_FORMAT);
                     }),
-                    _buildSettingItem('Time Format', context, VoidImages.clock, onTap: () {
+                    _buildSettingItem(LocaleKeys.TimeFormat.tr, context, VoidImages.clock, onTap: () {
                       Get.toNamed(Routes.TIME_FORMAT);
                     }),
-                    _buildSettingItem('Parental Control', context, VoidImages.parental_control),
-                    _buildSettingItem('Automation', context, VoidImages.automation, onTap: () {
+                    _buildSettingItem(LocaleKeys.ParentalControl.tr, context, VoidImages.parental_control),
+                    _buildSettingItem(LocaleKeys.Automation.tr, context, VoidImages.automation, onTap: () {
                       Get.toNamed(Routes.AUTOMATION);
                     }),
                     _buildSettingItem('EPG', context, VoidImages.epg),
-                    _buildSettingItem('Themes', context, VoidImages.themes, onTap: () {
+                    _buildSettingItem(LocaleKeys.Themes.tr, context, VoidImages.themes, onTap: () {
                       Get.toNamed(Routes.THEMES);
                     }),
-                    _buildSettingItem('External Players', context, VoidImages.player, onTap: () {
+                    _buildSettingItem(LocaleKeys.ExternalPlayers.tr, context, VoidImages.player, onTap: () {
                       Get.toNamed(Routes.EXTERNAL_PLAYER);
                     }),
-                    _buildSettingItem('Internet Speed Test', context, VoidImages.speed, onTap: () {
+                    _buildSettingItem(LocaleKeys.InternetSpeedTest.tr, context, VoidImages.speed, onTap: () {
                       Get.toNamed(Routes.INTERNET_SPEED);
                     }),
                   ],
+
                 ),
               ),
             ],

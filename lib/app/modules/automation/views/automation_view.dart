@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/automation_controller.dart';
+
 
 class AutomationView extends GetView<AutomationController> {
   const AutomationView({Key? key}) : super(key: key);
@@ -28,7 +31,7 @@ class AutomationView extends GetView<AutomationController> {
             top: 20.h,
             left: 25.w,
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 10.sp,
@@ -47,17 +50,17 @@ class AutomationView extends GetView<AutomationController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Automation',
+                    LocaleKeys.Automation.tr,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20.h),
-                  _buildCheckboxItem('Auto update channels & movies daily'),
-                  SizedBox(height: 20.h),
-                  _buildCheckboxItemWithDropdown('Auto update EPG after every', 'day'),
+                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
+                  _buildCheckboxItem(LocaleKeys.AutoUpdateAndMovie.tr),
+                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
+                  _buildCheckboxItemWithDropdown(LocaleKeys.AutoUpdateEpg.tr, LocaleKeys.Day.tr),
                 ],
               ),
             ),
@@ -83,7 +86,7 @@ class AutomationView extends GetView<AutomationController> {
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -100,7 +103,7 @@ class AutomationView extends GetView<AutomationController> {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -113,7 +116,7 @@ class AutomationView extends GetView<AutomationController> {
   }
 
   Widget _buildCheckboxItem(String title) {
-    bool isChecked = title == 'Auto update channels & movies daily';
+    bool isChecked = title == LocaleKeys.AutoUpdateAndMovie.tr;
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return Row(
@@ -129,10 +132,12 @@ class AutomationView extends GetView<AutomationController> {
               checkColor: Colors.black,
               activeColor: Colors.white,
             ),
-            SizedBox(width: 10.w),
-            Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp),
+            SizedBox(width: 10.w), // Adjusted spacing using ScreenUtil
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+              ),
             ),
           ],
         );
@@ -157,10 +162,14 @@ class AutomationView extends GetView<AutomationController> {
               checkColor: Colors.black,
               activeColor: Colors.white,
             ),
-            SizedBox(width: 10.w),
-            Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp),
+            SizedBox(width: 10.w), // Adjusted spacing using ScreenUtil
+            SizedBox(
+              width: 130.w,
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+              ),
             ),
             SizedBox(width: 10.w),
             DropdownButton<String>(
