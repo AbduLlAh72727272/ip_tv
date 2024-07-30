@@ -26,6 +26,7 @@ class LocaleKeys {
   static const SecondHomeTheme = 'SecondHomeTheme';
   static const ThirdHomeTheme = 'ThirdHomeTheme';
   static const FourthHomeTheme = 'FourthHomeTheme';
+  static const ChooseTheme = 'ChooseTheme';
   static const Playlist = 'Playlist';
   static const AddPlaylist = 'AddPlaylist';
   static const MUPlaylist = 'MUPlaylist';
@@ -130,6 +131,7 @@ class Locales {
     'SecondHomeTheme': '2nd Home Theme',
     'ThirdHomeTheme': '3rd Home Theme',
     'FourthHomeTheme': '4h Home Theme',
+    'ChooseTheme': 'Choose Theme',
     'Playlist': 'Playlist',
     'AddPlaylist': 'Add Playlist',
     'MUPlaylist': 'M3U playlist via URL',
@@ -232,6 +234,7 @@ class Locales {
     'SecondHomeTheme': 'Tema de la 2ª Casa',
     'ThirdHomeTheme': 'Tema de la 3ª Casa',
     'FourthHomeTheme': 'Tema de la 4ª Casa',
+    'ChooseTheme': 'Elegir tema',
     'Playlist': 'Lista de reproducción',
     'AddPlaylist': 'Agregar lista de reproducción',
     'MUPlaylist': 'Lista de reproducción M3U a través de URL',

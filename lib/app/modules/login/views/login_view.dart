@@ -13,7 +13,7 @@ class LoginView extends StatelessWidget {
 
   final TextEditingController macAddressController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
-  final MoviesController moviesController = Get.put(MoviesController());
+  // final MoviesController moviesController = Get.put(MoviesController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,8 @@ class LoginView extends StatelessWidget {
                   TextField(
                     controller: macAddressController,
                     style: TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      labelText: 'Mac Address',
+                    decoration: InputDecoration(
+                      labelText: LocaleKeys.MacAddress.tr,
                       labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -63,9 +63,9 @@ class LoginView extends StatelessWidget {
                   TextField(
                     controller: pinController,
                     style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      labelText: 'Pin',
-                      labelStyle: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: LocaleKeys.Pin.tr,
+                      labelStyle: const TextStyle(color: Colors.white),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),

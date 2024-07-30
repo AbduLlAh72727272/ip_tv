@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
+import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/colors.dart';

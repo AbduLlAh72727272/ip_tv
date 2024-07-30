@@ -10,7 +10,7 @@ import '../controllers/parental_controller.dart';
 
 
 class ParentalView extends GetView<ParentalController> {
-  const ParentalView({Key? key}) : super(key: key);
+  const ParentalView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +94,8 @@ class ParentalView extends GetView<ParentalController> {
                           children: [
                           ElevatedButton(
                           onPressed: () {
-                            Get.back();
-                            Get.to(() => HomeScreenWrapper());
+                            // Get.back();
+                            Get.offAll(() => HomeScreenWrapper());
                   },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black.withOpacity(0.4),

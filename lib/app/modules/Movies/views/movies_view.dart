@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../common/widgets/movies_card.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
 import '../models/movie_model.dart';
 
 class MoviesView extends GetView<MoviesController> {
-  MoviesView({Key? key}) : super(key: key);
+  MoviesView({super.key});
 
-  final MoviesController moviesController = Get.put(MoviesController());
+  // final MoviesController moviesController = Get.put(MoviesController());
 
 
   @override
@@ -157,18 +158,23 @@ class MoviesView extends GetView<MoviesController> {
         ),
         SizedBox(height: 8.h),
         // Movies List
-        Obx(() => moviesController.isLoading.value ? CircularProgressIndicator() :
+        // Obx(() => moviesController.isLoading.value ? CircularProgressIndicator() :
           SizedBox(
             height: 180.h,
             child: ListView.builder(
-              itemCount: moviesController.movies.length,
+              itemCount: 5,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  Movie movie = moviesController.movies[index];
-              return _buildMovieCard('https://image.tmdb.org/t/p/w500${movie.posterPath}', movie.title);
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/movies_view2');
+                  },
+                    child: buildMovieCard('assets/images/sample.png', 'Recently Added'));
+                  // Movie movie = moviesController.movies[index];
+              // return _buildMovieCard('https://image.tmdb.org/t/p/w500${movie.posterPath}', movie.title);
             }),
-    )
     ),
+    // ),
         // SingleChildScrollView(
         //   scrollDirection: Axis.horizontal,
         //   child: Row(
@@ -203,16 +209,16 @@ class MoviesView extends GetView<MoviesController> {
         ),
         SizedBox(height: 8.h),
         // Movies List (Second Row)
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   child: Row(
-        //     children: [
-        //       _buildMovieCard('assets/images/sample.png', 'Recently Added'),
-        //       _buildMovieCard('assets/images/sample.png', ''),
-        //       _buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
-        //     ],
-        //   ),
-        // ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              buildMovieCard('assets/images/sample.png', 'Recently Added'),
+              buildMovieCard('assets/images/sample.png', ''),
+              buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
+            ],
+          ),
+        ),
         SizedBox(height: 16.h),
         // Expiration Date
         Text(
@@ -223,40 +229,6 @@ class MoviesView extends GetView<MoviesController> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildMovieCard(String imagePath, String label) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8.0.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 100.w,
-            height: 150.h,
-            child: Image.network(imagePath, fit: BoxFit.cover,),
-            // decoration: BoxDecoration(
-            //   image: DecorationImage(
-            //     image: Image.network(imagePath),
-            //     fit: BoxFit.cover,
-            //   ),
-            // ),
-          ),
-          SizedBox(height: 4.h),
-          SizedBox(
-            width: 80.w,
-            child: Text(
-              label,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 7.sp,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

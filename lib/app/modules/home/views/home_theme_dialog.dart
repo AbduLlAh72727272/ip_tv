@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:ip_tv/generated/locales.g.dart';
 
 import '../../../utils/constraints/image_strings.dart';
 import '../../../utils/theme/homeTheme.dart';
@@ -51,7 +52,7 @@ import '../controllers/home_controller.dart';
 void showHomeScreenDialog() {
   final HomeController homeController = Get.find();
   Get.defaultDialog(
-    title: 'Choose Theme',
+    title: LocaleKeys.ChooseTheme.tr,
     content: Expanded(
       child: Column(
         children: [
@@ -60,28 +61,28 @@ void showHomeScreenDialog() {
               homeController.switchHomeScreen(homeScreen1Theme);
               Get.back();
             },
-            child: Text('Home Screen 1'),
+            child: Text(LocaleKeys.FirstHomeTheme.tr),
           ),
           ElevatedButton(
             onPressed: () {
               homeController.switchHomeScreen(homeScreen2Theme);
               Get.back();
             },
-            child: Text('Home Screen 2'),
+            child: Text(LocaleKeys.SecondHomeTheme.tr),
           ),
           ElevatedButton(
             onPressed: () {
               homeController.switchHomeScreen(homeScreen3Theme);
               Get.back();
             },
-            child: Text('Home Screen 3'),
+            child: Text(LocaleKeys.ThirdHomeTheme.tr),
           ),
           ElevatedButton(
             onPressed: () {
               homeController.switchHomeScreen(homeScreen4Theme);
               Get.back();
             },
-            child: Text('Home Screen 4'),
+            child: Text(LocaleKeys.FourthHomeTheme.tr),
           ),
         ],
       ),

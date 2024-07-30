@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ip_tv/app/modules/home/views/fourth_home_view.dart';
 import 'package:ip_tv/app/modules/home/views/home_screen_wrapper.dart';
-import 'package:ip_tv/app/modules/home/views/sec_home_view.dart';
+import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 import 'package:ip_tv/app/modules/home/views/third_home_view.dart';
 import '../../modules/home/views/first_home_view.dart';
 import '../../modules/home/views/home_view.dart';
