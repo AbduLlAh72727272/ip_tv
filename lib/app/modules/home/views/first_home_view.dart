@@ -32,14 +32,14 @@ class FirstHomeView extends GetView {
     ];
 
     List<String> newImages = [
-      'assets/images/mikeImg.png',
+      //'assets/images/mikeImg.png',
       'assets/images/tvImg.png',
       'assets/images/secTvImg.png',
       'assets/images/sportsImg.png',
     ];
 
     List<String> titles = [
-      LocaleKeys.Recording.tr,
+      //LocaleKeys.Recording.tr,
       LocaleKeys.Epg.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.SportGuide.tr,
