@@ -20,6 +20,12 @@ class LocaleKeys {
   static const Armenian = 'Armenian';
   static const French = 'French';
   static const UnlockFeature = 'UnlockFeature';
+  static const MacAddress = 'MacAddress';
+  static const Pin = 'Pin';
+  static const FirstHomeTheme = 'FirstHomeTheme';
+  static const SecondHomeTheme = 'SecondHomeTheme';
+  static const ThirdHomeTheme = 'ThirdHomeTheme';
+  static const FourthHomeTheme = 'FourthHomeTheme';
   static const Playlist = 'Playlist';
   static const AddPlaylist = 'AddPlaylist';
   static const MUPlaylist = 'MUPlaylist';
@@ -118,6 +124,12 @@ class Locales {
     'Armenian': 'Armenian',
     'French': 'French',
     'UnlockFeature': 'Unlocking The Future',
+    'MacAddress': 'Mac Address',
+    'Pin': 'Pin',
+    'FirstHomeTheme': '1st Home Theme',
+    'SecondHomeTheme': '2nd Home Theme',
+    'ThirdHomeTheme': '3rd Home Theme',
+    'FourthHomeTheme': '4h Home Theme',
     'Playlist': 'Playlist',
     'AddPlaylist': 'Add Playlist',
     'MUPlaylist': 'M3U playlist via URL',
@@ -214,6 +226,12 @@ class Locales {
     'Armenian': 'Armenia',
     'French': 'Francesa',
     'UnlockFeature': 'Liberando el futuro',
+    'MacAddress': 'Dirección MAC',
+    'Pin': 'Pin',
+    'FirstHomeTheme': 'Tema de la 1ª Casa',
+    'SecondHomeTheme': 'Tema de la 2ª Casa',
+    'ThirdHomeTheme': 'Tema de la 3ª Casa',
+    'FourthHomeTheme': 'Tema de la 4ª Casa',
     'Playlist': 'Lista de reproducción',
     'AddPlaylist': 'Agregar lista de reproducción',
     'MUPlaylist': 'Lista de reproducción M3U a través de URL',
