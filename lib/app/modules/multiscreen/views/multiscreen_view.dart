@@ -6,7 +6,7 @@ import '../controllers/multiscreen_controller.dart';
 import 'multiscreen_view2.dart';
 
 class MultiscreenView extends GetView<MultiscreenController> {
-  const MultiscreenView({Key? key}) : super(key: key);
+  const MultiscreenView({super.key});
 
   @override
   Widget build(BuildContext context) {

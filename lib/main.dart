@@ -29,6 +29,12 @@ class MyApp extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
+    // For status bar color and icons color
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle
+      (statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,)
+    );
     return ScreenUtilInit(
       designSize: Size(360, 690),
       minTextAdapt: true,
