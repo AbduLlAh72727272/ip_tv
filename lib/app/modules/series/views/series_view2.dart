@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
 import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/colors.dart';

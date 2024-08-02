@@ -134,7 +134,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LIVE_T_V,
-      page: () => const LiveTVView(),
+      page: () => LiveTVView(),
       binding: LiveTVBinding(),
     ),
     GetPage(
