@@ -5,20 +5,18 @@ import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
-import '../../Movies/controllers/movies_controller.dart';
-
+import '../controllers/login_controller.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
 
   final TextEditingController macAddressController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
-  // final MoviesController moviesController = Get.put(MoviesController());
+
+  final LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -34,55 +32,76 @@ class LoginView extends StatelessWidget {
           ),
           // Form content
           Center(
-            child: Container(
-              width: 200.w,
-              padding: EdgeInsets.all(16.0.w),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    controller: macAddressController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: LocaleKeys.MacAddress.tr,
-                      labelStyle: TextStyle(color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  TextField(
-                    controller: pinController,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: LocaleKeys.Pin.tr,
-                      labelStyle: const TextStyle(color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+              child: Container(
+                width: 200.w,
+                padding: EdgeInsets.all(16.0.w),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: macAddressController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.MacAddress.tr,
+                        labelStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20.h),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
+                    SizedBox(height: 20.h),
+                    TextField(
+                      controller: pinController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.Pin.tr,
+                        labelStyle: const TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
                         onPressed: () {
-                          // // Navigate to PlaylistView using named route
-                          Get.offNamed(Routes.PLAYLIST);
-                          // print('Movie');
-                          // moviesController.fetchMovieLists();
+                          String macAddress = macAddressController.text.trim();
+                          String pin = pinController.text.trim();
+
+                          if (loginController.validateCredentials(macAddress, pin)) {
+                            // Credentials are correct, navigate to PlaylistView
+                            Get.offNamed(Routes.PLAYLIST);
+                            Get.snackbar(
+                              "Success",
+                              "WELCOME TO ARK VIP!!!",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.green,
+                              colorText: Colors.white,
+                            );
+                          } else {
+                            // Credentials are incorrect, show error snackbar
+                            Get.snackbar(
+                              "Error",
+                              "Incorrect MAC Address or PIN",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: VoidColors.primary,
@@ -90,12 +109,13 @@ class LoginView extends StatelessWidget {
                           textStyle: TextStyle(fontSize: 8.sp),
                         ),
                         child: Text(
-                           LocaleKeys.AddPlaylist.tr,
+                          LocaleKeys.AddPlaylist.tr,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

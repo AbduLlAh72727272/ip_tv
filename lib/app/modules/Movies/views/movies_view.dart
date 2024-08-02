@@ -10,9 +10,6 @@ import '../models/movie_model.dart';
 class MoviesView extends GetView<MoviesController> {
   MoviesView({super.key});
 
-  // final MoviesController moviesController = Get.put(MoviesController());
-
-
   @override
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
@@ -21,7 +18,7 @@ class MoviesView extends GetView<MoviesController> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40.h,
-        backgroundColor: VoidColors.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         leading: Padding(
           padding: EdgeInsets.all(2.0.w),
@@ -48,7 +45,7 @@ class MoviesView extends GetView<MoviesController> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.black, VoidColors.primary],
+                colors: [Colors.black, Theme.of(context).colorScheme.primary],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
               ),
@@ -104,6 +101,9 @@ class MoviesView extends GetView<MoviesController> {
                                   foregroundColor: Colors.black,
                                   backgroundColor: Colors.white,
                                   padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 8.w),
@@ -114,6 +114,9 @@ class MoviesView extends GetView<MoviesController> {
                                   foregroundColor: Colors.white,
                                   side: BorderSide(color: Colors.white),
                                   padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                  ),
                                 ),
                               ),
                             ],
@@ -143,79 +146,54 @@ class MoviesView extends GetView<MoviesController> {
   }
 
   Widget _buildMatchedSection() {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Matched to You Title
-        Text(
-          'Matched to You',
-          style: TextStyle(
-            fontSize: 9.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(height: 8.h),
-        // Movies List
-        // Obx(() => moviesController.isLoading.value ? CircularProgressIndicator() :
-          SizedBox(
-            height: 180.h,
-            child: ListView.builder(
-              itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.toNamed('/movies_view2');
-                  },
-                    child: buildMovieCard('assets/images/sample.png', 'Recently Added'));
-                  // Movie movie = moviesController.movies[index];
-              // return _buildMovieCard('https://image.tmdb.org/t/p/w500${movie.posterPath}', movie.title);
-            }),
-    ),
-    // ),
-        // SingleChildScrollView(
-        //   scrollDirection: Axis.horizontal,
-        //   child: Row(
-        //     children: [
-        //       GestureDetector(
-        //           onTap: () {
-        //         Get.toNamed('/movies_view2');
-        //       },
-        //           child: _buildMovieCard('assets/images/sample.png', 'Recently Added')),
-        //       GestureDetector(
-        //           onTap: () {
-        //             Get.toNamed('/movies_view2');
-        //           },
-        //           child: _buildMovieCard('assets/images/sample.png', '')),
-        //       GestureDetector(
-        //           onTap: () {
-        //             Get.toNamed('/movies_view2');
-        //           },
-        //           child: _buildMovieCard('assets/images/sample.png', 'Leaving Soon')),
-        //     ],
+        // Text(
+        //   'Matched to You',
+        //   style: TextStyle(
+        //     fontSize: 9.sp,
+        //     fontWeight: FontWeight.bold,
+        //     color: Colors.white,
         //   ),
         // ),
-        SizedBox(height: 16.h),
-        // Matched to You Title (Second Row)
-        Text(
-          'Matched to You',
-          style: TextStyle(
-            fontSize: 9.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        SizedBox(height: 8.h),
+        // Movies List
+        SizedBox(
+          height: 180.h,
+          child: ListView.builder(
+            itemCount: 5,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  Get.toNamed('/movies_view2');
+                },
+                child: buildMovieCard('assets/images/sample.png', ''),
+              );
+            },
           ),
         ),
+        SizedBox(height: 16.h),
+        // Matched to You Title (Second Row)
+        // Text(
+        //   'Matched to You',
+        //   style: TextStyle(
+        //     fontSize: 9.sp,
+        //     fontWeight: FontWeight.bold,
+        //     color: Colors.white,
+        //   ),
+        // ),
         SizedBox(height: 8.h),
         // Movies List (Second Row)
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              buildMovieCard('assets/images/sample.png', 'Recently Added'),
               buildMovieCard('assets/images/sample.png', ''),
-              buildMovieCard('assets/images/sample.png', 'Leaving Soon'),
+              buildMovieCard('assets/images/sample.png', ''),
+              buildMovieCard('assets/images/sample.png', ''),
             ],
           ),
         ),

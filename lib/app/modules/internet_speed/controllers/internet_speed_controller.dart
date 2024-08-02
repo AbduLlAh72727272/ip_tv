@@ -14,8 +14,8 @@ class InternetSpeedController extends GetxController {
   }
 
   void testInternetSpeed() {
-    _timer?.cancel(); // Cancel any existing timer
-    speed.value = 0.0; // Reset speed value
+    _timer?.cancel();
+    speed.value = 0.0;
 
     _internetSpeedTest.startTesting(
       onCompleted: (TestResult download, TestResult upload) {

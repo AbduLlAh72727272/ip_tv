@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../../setting/views/setting_view.dart';
 import 'first_home_view.dart';
 
@@ -67,7 +69,7 @@ class ThirdHomeView extends GetView {
                     onTap: () {
                       showHomeScreenDialog();
                     },
-                    child: Image.asset('assets/icons/themes.png', height: 25.h, width: 25.w,)),
+                    child: Image.asset(VoidImages.homeTheme, height: 25.h, width: 25.w,)),
                 Spacer(),
                 Image.asset('assets/images/iptv logo.png',
                   height: 40.0.h, width: 40.0.w,),
@@ -92,7 +94,9 @@ class ThirdHomeView extends GetView {
             children: [
               Expanded(
                 child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                      Get.toNamed(Routes.HOME);
+                },
                          child:
                             ThirdHomeCardWidget(icons: icons[0], titles: titles[0]),
 
@@ -100,7 +104,9 @@ class ThirdHomeView extends GetView {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.LIVE_T_V);
+                  },
                   child:
                   ThirdHomeCardWidget(icons: icons[1], titles: titles[1]),
 
@@ -108,7 +114,9 @@ class ThirdHomeView extends GetView {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.MOVIES);
+                  },
                   child:
                   ThirdHomeCardWidget(icons: icons[2], titles: titles[2]),
 
@@ -116,7 +124,9 @@ class ThirdHomeView extends GetView {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.MULTISCREEN);
+                  },
                   child:
                   ThirdHomeCardWidget(icons: icons[3], titles: titles[3]),
 
@@ -124,7 +134,9 @@ class ThirdHomeView extends GetView {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.SERIES);
+                  },
                   child:
                   ThirdHomeCardWidget(icons: icons[4], titles: titles[4]),
 

@@ -101,7 +101,7 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           _buildIconButton(VoidImages.vpn_red),
-                          _buildIconButton(VoidImages.themes, onTap: () {
+                          _buildIconButton(VoidImages.homeTheme, onTap: () {
                             showHomeScreenDialog();
                           }),
                           _buildIconButton(VoidImages.setting_icon, onTap: () {
