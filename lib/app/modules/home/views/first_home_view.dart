@@ -32,14 +32,14 @@ class FirstHomeView extends GetView {
     ];
 
     List<String> newImages = [
-      'assets/images/mikeImg.png',
+      //'assets/images/mikeImg.png',
       'assets/images/tvImg.png',
       'assets/images/secTvImg.png',
       'assets/images/sportsImg.png',
     ];
 
     List<String> titles = [
-      LocaleKeys.Recording.tr,
+      //LocaleKeys.Recording.tr,
       LocaleKeys.Epg.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.SportGuide.tr,
@@ -55,7 +55,7 @@ class FirstHomeView extends GetView {
               children: [
                 Image.asset(VoidImages.vpn_blue,
                   height: 30.0.h, width: 30.0.w,),
-                Text('VPN', style: TextStyle(
+                Text('', style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w500,
                   color: VoidColors.whiteColor

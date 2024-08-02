@@ -69,7 +69,7 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                         ),
             ),
                       Checkbox(
-                        value: false,
+                        value: true,
                         onChanged: (value) {
                           // Handle checkbox change
                         },
@@ -77,34 +77,34 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                     ],
                   ),
                   SizedBox(height: 5.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        LocaleKeys.ChangeTheme.tr,
-                        style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
-                      ),
-                      DropdownButton<String>(
-                        dropdownColor: Colors.black,
-                        value: null,
-                        hint: Text(
-                          LocaleKeys.ChangeTheme.tr,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                        items: <String>[LocaleKeys.Light.tr, LocaleKeys.Dark.tr]
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, style: TextStyle(color: Colors.white)),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          // Handle dropdown change
-                        },
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //       LocaleKeys.ChangeTheme.tr,
+                  //       style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                  //     ),
+                  //     DropdownButton<String>(
+                  //       dropdownColor: Colors.black,
+                  //       value: null,
+                  //       hint: Text(
+                  //         LocaleKeys.ChangeTheme.tr,
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  //       icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+                  //       items: <String>[LocaleKeys.Light.tr, LocaleKeys.Dark.tr]
+                  //           .map<DropdownMenuItem<String>>((String value) {
+                  //         return DropdownMenuItem<String>(
+                  //           value: value,
+                  //           child: Text(value, style: TextStyle(color: Colors.white)),
+                  //         );
+                  //       }).toList(),
+                  //       onChanged: (String? newValue) {
+                  //         // Handle dropdown change
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

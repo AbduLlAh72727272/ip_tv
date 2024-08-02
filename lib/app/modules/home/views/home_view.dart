@@ -88,9 +88,9 @@ class HomeView extends StatelessWidget {
                               _buildMenuItem(Icons.tv, LocaleKeys.Series.tr, onTap: () {
                                 Get.toNamed(Routes.SERIES); // Navigate to SeriesScreen
                               }),
-                              _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
-                              _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
-                              _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
+                            //  _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
+                            //  _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
+                            //  _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
                               SizedBox(height: 20.h), // Spacing using ScreenUtil
                             ],
 

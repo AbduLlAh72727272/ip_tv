@@ -23,7 +23,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   late AnimationController _animationController;
   late Animation<Offset> _offsetAnimation;
   bool isChannelListOpen = false;
-
+  
   @override
   void initState() {
     super.initState();
