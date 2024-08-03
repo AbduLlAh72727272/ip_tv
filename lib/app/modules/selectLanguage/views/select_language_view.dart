@@ -53,12 +53,17 @@ class _ChangeLanguageSheet extends State<SelectLanguageView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    color: Theme.of(context).colorScheme.primary,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 3.0.h),
-                      child: Icon(Icons.keyboard_backspace, color: VoidColors.whiteColor,
-                      size: 10.sp,),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      color: Theme.of(context).colorScheme.primary,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 3.0.h),
+                        child: Icon(Icons.keyboard_backspace, color: VoidColors.whiteColor,
+                        size: 10.sp,),
+                      ),
                     ),
                   ),
                   SizedBox(width: 10.0.w,),

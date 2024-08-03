@@ -9,11 +9,9 @@ import '../controllers/login_controller.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
-
-  final TextEditingController macAddressController = TextEditingController();
-  final TextEditingController pinController = TextEditingController();
-
   final LoginController loginController = Get.put(LoginController());
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class LoginView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextField(
-                      controller: macAddressController,
+                      controller: loginController.macAddressController,
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: LocaleKeys.MacAddress.tr,
@@ -61,7 +59,7 @@ class LoginView extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h),
                     TextField(
-                      controller: pinController,
+                      controller: loginController.pinController,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         labelText: LocaleKeys.Pin.tr,
@@ -79,8 +77,8 @@ class LoginView extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          String macAddress = macAddressController.text.trim();
-                          String pin = pinController.text.trim();
+                          String macAddress = loginController.macAddressController.text.trim();
+                          String pin = loginController.pinController.text.trim();
 
                           if (loginController.validateCredentials(macAddress, pin)) {
                             // Credentials are correct, navigate to PlaylistView
@@ -93,7 +91,7 @@ class LoginView extends StatelessWidget {
                               colorText: Colors.white,
                             );
                           } else {
-                            // Credentials are incorrect, show error snackbar
+                            // Credentials are incorrect, show error snack-bar
                             Get.snackbar(
                               "Error",
                               "Incorrect MAC Address or PIN",

@@ -3,7 +3,7 @@ class VoidImages {
 
   static const String logo = "assets/images/iptv logo.png";
   static const String background1="assets/images/image.png";
-  static const String background2="assets/images/bg2.png";
+  static const String background2="assets/images/firstHomeBgImg.png";
   static const String background3="assets/images/bg3.png";
   static const String back="assets/images/back_button.png";
   static const String movie="assets/images/movieImg.png";
