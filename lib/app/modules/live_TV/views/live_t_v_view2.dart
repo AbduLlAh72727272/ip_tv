@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
-//import 'vlc_player_screen.dart';
+
 
 class LiveTVView2 extends StatelessWidget {
   final String imageUrl;
@@ -57,15 +58,7 @@ class LiveTVView2 extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          height: 45.h, // Adjust the height of the back button
-                          width: 25.w, // Adjust the width of the back button
-                          child: IconButton(
-                            icon: Image.asset(VoidImages.back),
-                            onPressed: () => Navigator.pop(context),
-                            iconSize: 10.w, // Adjust the size of the icon inside the button
-                          ),
-                        ),
+                        const BackButtonWidget(),  // Use the back button widget
                         Expanded(
                           child: Center(
                             child: Text(
@@ -112,112 +105,112 @@ class LiveTVView2 extends StatelessWidget {
                 child: Obx(() => liveTVController.isLoading.value ?
                 Center(
                     child: CircularProgressIndicator()) :
-                  Row(
-                    children: [
-                      // Left Sidebar
-                      Container(
-                        width: 90.w,
-                        color: Colors.black.withOpacity(0.5),
-                        child: ListView.builder(
-                          itemCount: liveTVController.entries.length, // Update this with actual channel count
-                          itemBuilder: (context, index) {
-                            final channel = liveTVController.entries[index];
-                            return Container(
-                              color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                              child: ListTile(
-                                title: Text(
-                                  // 'Channel 01 HD',
-                                  channel.title,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                subtitle: Text(
-                                  'Program Info',
-                                  style: TextStyle(color: Colors.white.withOpacity(0.7)),
-                                ),
-                                onTap: () {
-                                  _navigateToBetterPlayer(context, liveTVController.entries[index].url);
-                                },
+                Row(
+                  children: [
+                    // Left Sidebar
+                    Container(
+                      width: 90.w,
+                      color: Colors.black.withOpacity(0.5),
+                      child: ListView.builder(
+                        itemCount: liveTVController.entries.length, // Update this with actual channel count
+                        itemBuilder: (context, index) {
+                          final channel = liveTVController.entries[index];
+                          return Container(
+                            color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
+                            child: ListTile(
+                              title: Text(
+                                // 'Channel 01 HD',
+                                channel.title,
+                                style: TextStyle(color: Colors.white),
                               ),
-                            );
-                          },
+                              subtitle: Text(
+                                'Program Info',
+                                style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                              ),
+                              onTap: () {
+                                _navigateToBetterPlayer(context, liveTVController.entries[index].url);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    // Main Content
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.all(10.0.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Image and Info
+                            GestureDetector(
+                              onTap: () {
+                                _navigateToBetterPlayer(context, 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+                              },
+                              child: Center(
+                                child: SizedBox(
+                                  child: Image.network(imageUrl,),
+                                  // decoration: BoxDecoration(
+                                  //   borderRadius: BorderRadius.circular(8.0.r),
+                                  //   image: DecorationImage(
+                                  //     image: AssetImage(imageUrl),
+                                  //     fit: BoxFit.cover,
+                                  //   ),
+                                  // ),
+                                  height: 200.h,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10.0.h),
+                            // Program Info
+                            Text(
+                              channelName,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8.0.h),
+                            // Program Schedule
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // color: Colors.red,
+                                  padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
+                                  child: Text(
+                                    '10:10 - 12:20    A hidden truth',
+                                    style: TextStyle(color: Colors.white, fontSize: 10.0.sp),
+                                  ),
+                                ),
+                                SizedBox(height: 4.0.h),
+                                Container(
+                                  //color: Colors.grey,
+                                  padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
+                                  child: Text(
+                                    '10:10 - 12:20    A hidden truth',
+                                    style: TextStyle(color: Colors.grey, fontSize: 10.0.sp),
+                                  ),
+                                ),
+                                SizedBox(height: 4.0.h),
+                                Container(
+                                  // color: Colors.grey,
+                                  padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
+                                  child: Text(
+                                    '10:10 - 12:20    A hidden truth',
+                                    style: TextStyle(color: Colors.grey, fontSize: 10.0.sp),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      // Main Content
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: EdgeInsets.all(10.0.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Image and Info
-                              GestureDetector(
-                                onTap: () {
-                                  _navigateToBetterPlayer(context, 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
-                                },
-                                child: Center(
-                                  child: SizedBox(
-                                    child: Image.network(imageUrl,),
-                                    // decoration: BoxDecoration(
-                                    //   borderRadius: BorderRadius.circular(8.0.r),
-                                    //   image: DecorationImage(
-                                    //     image: AssetImage(imageUrl),
-                                    //     fit: BoxFit.cover,
-                                    //   ),
-                                    // ),
-                                    height: 200.h,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10.0.h),
-                              // Program Info
-                              Text(
-                                channelName,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12.0.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 8.0.h),
-                              // Program Schedule
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    // color: Colors.red,
-                                    padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
-                                    child: Text(
-                                      '10:10 - 12:20    A hidden truth',
-                                      style: TextStyle(color: Colors.white, fontSize: 10.0.sp),
-                                    ),
-                                  ),
-                                  SizedBox(height: 4.0.h),
-                                  Container(
-                                    //color: Colors.grey,
-                                    padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
-                                    child: Text(
-                                      '10:10 - 12:20    A hidden truth',
-                                      style: TextStyle(color: Colors.grey, fontSize: 10.0.sp),
-                                    ),
-                                  ),
-                                  SizedBox(height: 4.0.h),
-                                  Container(
-                                    // color: Colors.grey,
-                                    padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
-                                    child: Text(
-                                      '10:10 - 12:20    A hidden truth',
-                                      style: TextStyle(color: Colors.grey, fontSize: 10.0.sp),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
                 ),
               ),
             ],

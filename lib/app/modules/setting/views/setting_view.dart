@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/setting_controller.dart';
@@ -13,8 +14,6 @@ class SettingView extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Stack(
         children: [
@@ -30,21 +29,12 @@ class SettingView extends GetView<SettingController> {
           // Content
           Column(
             children: [
-              // Back button and title
+
               Padding(
                 padding: EdgeInsets.all(16.0.w),
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Image.asset(
-                         VoidImages.back ,
-                        height: 30.h,
-                        width: 24.w,
-                      ),
-                    ),
+                    const BackButtonWidget(),
                     SizedBox(width: 5.w),
                     Text(
                       LocaleKeys.Settings.tr,
@@ -88,7 +78,6 @@ class SettingView extends GetView<SettingController> {
                       Get.toNamed(Routes.INTERNET_SPEED);
                     }),
                   ],
-
                 ),
               ),
             ],

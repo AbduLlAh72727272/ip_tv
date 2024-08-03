@@ -34,14 +34,12 @@ class FirstHomeView extends GetView {
     ];
 
     List<String> newImages = [
-      //'assets/images/mikeImg.png',
-      'assets/images/tvImg.png',
-      'assets/images/secTvImg.png',
-      'assets/images/sportsImg.png',
+      VoidImages.TV,
+      VoidImages.SEC_TV,
+      VoidImages.Sports,
     ];
 
     List<String> titles = [
-      //LocaleKeys.Recording.tr,
       LocaleKeys.Epg.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.SportGuide.tr,
@@ -241,15 +239,33 @@ class FirstHomeView extends GetView {
                           width: double.infinity,
                           height: 130.h,
                           child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: newImages.length,
-                              itemBuilder: (context, index) {
-                                return
-                                    FirstHomeSecCardWidget(secSelectedIndex: secSelectedIndex, newImages: newImages, titles: titles,
-                                    index: index,);
-                                // );
-                              }),
-                        ).marginOnly(bottom: 40.0.h),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: newImages.length,
+                            itemBuilder: (context, index) {
+                              if (index == 1) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.MULTISCREEN);
+                                  },
+                                  child: FirstHomeSecCardWidget(
+                                    secSelectedIndex: secSelectedIndex,
+                                    newImages: newImages,
+                                    titles: titles,
+                                    index: index,
+                                  ),
+                                );
+                              } else {
+                                return FirstHomeSecCardWidget(
+                                  secSelectedIndex: secSelectedIndex,
+                                  newImages: newImages,
+                                  titles: titles,
+                                  index: index,
+                                );
+                              }
+                            },
+                          ),
+                        )
+                            .marginOnly(bottom: 40.0.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 6.0.w, vertical: 7.0.h),
                           child: Row(
@@ -345,9 +361,7 @@ class FirstHomeSecCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() =>
       GestureDetector(
-        // onTap: () {
-        //   // secSelectedIndex.value = index;
-        // },
+
         child:
         Container(
           margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 5.0.h),

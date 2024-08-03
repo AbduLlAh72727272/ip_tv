@@ -99,7 +99,7 @@ class MoviesView extends GetView<MoviesController> {
                                 label: Text('Play'),
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.black,
-                                  backgroundColor: Colors.white,
+                                //  backgroundColor: Colors.white,
                                   padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.0), // Decrease roundness

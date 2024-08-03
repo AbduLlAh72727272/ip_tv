@@ -1,10 +1,10 @@
-import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:better_player/better_player.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
 import 'live_t_v_view2.dart';
@@ -40,15 +40,7 @@ class LiveTVView extends GetView<LiveTVController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          height: 45.h, // Adjust the height of the back button
-                          width: 25.w, // Adjust the width of the back button
-                          child: IconButton(
-                            icon: Image.asset(VoidImages.back),
-                            onPressed: () => Get.back(),
-                            iconSize: 10.w, // Adjust the size of the icon inside the button
-                          ),
-                        ),
+                        const BackButtonWidget(),  // Use the back button widget
                         Expanded(
                           child: Center(
                             child: Text(
@@ -83,82 +75,68 @@ class LiveTVView extends GetView<LiveTVController> {
                 ),
               ),
               // Main Body
-                Expanded(
-                  child: Obx(() => liveTVController.isLoading.value ?
-                     Center(
-                         child: CircularProgressIndicator()) :
-                    Row(
-                      children: [
-                        // Left Sidebar
-                        Container(
-                          width: 90.w,
-                          color: Colors.black.withOpacity(0.5),
-                          child: ListView.builder(
-                                itemCount: liveTVController.entries.length,
-                                itemBuilder: (context, index) {
-                                  final channel = liveTVController.entries[index];
-                                  return Container(
-                                    color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
-                                    child: ListTile(
-                                      title: Text(
-                                        // LocaleKeys.ChannelHd.tr,
-                                        channel.title,
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      subtitle: Text(
-                                        LocaleKeys.ProgramInfo.tr,
-                                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
-                                      ),
-                                      onTap: () {
-
-                                      },
-                                    ),
-                                  );
-                                },
+              Expanded(
+                child: Obx(() => liveTVController.isLoading.value ?
+                Center(
+                    child: CircularProgressIndicator()) :
+                Row(
+                  children: [
+                    // Left Sidebar
+                    Container(
+                      width: 90.w,
+                      color: Colors.black.withOpacity(0.5),
+                      child: ListView.builder(
+                        itemCount: liveTVController.entries.length,
+                        itemBuilder: (context, index) {
+                          final channel = liveTVController.entries[index];
+                          return Container(
+                            color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
+                            child: ListTile(
+                              title: Text(
+                                channel.title,
+                                style: TextStyle(color: Colors.white),
                               ),
-
-                        ),
-                        // Main Content
-                        Expanded(
-                          child: GridView.builder(
-                            padding: EdgeInsets.all(16.0.w),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+                              subtitle: Text(
+                                LocaleKeys.ProgramInfo.tr,
+                                style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                              ),
+                              onTap: () {},
                             ),
-                            itemCount: liveTVController.entries.length, // Update this with actual video count
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Get.to(() => LiveTVView2(
-                                    imageUrl: liveTVController.entries[index].logo,
-                                    channelName: liveTVController.entries[index].title,
-                                    programInfo: 'A hidden truth',
-                                    date: '21-june-2022',
-                                  ));
-                                },
-                                child:
-                                // BetterPlayer.network(
-                                //   liveTVController.entries[index].url,
-                                //   betterPlayerConfiguration: BetterPlayerConfiguration(
-                                //     autoPlay: false,
-                                //     placeholder: Image.network(liveTVController.entries[index].logo,),
-                                //     aspectRatio: 14 / 16,
-                                //     controlsConfiguration: const BetterPlayerControlsConfiguration(
-                                //       showControls: false,
-                                //     ),
-                                //   ),
-                                // ),
-                                Image.network(liveTVController.entries[index].logo,)
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                          );
+                        },
+                      ),
                     ),
-                  ),
+                    // Main Content
+                    Expanded(
+                      child: GridView.builder(
+                        padding: EdgeInsets.all(16.0.w),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemCount: liveTVController.entries.length, // Update this with actual video count
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(() => LiveTVView2(
+                                imageUrl: liveTVController.entries[index].logo,
+                                channelName: liveTVController.entries[index].title,
+                                programInfo: 'A hidden truth',
+                                date: '21-june-2022',
+                              ));
+                            },
+                            child: Image.network(
+                              liveTVController.entries[index].logo,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
+                ),
+              ),
             ],
           ),
         ],

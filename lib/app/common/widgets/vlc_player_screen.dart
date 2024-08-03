@@ -3,8 +3,8 @@ import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
 import 'package:volume_controller/volume_controller.dart';
-
 import '../../utils/constraints/image_strings.dart';
+import 'back_button_widget.dart';
 
 class VlcPlayerScreen extends StatefulWidget {
   final String streamUrl;
@@ -125,14 +125,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
               left: 20.w,
               child: Row(
                 children: [
-                  IconButton(
-                    icon: Image.asset(VoidImages.back, height: 30.h),
-                    onPressed: () {
-                      _vlcPlayerController.stop();
-                      _vlcPlayerController.dispose();
-                      Navigator.pop(context);
-                    },
-                  ),
+                  const BackButtonWidget(),
                   SizedBox(width: 2.w),
                   Image.asset(VoidImages.logo, height: 70.h),
                 ],

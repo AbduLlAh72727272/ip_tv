@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
 import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
@@ -46,14 +47,7 @@ class SeriesView2 extends GetView<SeriesController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        icon: SizedBox(
-                          width: 28.w,
-                          height: 28.h,
-                          child: Image.asset(VoidImages.back),
-                        ),
-                        onPressed: () => Get.back(),
-                      ),
+                      const BackButtonWidget(),  // Use the back button widget
                       IconButton(
                         icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
                         onPressed: () {},
@@ -99,12 +93,12 @@ class SeriesView2 extends GetView<SeriesController> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    // Navigate to VlcPlayerScreen
-                                    Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
+                                    Get.to(() => BetterPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
+                                    //Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
                                   },
                                   child: Text('Play'),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: VoidColors.primary,
+                                    // backgroundColor: VoidColors.primary,
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0), // Decrease roundness

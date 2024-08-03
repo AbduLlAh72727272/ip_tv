@@ -20,6 +20,11 @@ class VoidImages {
   static const String home2="assets/images/home2.png";
   static const String home3="assets/images/home3.png";
   static const String home4="assets/images/home4.png";
+  static const String TV="assets/images/tvImg.png";
+  static const String SEC_TV="assets/images/secTvImg.png";
+  static const String Sports="assets/images/sportsImg.png";
+
+
 
   static const String automation="assets/icons/automation.png";
   static const String channel="assets/icons/channel.png";

@@ -87,7 +87,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     // Handle save action
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: VoidColors.primary,
+                    //backgroundColor: VoidColors.primary,
                     padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
                     textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(

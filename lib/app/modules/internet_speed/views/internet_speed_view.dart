@@ -4,17 +4,15 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/internet_speed_controller.dart';
-
-
 
 class InternetSpeedView extends StatelessWidget {
   final InternetSpeedController controller = Get.put(InternetSpeedController());
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -32,16 +30,7 @@ class InternetSpeedView extends StatelessWidget {
           Positioned(
             top: 20.h,
             left: 10.w,
-            child: GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Image.asset(
-                VoidImages.back,
-                height: 34.h,
-                width: 24.w,
-              ),
-            ),
+            child: const BackButtonWidget(),  // Use the back button widget
           ),
           // Form content
           Center(

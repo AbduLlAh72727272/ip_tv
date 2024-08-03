@@ -63,7 +63,7 @@ void showHomeScreenDialog() {
               children: [
 
                 Image.asset(VoidImages.home1,height: 20.h,width: 20.h),
-                Text("ARK VIP",style: TextStyle(
+                Text("ARK VIP(HOME 1)",style: TextStyle(
                   fontFamily: 'Arial',
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -79,7 +79,7 @@ void showHomeScreenDialog() {
             child: Row(mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(VoidImages.home2,height: 20.h,width: 20.h),
-                Text("ARK VIP",style: TextStyle(
+                Text("ARK VIP(Home 2)",style: TextStyle(
                   fontFamily: 'Arial',
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -95,7 +95,7 @@ void showHomeScreenDialog() {
             child: Row(mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(VoidImages.home3,height: 20.h,width: 20.h),
-                Text("ARK VIP",style: TextStyle(
+                Text("ARK VIP(Home 3)",style: TextStyle(
                   fontFamily: 'Arial',
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -111,7 +111,7 @@ void showHomeScreenDialog() {
             child:  Row(mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(VoidImages.home3,height: 20.h,width: 20.h),
-                Text("ARK VIP",style: TextStyle(
+                Text("ARK VIP(Home 4)",style: TextStyle(
                   fontFamily: 'Arial',
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

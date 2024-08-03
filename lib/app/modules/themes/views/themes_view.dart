@@ -9,13 +9,11 @@ import '../../../utils/theme/custom_themes/theme.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/themes_controller.dart';
 
-
 class ThemesView extends GetView<ThemesController> {
   const ThemesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final HomeController homeController = Get.find<HomeController>();
 
     return Scaffold(
@@ -125,40 +123,41 @@ class ThemesView extends GetView<ThemesController> {
   }
 
   Widget _buildColorOption(Color color, AppColorTheme colorTheme) {
-    bool isSelected = false;
     final HomeController homeController = Get.find<HomeController>();
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Obx(() {
-          bool isSelected = homeController.selectedColorTheme.value ==
-              colorTheme;
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                isSelected = !isSelected;
-                homeController.selectedColorTheme.value = colorTheme;
-              });
-            },
-            child: Container(
-              width: 20.w,
-              height: 40.h,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.rectangle,
+    return Obx(() {
+      bool isSelected = homeController.selectedColorTheme.value == colorTheme;
+      return GestureDetector(
+        onTap: () {
+          homeController.selectedColorTheme.value = colorTheme;
+        },
+        child: Container(
+          width: 30.w,
+          height: 60.h,
 
-                border: isSelected
-                    ? Border.all(color: Colors.white, width: 3.w)
-                    : null,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.rectangle,
+            border: Border.all(color: Colors.transparent, width: 1.w),
+          ),
+          child: isSelected
+              ? Center(
+            child: Container(
+              width: 16.w,
+              height: 16.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
               ),
-              child: isSelected
-                  ? Icon(Icons.check, color: Colors.white,
-                  size: 30.w)
-                  : null,
+              child: Icon(
+                Icons.check,
+                size: 6.w,
+                color: color,
+              ),
             ),
-          );
-        }
-        );
-      },
-    );
+          )
+              : null,
+        ),
+      );
+    });
   }
 }

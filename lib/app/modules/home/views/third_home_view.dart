@@ -95,7 +95,7 @@ class ThirdHomeView extends GetView {
               Expanded(
                 child: GestureDetector(
                 onTap: () {
-                      Get.toNamed(Routes.HOME);
+                    //  Get.toNamed(Routes.HOME);
                 },
                          child:
                             ThirdHomeCardWidget(icons: icons[0], titles: titles[0]),
