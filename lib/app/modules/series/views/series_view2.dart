@@ -13,8 +13,6 @@ class SeriesView2 extends GetView<SeriesController> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: Stack(
         children: [
@@ -101,31 +99,40 @@ class SeriesView2 extends GetView<SeriesController> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
+                                    // Navigate to VlcPlayerScreen
                                     Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
-
                                   },
                                   child: Text('Play'),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: VoidColors.primary,
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
                                 OutlinedButton(
                                   onPressed: () {},
-                                  child: Text('Continue Watching',style: TextStyle(color: VoidColors.whiteColor)),
+                                  child: Text('Continue Watching', style: TextStyle(color: VoidColors.whiteColor)),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(color: Colors.white),
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
                                 OutlinedButton(
                                   onPressed: () {},
-                                  child: Text('Watch Later',style: TextStyle(color: VoidColors.whiteColor),),
+                                  child: Text('Watch Later', style: TextStyle(color: VoidColors.whiteColor)),
                                   style: OutlinedButton.styleFrom(
                                     side: BorderSide(color: Colors.white),
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                    ),
                                   ),
                                 ),
                               ],

@@ -3,17 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/stream_format_controller.dart';
-
 
 class StreamFormatView extends GetView<StreamFormatController> {
   const StreamFormatView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -60,11 +58,8 @@ class StreamFormatView extends GetView<StreamFormatController> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
                     _buildCheckboxItem(LocaleKeys.Default.tr),
-                    //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
                     _buildCheckboxItem(LocaleKeys.MPEGTS.tr),
-                   // SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
                     _buildCheckboxItem(LocaleKeys.Hsl.tr),
                   ],
                 ),
@@ -84,7 +79,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.4),
+                    backgroundColor: Colors.white.withOpacity(0.4),
                     padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h),
                     textStyle: TextStyle(fontSize: 7.sp),
                     shape: RoundedRectangleBorder(
@@ -101,7 +96,6 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     // Handle save action
                   },
                   style: ElevatedButton.styleFrom(
-                    // backgroundColor: Colors.red,
                     padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h),
                     textStyle: TextStyle(fontSize: 7.sp),
                     shape: RoundedRectangleBorder(
@@ -122,30 +116,34 @@ class StreamFormatView extends GetView<StreamFormatController> {
   }
 
   Widget _buildCheckboxItem(String title) {
-    bool isChecked = false;
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value ?? false;
-                });
-              },
-              checkColor: Colors.black,
-              activeColor: Colors.white,
+    return Obx(() {
+      bool isChecked = controller.isSelected(title);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Checkbox(
+            value: isChecked,
+            onChanged: (bool? value) {
+              if (value != null && value) {
+                controller.setSelectedFormat(title);
+              }
+            },
+            checkColor: Colors.white,
+            activeColor: VoidColors.primary,
+            side: MaterialStateBorderSide.resolveWith(
+                  (states) => BorderSide(
+                width: 1.5,
+                color: isChecked ? VoidColors.primary : Colors.white,
+              ),
             ),
-            SizedBox(width: 5.w),
-            Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp),
-            ),
-          ],
-        );
-      },
-    );
+          ),
+          SizedBox(width: 5.w),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white, fontSize: 9.sp),
+          ),
+        ],
+      );
+    });
   }
 }

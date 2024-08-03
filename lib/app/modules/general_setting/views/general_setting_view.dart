@@ -122,7 +122,8 @@ class GeneralSettingView extends GetView<GeneralSettingController> {
                     Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.4),
+                    backgroundColor: Colors.white.withOpacity(0.4),
+
                     padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h),
                     textStyle: TextStyle(fontSize: 7.sp),
                     shape: RoundedRectangleBorder(

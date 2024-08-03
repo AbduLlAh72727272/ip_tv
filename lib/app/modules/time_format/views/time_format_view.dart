@@ -78,7 +78,7 @@ class TimeFormatView extends GetView<TimeFormatController> {
                     Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.4),
+                    backgroundColor: Colors.white.withOpacity(0.4),
                     padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
                     textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(

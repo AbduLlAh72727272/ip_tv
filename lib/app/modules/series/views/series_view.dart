@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/constraints/image_strings.dart';
 
-
 class SeriesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -84,50 +83,39 @@ class SeriesView extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 10.h),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10.w,
-                          mainAxisSpacing: 10.h,
-                          childAspectRatio: 2 / 3,
-                        ),
-                        itemCount: 12,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.toNamed('/series_view2');
-                            },
-                            child: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    Expanded(
-                                      child: Image.asset(
-                                        VoidImages.sample,
-                                        fit: BoxFit.cover,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          children: [
+                            for (int row = 0; row < 3; row++) // Adjust row count as needed
+                              Row(
+                                children: [
+                                  for (int col = 0; col < 3; col++) // Adjust column count as needed
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed('/series_view2');
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.all(5.w),
+                                        width: 120.w,
+                                        height: 180.h,
+                                        child: Stack(
+                                          children: [
+                                            Image.asset(
+                                              VoidImages.sample,
+                                              fit: BoxFit.cover,
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                            ),
+                                            // Optionally add labels or other elements
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(height: 5.h),
-                                  ],
-                                ),
-                                Positioned(
-                                  top: 5.h,
-                                  left: 5.w,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                                    color: Theme.of(context).colorScheme.primary,
-                                    child: Text(
-                                      'New',
-                                      style: TextStyle(fontSize: 8.sp, color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                                ],
+                              ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 10.h),
                       Align(
