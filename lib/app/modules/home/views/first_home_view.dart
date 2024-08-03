@@ -8,7 +8,9 @@ import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../../live_TV/views/live_t_v_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 import '../../setting/views/setting_view.dart';
 
@@ -111,7 +113,7 @@ class FirstHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-
+                                Get.toNamed(Routes.LIVE_T_V);
                               },
                               child: Image.asset(VoidImages.live_Tv,
                                 height: 110.0.h, width: 130.0.w,),
@@ -121,7 +123,7 @@ class FirstHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-
+                                Get.toNamed(Routes.MOVIES);
                               },
                               child: Image.asset(VoidImages.movie,
                                 height: 110.0.h, width: 130.0.w,),
@@ -131,7 +133,7 @@ class FirstHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-
+                                Get.toNamed(Routes.SERIES);
                               },
                               child: Image.asset(VoidImages.series,
                                 height: 110.0.h, width: 130.0.w,),
@@ -141,7 +143,7 @@ class FirstHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-                                Get.to(() => SettingView());
+                                Get.toNamed(Routes.SETTING);
                               },
                               child: Image.asset(VoidImages.setting,
                                 height: 110.0.h, width: 130.0.w,),
@@ -343,9 +345,9 @@ class FirstHomeSecCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() =>
       GestureDetector(
-        onTap: () {
-          secSelectedIndex.value = index;
-        },
+        // onTap: () {
+        //   // secSelectedIndex.value = index;
+        // },
         child:
         Container(
           margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 5.0.h),
