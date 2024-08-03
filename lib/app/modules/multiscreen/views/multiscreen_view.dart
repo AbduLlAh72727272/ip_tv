@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/multiscreen_controller.dart';
 import 'multiscreen_view2.dart';
@@ -18,12 +19,13 @@ class MultiscreenView extends GetView<MultiscreenController> {
         child: AppBar(
           backgroundColor: Colors.black,
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Image.asset(VoidImages.back),
-            onPressed: () {
-              Get.back(); // Navigate back
-            },
-          ),
+          leading: const BackButtonWidget(),
+          // leading: IconButton(
+          //   icon: Image.asset(VoidImages.back),
+          //   onPressed: () {
+          //     Get.back(); // Navigate back
+          //   },
+          // ),
           title: Text('Multi Screen Layout', style: TextStyle(color: Colors.white)),
         ),
       ),

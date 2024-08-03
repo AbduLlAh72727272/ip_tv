@@ -58,9 +58,9 @@ class StreamFormatView extends GetView<StreamFormatController> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    _buildCheckboxItem(LocaleKeys.Default.tr),
-                    _buildCheckboxItem(LocaleKeys.MPEGTS.tr),
-                    _buildCheckboxItem(LocaleKeys.Hsl.tr),
+                    _buildCheckboxItem(LocaleKeys.Default.tr, context),
+                    _buildCheckboxItem(LocaleKeys.MPEGTS.tr, context),
+                    _buildCheckboxItem(LocaleKeys.Hsl.tr, context),
                   ],
                 ),
               ),
@@ -115,7 +115,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
     );
   }
 
-  Widget _buildCheckboxItem(String title) {
+  Widget _buildCheckboxItem(String title, BuildContext context) {
     return Obx(() {
       bool isChecked = controller.isSelected(title);
       return Row(
@@ -129,11 +129,11 @@ class StreamFormatView extends GetView<StreamFormatController> {
               }
             },
             checkColor: Colors.white,
-            activeColor: VoidColors.primary,
+            activeColor: Theme.of(context).colorScheme.primary,
             side: MaterialStateBorderSide.resolveWith(
                   (states) => BorderSide(
                 width: 1.5,
-                color: isChecked ? VoidColors.primary : Colors.white,
+                color: isChecked ?  Theme.of(context).colorScheme.primary : Colors.white,
               ),
             ),
           ),

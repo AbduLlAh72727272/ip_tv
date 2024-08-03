@@ -359,14 +359,15 @@ class FirstHomeSecCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>
-      GestureDetector(
+    return GestureDetector(
 
         child:
         Container(
           margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 5.0.h),
-          height: secSelectedIndex.value == index ? 100.h : 70.h,
-          width: secSelectedIndex.value == index ? 110.w : 80.w,
+          height: 70.h,
+          width: 80.w,
+          // height: secSelectedIndex.value == index ? 100.h : 70.h,
+          // width: secSelectedIndex.value == index ? 110.w : 80.w,
           decoration: BoxDecoration(
             color: VoidColors.lightBlack,
             borderRadius: BorderRadius.circular(10.0.r)
@@ -407,7 +408,6 @@ class FirstHomeSecCardWidget extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

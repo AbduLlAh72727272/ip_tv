@@ -82,21 +82,25 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle save action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    //backgroundColor: VoidColors.primary,
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
-                    textStyle: TextStyle(fontSize: 9.sp),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r),
+                SizedBox(width: 5.0.w,),
+                Flexible(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle save action
+                    },
+                    style: ElevatedButton.styleFrom(
+                      //backgroundColor: VoidColors.primary,
+                      padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                      textStyle: TextStyle(fontSize: 9.sp),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    LocaleKeys.Ok.tr,
-                    style: TextStyle(color: Colors.white),
+                    child: Text(
+                      LocaleKeys.Ok.tr,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

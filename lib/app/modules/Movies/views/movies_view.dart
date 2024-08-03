@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/movies_card.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
@@ -96,7 +97,7 @@ class MoviesView extends GetView<MoviesController> {
                               ElevatedButton.icon(
                                 onPressed: () {},
                                 icon: Icon(Icons.play_arrow),
-                                label: Text('Play'),
+                                label: Text(LocaleKeys.Play.tr),
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.black,
                                 //  backgroundColor: Colors.white,
@@ -109,7 +110,7 @@ class MoviesView extends GetView<MoviesController> {
                               SizedBox(width: 8.w),
                               OutlinedButton(
                                 onPressed: () {},
-                                child: Text('More Info'),
+                                child: Text(LocaleKeys.MoreInfo.tr),
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: Colors.white,
                                   side: BorderSide(color: Colors.white),

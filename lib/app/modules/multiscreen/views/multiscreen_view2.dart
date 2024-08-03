@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/multiscreen_controller.dart'; // Import your color file
@@ -23,12 +24,13 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
         child: AppBar(
           backgroundColor: VoidColors.blackColor,
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Image.asset(VoidImages.back),
-            onPressed: () {
-              Get.back();
-            },
-          ),
+          leading: const BackButtonWidget(),
+          // IconButton(
+          //   icon: Image.asset(VoidImages.back),
+          //   onPressed: () {
+          //     Get.back();
+          //   },
+          // ),
           title: Text('Live TV', style: TextStyle(color: Colors.white)),
           actions: [
             IconButton(

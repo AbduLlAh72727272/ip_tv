@@ -95,7 +95,7 @@ class AutomationView extends GetView<AutomationController> {
                     // Handle save action
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    // backgroundColor: Colors.red,
                     padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
                     textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(

@@ -145,7 +145,7 @@ class LiveTVView2 extends StatelessWidget {
                             // Image and Info
                             GestureDetector(
                               onTap: () {
-                                _navigateToBetterPlayer(context, 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+                                // _navigateToBetterPlayer(context, 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
                               },
                               child: Center(
                                 child: SizedBox(
