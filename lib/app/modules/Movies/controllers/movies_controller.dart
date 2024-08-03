@@ -1,30 +1,35 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/movie_model.dart';
 
-
-
 class MoviesController extends GetxController {
   var movies = <Movie>[].obs;
   var isLoading = true.obs;
-  var movieList = ['now_playing', 'popular', 'top_rated', 'upcoming'];
+  late Box<Movie> movieBox;
 
   @override
-  void onInit() {
-    fetchMovieLists();
+  void onInit() async {
     super.onInit();
+    await Hive.openBox<Movie>('moviesBox');
+    movieBox = Hive.box<Movie>('moviesBox');
+    loadMoviesFromCache();
+    fetchMovieLists();
   }
 
-  final String apiKey = '541cb4833986917ac776a27ca3b13489';
-  final String token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NDFjYjQ4MzM5ODY5MTdhYzc3NmEyN2NhM2IxMzQ4OSIsIm5iZiI6MTcyMTk4MTkwMi42OTY1NzMsInN1YiI6IjY2YTI0YjkwNDQyZWU5NTc1ZjA1ZjhiNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MbP3TcyrSs-_LqVJbZboqbPvX2TrQFigEMzHMdKETJc';
-
+  Future<void> loadMoviesFromCache() async {
+    final cachedMovies = movieBox.values.toList();
+    if (cachedMovies.isNotEmpty) {
+      movies.value = cachedMovies;
+    }
+  }
 
   Future<void> fetchMovieLists() async {
     isLoading(true);
-    final url = Uri.parse('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1');
+    final url = Uri.parse('https://iptv-be-production.up.railway.app/api/movies');
 
     try {
       print('Fetching movies from: $url');
@@ -33,7 +38,6 @@ class MoviesController extends GetxController {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
         },
       );
 
@@ -45,7 +49,7 @@ class MoviesController extends GetxController {
         print('Fetched movies: $data');
         var movieResponse = MovieResponse.fromJson(data);
         movies.value = movieResponse.results;
-
+        cacheMovies(movieResponse.results);
       } else {
         final data = json.decode(response.body);
         print('Error response data: $data');
@@ -59,5 +63,8 @@ class MoviesController extends GetxController {
     }
   }
 
-
+  void cacheMovies(List<Movie> movies) {
+    movieBox.clear();
+    movieBox.addAll(movies);
+  }
 }

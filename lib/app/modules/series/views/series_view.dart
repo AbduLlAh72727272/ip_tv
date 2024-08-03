@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
+
 import '../../../utils/constraints/image_strings.dart';
 
 class SeriesView extends StatelessWidget {
+  final SeriesController controller = Get.put(SeriesController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +28,16 @@ class SeriesView extends StatelessWidget {
           actions: [
             IconButton(
               icon: Icon(Icons.search, color: Colors.white),
-              onPressed: () {
-              },
+              onPressed: () {},
             ),
             IconButton(
               icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
-              onPressed: () {
-              },
+              onPressed: () {},
             ),
           ],
         ),
       ),
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           // Background gradient
@@ -52,71 +54,99 @@ class SeriesView extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 400.h,
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        VoidImages.background3,
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.cover,
+                Obx(() {
+                  if (controller.isLoading.value) {
+                    return Container(
+                      width: double.infinity,
+                      height: 400.h,
+                      child: Center(
+                        child: CircularProgressIndicator(),
                       ),
-                      Positioned(
-                        left: 16.w,
-                        bottom: 16.h,
+                    );
+                  }
+
+                  if (controller.series.isEmpty) {
+                    return Container(
+                      width: double.infinity,
+                      height: 400.h,
+                      child: Center(
                         child: Text(
-                          'Gone Girl',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'No Series Available',
+                          style: TextStyle(color: Colors.white, fontSize: 18.sp),
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                    );
+                  }
+
+                  final firstSeries = controller.series.first;
+
+                  return Container(
+                    width: double.infinity,
+                    height: 400.h,
+                    child: Stack(
+                      children: [
+                        Image.network(
+                          firstSeries.logo,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          left: 16.w,
+                          bottom: 16.h,
+                          child: Text(
+                            firstSeries.name,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                   child: Column(
                     children: [
                       SizedBox(height: 10.h),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Column(
-                          children: [
-                            for (int row = 0; row < 3; row++) // Adjust row count as needed
-                              Row(
-                                children: [
-                                  for (int col = 0; col < 3; col++) // Adjust column count as needed
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed('/series_view2');
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.all(5.w),
-                                        width: 120.w,
-                                        height: 180.h,
-                                        child: Stack(
-                                          children: [
-                                            Image.asset(
-                                              VoidImages.sample,
-                                              fit: BoxFit.cover,
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                            ),
-                                            // Optionally add labels or other elements
-                                          ],
-                                        ),
+                      Obx(() {
+                        if (controller.isLoading.value) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        return Container(
+                          height: 180.h,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.series.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Get.toNamed('/series_view2', arguments: controller.series[index]);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(5.w),
+                                  width: 120.w,
+                                  height: 180.h,
+                                  child: Stack(
+                                    children: [
+                                      Image.network(
+                                        controller.series[index].logo,
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: double.infinity,
                                       ),
-                                    ),
-                                ],
-                              ),
-                          ],
-                        ),
-                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }),
                       SizedBox(height: 10.h),
                       Align(
                         alignment: Alignment.center,

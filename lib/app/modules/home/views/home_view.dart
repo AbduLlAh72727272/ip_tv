@@ -7,8 +7,7 @@ import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../live_TV/views/live_t_v_view.dart';
-
-
+import '../../selectLanguage/views/select_language_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -88,9 +87,9 @@ class HomeView extends StatelessWidget {
                               _buildMenuItem(Icons.tv, LocaleKeys.Series.tr, onTap: () {
                                 Get.toNamed(Routes.SERIES); // Navigate to SeriesScreen
                               }),
-                            //  _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
-                            //  _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
-                            //  _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
+                              //  _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
+                              //  _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
+                              //  _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
                               SizedBox(height: 20.h), // Spacing using ScreenUtil
                             ],
 
@@ -107,9 +106,12 @@ class HomeView extends StatelessWidget {
                           _buildIconButton(VoidImages.setting_icon, onTap: () {
                             Get.toNamed(Routes.SETTING); // Navigate to SettingView
                           }),
+                          _buildIconButton(VoidImages.language, onTap: () {
+                            Get.to(() => SelectLanguageView());
+                          }),
                         ],
                       ),
-                      SizedBox(height: 15.h), // Spacing using ScreenUtil
+                      SizedBox(height: 10.h), // Spacing using ScreenUtil
                     ],
                   ),
                 ),
@@ -173,8 +175,8 @@ class HomeView extends StatelessWidget {
       onTap: onTap,
       child: Container(
         color: Colors.transparent, // Set the background color to black
-        padding: EdgeInsets.all(8.0.w), // Add padding for better alignment using ScreenUtil
-        child: Image.asset(imagePath, height: 35.h, width: 15.w), // Adjusted size using ScreenUtil
+        padding: EdgeInsets.all(2.0.w), // Add padding for better alignment using ScreenUtil
+        child: Image.asset(imagePath, height: 50.h, width: 10.w), // Adjusted size using ScreenUtil
       ),
     );
   }

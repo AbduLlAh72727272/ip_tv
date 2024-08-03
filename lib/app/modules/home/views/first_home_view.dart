@@ -1,20 +1,13 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
-
 import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
-import '../../live_TV/views/live_t_v_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
-import '../../setting/views/setting_view.dart';
-
-
 
 class FirstHomeView extends GetView {
   FirstHomeView({super.key});

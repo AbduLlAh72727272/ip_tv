@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
 import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
-import '../../../common/widgets/vlc_player_screen.dart';
+import '../../../common/widgets/better_player_screen.dart';
 import '../../../utils/constraints/colors.dart';
-import '../../../utils/constraints/image_strings.dart';
-
 
 class SeriesView2 extends GetView<SeriesController> {
   const SeriesView2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Series series = Get.arguments;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -22,7 +21,7 @@ class SeriesView2 extends GetView<SeriesController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(VoidImages.background1),
+                image: NetworkImage(series.logo),
                 fit: BoxFit.cover,
               ),
             ),
@@ -48,14 +47,14 @@ class SeriesView2 extends GetView<SeriesController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const BackButtonWidget(),  // Use the back button widget
+                      const BackButtonWidget(), // Use the back button widget
                       IconButton(
                         icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
                         onPressed: () {},
                       ),
                     ],
                   ),
-                  // Movie details
+                  // Series details
                   Row(
                     children: [
                       Container(
@@ -63,7 +62,7 @@ class SeriesView2 extends GetView<SeriesController> {
                         height: 150.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(VoidImages.sample),
+                            image: NetworkImage(series.logo),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -74,7 +73,7 @@ class SeriesView2 extends GetView<SeriesController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Akuaman The Saga',
+                              series.name,
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -83,7 +82,7 @@ class SeriesView2 extends GetView<SeriesController> {
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              'Half-human, half-Atlantean Arthur Curry must take his rightful place as the king of Atlantis and prevent a large-scale conflict from breaking out between the underwater kingdom and the surface world.',
+                              series.group,
                               style: TextStyle(
                                 fontSize: 7.sp,
                                 color: Colors.white,
@@ -94,12 +93,10 @@ class SeriesView2 extends GetView<SeriesController> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    Get.to(() => BetterPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
-                                    //Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
+                                    Get.to(() => BetterPlayerScreen(streamUrl: series.url));
                                   },
                                   child: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
-                                    // backgroundColor: VoidColors.primary,
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0), // Decrease roundness
@@ -110,9 +107,11 @@ class SeriesView2 extends GetView<SeriesController> {
                                 Flexible(
                                   child: OutlinedButton(
                                     onPressed: () {},
-                                    child: Text(LocaleKeys.ContinueWatching.tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(color: VoidColors.whiteColor)),
+                                    child: Text(
+                                      LocaleKeys.ContinueWatching.tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     style: OutlinedButton.styleFrom(
                                       side: BorderSide(color: Colors.white),
                                       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -126,9 +125,11 @@ class SeriesView2 extends GetView<SeriesController> {
                                 Flexible(
                                   child: OutlinedButton(
                                     onPressed: () {},
-                                    child: Text(LocaleKeys.WatchLater.tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(color: VoidColors.whiteColor)),
+                                    child: Text(
+                                      LocaleKeys.WatchLater.tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     style: OutlinedButton.styleFrom(
                                       side: BorderSide(color: Colors.white),
                                       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -146,7 +147,7 @@ class SeriesView2 extends GetView<SeriesController> {
                     ],
                   ),
                   SizedBox(height: 24.h),
-                  // Similar Movies Section
+                  // Similar Series Section
                   Text(
                     LocaleKeys.SimilarMovies.tr,
                     style: TextStyle(
@@ -160,10 +161,10 @@ class SeriesView2 extends GetView<SeriesController> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildSimilarMovieCard(VoidImages.sample),
-                        _buildSimilarMovieCard(VoidImages.sample),
-                        _buildSimilarMovieCard(VoidImages.sample),
-                        _buildSimilarMovieCard(VoidImages.sample),
+                        _buildSimilarMovieCard(series.logo),
+                        _buildSimilarMovieCard(series.logo),
+                        _buildSimilarMovieCard(series.logo),
+                        _buildSimilarMovieCard(series.logo),
                       ],
                     ),
                   ),
@@ -187,7 +188,7 @@ class SeriesView2 extends GetView<SeriesController> {
             height: 150.h,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(imagePath),
+                image: NetworkImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),

@@ -1,54 +1,50 @@
-// movie_model.dart
+import 'package:hive/hive.dart';
+
+part 'movie_model.g.dart';
+
+@HiveType(typeId: 0)
 class Movie {
-  final bool adult;
-  final String backdropPath;
-  final List<int> genreIds;
-  final int id;
-  final String originalLanguage;
-  final String originalTitle;
-  final String overview;
-  final double popularity;
-  final String posterPath;
-  final String releaseDate;
-  final String title;
-  final bool video;
-  final double voteAverage;
-  final int voteCount;
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final String name;
+
+  @HiveField(2)
+  final String logo;
+
+  @HiveField(3)
+  final String group;
+
+  @HiveField(4)
+  final String url;
 
   Movie({
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
     required this.id,
-    required this.originalLanguage,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.title,
-    required this.video,
-    required this.voteAverage,
-    required this.voteCount,
+    required this.name,
+    required this.logo,
+    required this.group,
+    required this.url,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      adult: json['adult'],
-      backdropPath: json['backdrop_path'],
-      genreIds: List<int>.from(json['genre_ids']),
-      id: json['id'],
-      originalLanguage: json['original_language'],
-      originalTitle: json['original_title'],
-      overview: json['overview'],
-      popularity: json['popularity'].toDouble(),
-      posterPath: json['poster_path'],
-      releaseDate: json['release_date'],
-      title: json['title'],
-      video: json['video'],
-      voteAverage: json['vote_average'].toDouble(),
-      voteCount: json['vote_count'],
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      logo: json['logo'] ?? '',
+      group: json['group'] ?? '',
+      url: json['url'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'logo': logo,
+      'group': group,
+      'url': url,
+    };
   }
 }
 
@@ -57,9 +53,8 @@ class MovieResponse {
 
   MovieResponse({required this.results});
 
-  factory MovieResponse.fromJson(Map<String, dynamic> json) {
-    var list = json['results'] as List;
-    List<Movie> moviesList = list.map((i) => Movie.fromJson(i)).toList();
+  factory MovieResponse.fromJson(List<dynamic> json) {
+    List<Movie> moviesList = json.map((i) => Movie.fromJson(i)).toList();
     return MovieResponse(results: moviesList);
   }
 }

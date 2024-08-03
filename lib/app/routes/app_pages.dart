@@ -162,10 +162,10 @@ class AppPages {
       page: () => MoviesView(),
       binding: MoviesBinding(),
     ),
-    GetPage(
-      name: '/movies_view2',
-      page: () => const MoviesView2(),
-    ),
+    // GetPage(
+    //   name: '/movies_view2',
+    //   page: () => const MoviesView2(),
+    // ),
     GetPage(
       name: '/series_view2',
       page: () => const SeriesView2(),

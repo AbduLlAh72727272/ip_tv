@@ -8,6 +8,7 @@ import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../setting/views/setting_view.dart';
+import '../../selectLanguage/views/select_language_view.dart';
 import 'first_home_view.dart';
 
 class FourthHomeView extends GetView {
@@ -17,7 +18,7 @@ class FourthHomeView extends GetView {
   @override
   Widget build(BuildContext context) {
     List<String> newImages = [
-     // 'assets/images/mikeImg.png',
+      // 'assets/images/mikeImg.png',
       'assets/images/tvImg.png',
       'assets/images/secTvImg.png',
       'assets/images/sportsImg.png',
@@ -25,7 +26,7 @@ class FourthHomeView extends GetView {
       'assets/images/sportsImg.png',
     ];
     List<String> titles = [
-     // LocaleKeys.Recording.tr,
+      // LocaleKeys.Recording.tr,
       LocaleKeys.Epg.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.SportGuide.tr,
@@ -86,6 +87,16 @@ class FourthHomeView extends GetView {
                     'assets/icons/settingsIcon.png',
                     height: 20.0.h,
                     width: 20.0.w,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => SelectLanguageView());
+                  },
+                  child: Image.asset(
+                    VoidImages.language,
+                    height: 25.h,
+                    width: 25.w,
                   ),
                 ),
                 Image.asset(

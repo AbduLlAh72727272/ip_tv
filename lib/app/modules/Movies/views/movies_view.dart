@@ -7,6 +7,7 @@ import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
 import '../models/movie_model.dart';
+import 'movies_view2.dart';
 
 class MoviesView extends GetView<MoviesController> {
   MoviesView({super.key});
@@ -100,26 +101,36 @@ class MoviesView extends GetView<MoviesController> {
                                 label: Text(LocaleKeys.Play.tr),
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.black,
-                                //  backgroundColor: Colors.white,
                                   padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ),
                               SizedBox(width: 8.w),
-                              OutlinedButton(
-                                onPressed: () {},
-                                child: Text(LocaleKeys.MoreInfo.tr),
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  side: BorderSide(color: Colors.white),
-                                  padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0), // Decrease roundness
-                                  ),
-                                ),
-                              ),
+                             OutlinedButton(
+  onPressed: () {},
+  style: OutlinedButton.styleFrom(
+    foregroundColor: Colors.white,
+    backgroundColor: Color(0x6D6D6EB2),
+    side: BorderSide(color: Colors.white),
+    padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+  ),
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Image.asset(
+        VoidImages.info,
+        color: Colors.white,
+      ),
+      SizedBox(width: 8.w),
+      Text(LocaleKeys.MoreInfo.tr),
+    ],
+  ),
+),
                             ],
                           ),
                         ],
@@ -150,54 +161,51 @@ class MoviesView extends GetView<MoviesController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Matched to You Title
-        // Text(
-        //   'Matched to You',
-        //   style: TextStyle(
-        //     fontSize: 9.sp,
-        //     fontWeight: FontWeight.bold,
-        //     color: Colors.white,
-        //   ),
-        // ),
         SizedBox(height: 8.h),
         // Movies List
         SizedBox(
           height: 180.h,
-          child: ListView.builder(
-            itemCount: 5,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Get.toNamed('/movies_view2');
-                },
-                child: buildMovieCard('assets/images/sample.png', ''),
-              );
-            },
-          ),
+          child: Obx(() {
+            if (controller.isLoading.value && controller.movies.isEmpty) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return ListView.builder(
+              itemCount: controller.movies.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final movie = controller.movies[index];
+                return GestureDetector(
+                  onTap: () {
+                    Get.to(() => MoviesView2(
+                      imageUrl: movie.logo,
+                      channelName: movie.name,
+                      programInfo: movie.group,
+                      date: '',
+                      streamUrl: movie.url,
+                    ));
+                  },
+                  child: buildMovieCard(movie.logo, movie.name),
+                );
+              },
+            );
+          }),
         ),
         SizedBox(height: 16.h),
-        // Matched to You Title (Second Row)
-        // Text(
-        //   'Matched to You',
-        //   style: TextStyle(
-        //     fontSize: 9.sp,
-        //     fontWeight: FontWeight.bold,
-        //     color: Colors.white,
-        //   ),
-        // ),
         SizedBox(height: 8.h),
         // Movies List (Second Row)
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              buildMovieCard('assets/images/sample.png', ''),
-              buildMovieCard('assets/images/sample.png', ''),
-              buildMovieCard('assets/images/sample.png', ''),
-            ],
-          ),
-        ),
+        Obx(() {
+          if (controller.isLoading.value && controller.movies.isEmpty) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: controller.movies.map((movie) {
+                return buildMovieCard(movie.logo, movie.name);
+              }).toList(),
+            ),
+          );
+        }),
         SizedBox(height: 16.h),
         // Expiration Date
         Text(
@@ -208,6 +216,36 @@ class MoviesView extends GetView<MoviesController> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildMovieCard(String imageUrl, String title) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 100.w,
+            height: 150.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.sp,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

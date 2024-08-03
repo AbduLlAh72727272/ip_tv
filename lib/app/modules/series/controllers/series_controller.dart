@@ -1,23 +1,61 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class SeriesController extends GetxController {
-  //TODO: Implement SeriesController
+  var series = <Series>[].obs;
+  var isLoading = true.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    fetchSeries();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Future<void> fetchSeries() async {
+    isLoading(true);
+    final url = Uri.parse('https://iptv-be-production.up.railway.app/api/series');
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+    try {
+      final response = await http.get(url);
 
-  void increment() => count.value++;
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body) as List;
+        series.value = data.map((item) => Series.fromJson(item)).toList();
+      } else {
+        Get.snackbar('Error', 'Failed to fetch series: ${response.statusCode}');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
+    } finally {
+      isLoading(false);
+    }
+  }
+}
+
+class Series {
+  final String id;
+  final String name;
+  final String logo;
+  final String group;
+  final String url;
+
+  Series({
+    required this.id,
+    required this.name,
+    required this.logo,
+    required this.group,
+    required this.url,
+  });
+
+  factory Series.fromJson(Map<String, dynamic> json) {
+    return Series(
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      logo: json['logo'] ?? '',
+      group: json['group'] ?? '',
+      url: json['url'] ?? '',
+    );
+  }
 }

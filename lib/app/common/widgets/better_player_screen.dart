@@ -9,8 +9,9 @@ import 'back_button_widget.dart';
 
 class BetterPlayerScreen extends StatefulWidget {
   final String streamUrl;
+  final bool isLive;
 
-  const BetterPlayerScreen({Key? key, required this.streamUrl}) : super(key: key);
+  const BetterPlayerScreen({Key? key, required this.streamUrl, this.isLive = false}) : super(key: key);
 
   @override
   _BetterPlayerScreenState createState() => _BetterPlayerScreenState();
@@ -31,6 +32,7 @@ class _BetterPlayerScreenState extends State<BetterPlayerScreen> with SingleTick
     BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
       BetterPlayerDataSourceType.network,
       widget.streamUrl,
+      liveStream: widget.isLive,
     );
     _betterPlayerController = BetterPlayerController(
       BetterPlayerConfiguration(autoPlay: true),
@@ -148,6 +150,30 @@ class _BetterPlayerScreenState extends State<BetterPlayerScreen> with SingleTick
                     ),
                   ),
                 ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: widget.isLive
+                    ? Text(
+                  'Live',
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                )
+                    : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      formatDuration(_betterPlayerController.videoPlayerController!.value.position),
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                    ),
+                    Text(
+                      formatDuration(_betterPlayerController.videoPlayerController!.value.duration ?? Duration.zero),
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                    ),
+                  ],
+                ),
               ),
             ),
             Align(

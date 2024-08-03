@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
 import '../../../common/widgets/back_button_widget.dart';
-import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
-
 
 class LiveTVView2 extends StatelessWidget {
   final String imageUrl;
@@ -102,25 +100,23 @@ class LiveTVView2 extends StatelessWidget {
               ),
               // Main Body
               Expanded(
-                child: Obx(() => liveTVController.isLoading.value ?
-                Center(
-                    child: CircularProgressIndicator()) :
-                Row(
+                child: Obx(() => liveTVController.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    : Row(
                   children: [
                     // Left Sidebar
                     Container(
                       width: 90.w,
                       color: Colors.black.withOpacity(0.5),
                       child: ListView.builder(
-                        itemCount: liveTVController.entries.length, // Update this with actual channel count
+                        itemCount: liveTVController.entries.length,
                         itemBuilder: (context, index) {
                           final channel = liveTVController.entries[index];
                           return Container(
                             color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
                             child: ListTile(
                               title: Text(
-                                // 'Channel 01 HD',
-                                channel.title,
+                                channel.displayName,
                                 style: TextStyle(color: Colors.white),
                               ),
                               subtitle: Text(
@@ -145,18 +141,11 @@ class LiveTVView2 extends StatelessWidget {
                             // Image and Info
                             GestureDetector(
                               onTap: () {
-                                // _navigateToBetterPlayer(context, 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+                                //_navigateToBetterPlayer(context, 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
                               },
                               child: Center(
                                 child: SizedBox(
                                   child: Image.network(imageUrl,),
-                                  // decoration: BoxDecoration(
-                                  //   borderRadius: BorderRadius.circular(8.0.r),
-                                  //   image: DecorationImage(
-                                  //     image: AssetImage(imageUrl),
-                                  //     fit: BoxFit.cover,
-                                  //   ),
-                                  // ),
                                   height: 200.h,
                                 ),
                               ),
@@ -178,7 +167,6 @@ class LiveTVView2 extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  // color: Colors.red,
                                   padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
                                   child: Text(
                                     '10:10 - 12:20    A hidden truth',
@@ -187,7 +175,6 @@ class LiveTVView2 extends StatelessWidget {
                                 ),
                                 SizedBox(height: 4.0.h),
                                 Container(
-                                  //color: Colors.grey,
                                   padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
                                   child: Text(
                                     '10:10 - 12:20    A hidden truth',
@@ -196,7 +183,6 @@ class LiveTVView2 extends StatelessWidget {
                                 ),
                                 SizedBox(height: 4.0.h),
                                 Container(
-                                  // color: Colors.grey,
                                   padding: EdgeInsets.symmetric(vertical: 4.0.h, horizontal: 2.0.w),
                                   child: Text(
                                     '10:10 - 12:20    A hidden truth',
@@ -210,8 +196,7 @@ class LiveTVView2 extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                ),
+                )),
               ),
             ],
           ),

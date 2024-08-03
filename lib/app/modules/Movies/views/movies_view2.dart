@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
 import 'package:ip_tv/generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
-import '../../../common/widgets/vlc_player_screen.dart';
-import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
-import '../controllers/movies_controller.dart';
 
+class MoviesView2 extends StatelessWidget {
+  final String imageUrl;
+  final String channelName;
+  final String programInfo;
+  final String date;
+  final String streamUrl;
 
-class MoviesView2 extends GetView<MoviesController> {
-  const MoviesView2({Key? key}) : super(key: key);
+  MoviesView2({
+    Key? key,
+    required this.imageUrl,
+    required this.channelName,
+    required this.programInfo,
+    required this.date,
+    required this.streamUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +72,7 @@ class MoviesView2 extends GetView<MoviesController> {
                         height: 150.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(VoidImages.sample),
+                            image: NetworkImage(imageUrl),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -74,7 +83,7 @@ class MoviesView2 extends GetView<MoviesController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Akuaman The Saga',
+                              channelName,
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -83,7 +92,7 @@ class MoviesView2 extends GetView<MoviesController> {
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              'Half-human, half-Atlantean Arthur Curry must take his rightful place as the king of Atlantis and prevent a large-scale conflict from breaking out between the underwater kingdom and the surface world.',
+                              programInfo,
                               style: TextStyle(
                                 fontSize: 7.sp,
                                 color: Colors.white,
@@ -94,12 +103,10 @@ class MoviesView2 extends GetView<MoviesController> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    Get.to(() => BetterPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
-                                    //Get.to(() => VlcPlayerScreen(streamUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'));
+                                    Get.to(() => BetterPlayerScreen(streamUrl: streamUrl));
                                   },
                                   child: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
-                                   // backgroundColor: VoidColors.primary,
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0), // Decrease roundness
@@ -112,7 +119,7 @@ class MoviesView2 extends GetView<MoviesController> {
                                     onPressed: () {},
                                     child: Text(LocaleKeys.ContinueWatching.tr,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(color: VoidColors.whiteColor)),
+                                        style: TextStyle(color: Colors.white)),
                                     style: OutlinedButton.styleFrom(
                                       side: BorderSide(color: Colors.white),
                                       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -128,7 +135,7 @@ class MoviesView2 extends GetView<MoviesController> {
                                     onPressed: () {},
                                     child: Text(LocaleKeys.WatchLater.tr,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(color: VoidColors.whiteColor)),
+                                        style: TextStyle(color: Colors.white)),
                                     style: OutlinedButton.styleFrom(
                                       side: BorderSide(color: Colors.white),
                                       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -160,10 +167,10 @@ class MoviesView2 extends GetView<MoviesController> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildSimilarMovieCard(VoidImages.sample),
-                        _buildSimilarMovieCard(VoidImages.sample),
-                        _buildSimilarMovieCard(VoidImages.sample),
-                        _buildSimilarMovieCard(VoidImages.sample),
+                        _buildSimilarMovieCard(imageUrl),
+                        _buildSimilarMovieCard(imageUrl),
+                        _buildSimilarMovieCard(imageUrl),
+                        _buildSimilarMovieCard(imageUrl),
                       ],
                     ),
                   ),
@@ -187,7 +194,7 @@ class MoviesView2 extends GetView<MoviesController> {
             height: 150.h,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(imagePath),
+                image: NetworkImage(imagePath),
                 fit: BoxFit.cover,
               ),
             ),

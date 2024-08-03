@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:better_player/better_player.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
 import 'live_t_v_view2.dart';
-
 
 class LiveTVView extends GetView<LiveTVController> {
   LiveTVView({Key? key}) : super(key: key);
@@ -36,11 +34,11 @@ class LiveTVView extends GetView<LiveTVController> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                   child: PreferredSize(
-                    preferredSize: Size.fromHeight(20.0.h), // Decrease the height of the AppBar
+                    preferredSize: Size.fromHeight(20.0.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const BackButtonWidget(),  // Use the back button widget
+                        const BackButtonWidget(),
                         Expanded(
                           child: Center(
                             child: Text(
@@ -60,14 +58,14 @@ class LiveTVView extends GetView<LiveTVController> {
                           onPressed: () {
                             // Handle search action
                           },
-                          iconSize: 10.w, // Adjust the size of the search icon
+                          iconSize: 10.w,
                         ),
                         IconButton(
                           icon: Icon(Icons.settings, color: Colors.white),
                           onPressed: () {
                             // Handle settings action
                           },
-                          iconSize: 10.w, // Adjust the size of the settings icon
+                          iconSize: 10.w,
                         ),
                       ],
                     ),
@@ -76,10 +74,9 @@ class LiveTVView extends GetView<LiveTVController> {
               ),
               // Main Body
               Expanded(
-                child: Obx(() => liveTVController.isLoading.value ?
-                Center(
-                    child: CircularProgressIndicator()) :
-                Row(
+                child: Obx(() => liveTVController.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    : Row(
                   children: [
                     // Left Sidebar
                     Container(
@@ -90,17 +87,27 @@ class LiveTVView extends GetView<LiveTVController> {
                         itemBuilder: (context, index) {
                           final channel = liveTVController.entries[index];
                           return Container(
-                            color: index == 0 ? Theme.of(context).colorScheme.primary : Colors.transparent,
+                            color: index == 0
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.transparent,
                             child: ListTile(
                               title: Text(
-                                channel.title,
+                                channel.displayName,
                                 style: TextStyle(color: Colors.white),
                               ),
                               subtitle: Text(
                                 LocaleKeys.ProgramInfo.tr,
-                                style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(0.7)),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(() => LiveTVView2(
+                                  imageUrl: channel.logo,
+                                  channelName: channel.displayName,
+                                  programInfo: 'A hidden truth',
+                                  date: '21-june-2022',
+                                ));
+                              },
                             ),
                           );
                         },
@@ -110,18 +117,19 @@ class LiveTVView extends GetView<LiveTVController> {
                     Expanded(
                       child: GridView.builder(
                         padding: EdgeInsets.all(16.0.w),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
                         ),
-                        itemCount: liveTVController.entries.length, // Update this with actual video count
+                        itemCount: liveTVController.entries.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
                               Get.to(() => LiveTVView2(
                                 imageUrl: liveTVController.entries[index].logo,
-                                channelName: liveTVController.entries[index].title,
+                                channelName: liveTVController.entries[index].displayName,
                                 programInfo: 'A hidden truth',
                                 date: '21-june-2022',
                               ));
@@ -134,8 +142,7 @@ class LiveTVView extends GetView<LiveTVController> {
                       ),
                     ),
                   ],
-                ),
-                ),
+                )),
               ),
             ],
           ),

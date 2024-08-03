@@ -39,4 +39,5 @@ class VoidImages {
   static const String speed="assets/icons/speed.png";
   static const String stream="assets/icons/stream.png";
   static const String themes="assets/icons/themes.png";
+  static const String info="assets/icons/Info.png";
 }
