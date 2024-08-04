@@ -6,7 +6,7 @@ class VoidImages {
   static const String background2="assets/images/firstHomeBgImg.png";
   static const String background3="assets/images/bg3.png";
   static const String back="assets/images/back_button.png";
-  static const String movie="assets/images/movieImg.png";
+  static const String movie="assets/images/moviesImg.png";
   static const String movieInfo="assets/images/movieInfoImg.png";
   static const String series="assets/images/seriesImg.png";
   static const String setting_icon="assets/images/setting.png";

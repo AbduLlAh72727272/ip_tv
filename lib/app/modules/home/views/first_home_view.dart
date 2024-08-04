@@ -106,8 +106,38 @@ class FirstHomeView extends GetView {
                               onTap: () {
                                 Get.toNamed(Routes.LIVE_T_V);
                               },
-                              child: Image.asset(VoidImages.live_Tv,
-                                height: 110.0.h, width: 130.0.w,),
+                              child: Container(
+                                height: 110.0.h, width: 130.0.w,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(image: AssetImage(
+                                    VoidImages.live_Tv,
+                                ))
+                              ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 4.0.h),
+                                      child: SizedBox(
+                                        width: 45.w,
+                                        child: Center(
+                                          child: Text(LocaleKeys.LiveTv.tr,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: 'Arial',
+                                              fontSize: 7.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: VoidColors.whiteColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                                // Image.asset(VoidImages.live_Tv,
+                                //   height: 110.0.h, width: 130.0.w,),
+                              ),
                             ),
                           ),
                           Expanded(
@@ -116,8 +146,40 @@ class FirstHomeView extends GetView {
                               onTap: () {
                                 Get.toNamed(Routes.MOVIES);
                               },
-                              child: Image.asset(VoidImages.movie,
-                                height: 110.0.h, width: 130.0.w,),
+                              child: Container(
+                                  height: 110.0.h, width: 130.0.w,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(
+                                        VoidImages.movie,
+                                      ))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 4.0.h),
+                                        child: SizedBox(
+                                          width: 45.w,
+                                          child: Center(
+                                            child: Text(LocaleKeys.Movies.tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Arial',
+                                                fontSize: 7.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: VoidColors.whiteColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                // Image.asset(VoidImages.live_Tv,
+                                //   height: 110.0.h, width: 130.0.w,),
+                              ),
+                              // Image.asset(VoidImages.movie,
+                              //   height: 110.0.h, width: 130.0.w,),
                             ),
                           ),
                           Expanded(
@@ -126,8 +188,40 @@ class FirstHomeView extends GetView {
                               onTap: () {
                                 Get.toNamed(Routes.SERIES);
                               },
-                              child: Image.asset(VoidImages.series,
-                                height: 110.0.h, width: 130.0.w,),
+                              child: Container(
+                                  height: 110.0.h, width: 130.0.w,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(
+                                        VoidImages.series,
+                                      ))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 4.0.h),
+                                        child: SizedBox(
+                                          width: 45.w,
+                                          child: Center(
+                                            child: Text(LocaleKeys.Series.tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Arial',
+                                                fontSize: 7.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: VoidColors.whiteColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                // Image.asset(VoidImages.live_Tv,
+                                //   height: 110.0.h, width: 130.0.w,),
+                              ),
+                              // Image.asset(VoidImages.series,
+                              //   height: 110.0.h, width: 130.0.w,),
                             ),
                           ),
                           Expanded(
@@ -136,8 +230,40 @@ class FirstHomeView extends GetView {
                               onTap: () {
                                 Get.toNamed(Routes.SETTING);
                               },
-                              child: Image.asset(VoidImages.setting,
-                                height: 110.0.h, width: 130.0.w,),
+                              child: Container(
+                                  height: 110.0.h, width: 130.0.w,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(
+                                        VoidImages.setting,
+                                      ))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 4.0.h),
+                                        child: SizedBox(
+                                          width: 45.w,
+                                          child: Center(
+                                            child: Text(LocaleKeys.Settings.tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Arial',
+                                                fontSize: 7.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: VoidColors.whiteColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                // Image.asset(VoidImages.live_Tv,
+                                //   height: 110.0.h, width: 130.0.w,),
+                              ),
+                              // Image.asset(VoidImages.setting,
+                              //   height: 110.0.h, width: 130.0.w,),
                             ),
                           ),
                         ],

@@ -15,7 +15,8 @@ class MoviesView extends GetView<MoviesController> {
   @override
   Widget build(BuildContext context) {
     // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    ScreenUtil.init(context,
+        designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -101,36 +102,40 @@ class MoviesView extends GetView<MoviesController> {
                                 label: Text(LocaleKeys.Play.tr),
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.black,
-                                  padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 24.w, vertical: 12.h),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ),
                               SizedBox(width: 8.w),
-                             OutlinedButton(
-  onPressed: () {},
-  style: OutlinedButton.styleFrom(
-    foregroundColor: Colors.white,
-    backgroundColor: Color(0x6D6D6EB2),
-    side: BorderSide(color: Colors.white),
-    padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-  ),
-  child: Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Image.asset(
-        VoidImages.info,
-        color: Colors.white,
-      ),
-      SizedBox(width: 8.w),
-      Text(LocaleKeys.MoreInfo.tr),
-    ],
-  ),
-),
+                              OutlinedButton(
+                                onPressed: () {},
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: Color(0x6D6D6EB2),
+                                  side: BorderSide(color: Colors.white),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 24.w, vertical: 12.h),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Image.asset(
+                                      VoidImages.info,
+                                      color: Colors.white,
+                                      height: 18.h,
+                                      width: 18.w,
+                                    ),
+                                    SizedBox(width: 8.w),
+                                    Text(LocaleKeys.MoreInfo.tr),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -177,12 +182,12 @@ class MoviesView extends GetView<MoviesController> {
                 return GestureDetector(
                   onTap: () {
                     Get.to(() => MoviesView2(
-                      imageUrl: movie.logo,
-                      channelName: movie.name,
-                      programInfo: movie.group,
-                      date: '',
-                      streamUrl: movie.url,
-                    ));
+                          imageUrl: movie.logo,
+                          channelName: movie.name,
+                          programInfo: movie.group,
+                          date: '',
+                          streamUrl: movie.url,
+                        ));
                   },
                   child: buildMovieCard(movie.logo, movie.name),
                 );
