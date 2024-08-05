@@ -22,16 +22,16 @@ class FourthHomeView extends GetView {
       'assets/images/tvImg.png',
       'assets/images/secTvImg.png',
       'assets/images/sportsImg.png',
-      'assets/images/secTvImg.png',
-      'assets/images/sportsImg.png',
+      // 'assets/images/secTvImg.png',
+      // 'assets/images/sportsImg.png',
     ];
     List<String> titles = [
       // LocaleKeys.Recording.tr,
       LocaleKeys.Epg.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.SportGuide.tr,
-      LocaleKeys.MultiScreen.tr,
-      LocaleKeys.SportGuide.tr,
+      // LocaleKeys.MultiScreen.tr,
+      // LocaleKeys.SportGuide.tr,
     ];
 
     return Scaffold(
@@ -127,10 +127,76 @@ class FourthHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
+                                Get.toNamed(Routes.LIVE_T_V);
+                              },
+                              child: Container(
+                                  height: 200.0.h, width: 160.0.w,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(
+                                        VoidImages.live_Tv,
+                                      ))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 24.0.h),
+                                        child: SizedBox(
+                                          width: 40.w,
+                                          child: Center(
+                                            child: Text(LocaleKeys.LiveTv.tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Arial',
+                                                fontSize: 9.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: VoidColors.whiteColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10.0.w),
+                          Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: () {
                                 Get.toNamed(Routes.MOVIES);
                               },
-                              child: Image.asset(
-                                'assets/images/movieImg.png',
+                              child: Container(
+                                  height: 200.0.h, width: 160.0.w,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(
+                                        VoidImages.movie,
+                                      ))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 24.0.h),
+                                        child: SizedBox(
+                                          width: 40.w,
+                                          child: Center(
+                                            child: Text(LocaleKeys.Movies.tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Arial',
+                                                fontSize: 9.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: VoidColors.whiteColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                               ),
                             ),
                           ),
@@ -141,43 +207,72 @@ class FourthHomeView extends GetView {
                               onTap: () {
                                 Get.toNamed(Routes.SERIES);
                               },
-                              child: Image.asset(
-                                'assets/images/seriesImg.png',
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10.0.w),
-                          Expanded(
-                            flex: 2,
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(Routes.LIVE_T_V);
-                              },
-                              child: Image.asset(
-                                'assets/images/liveTvImg.png',
+                              child: Container(
+                                  height: 200.0.h, width: 160.0.w,
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(image: AssetImage(
+                                        VoidImages.series,
+                                      ))
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 24.0.h),
+                                        child: SizedBox(
+                                          width: 40.w,
+                                          child: Center(
+                                            child: Text(LocaleKeys.Series.tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Arial',
+                                                fontSize: 9.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: VoidColors.whiteColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 100.h,
-                      child: ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: newImages.length,
-                        itemBuilder: (context, index) {
-                          return FirstHomeSecCardWidget(
-                            secSelectedIndex: secSelectedIndex,
-                            newImages: newImages,
-                            titles: titles,
-                            index: index,
-                          );
-                        },
-                      ),
-                    ).marginOnly(bottom: 40.0.h),
+                    Center(
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 100.h,
+                        child: ListView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: newImages.length,
+                          itemBuilder: (context, index) {
+                            return
+                            index == 1 ? GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.MULTISCREEN);
+                              },
+                              child: FirstHomeSecCardWidget(
+                                secSelectedIndex: secSelectedIndex,
+                                newImages: newImages,
+                                titles: titles,
+                                index: index,
+                              ),
+                            ) :
+                            FirstHomeSecCardWidget(
+                              secSelectedIndex: secSelectedIndex,
+                              newImages: newImages,
+                              titles: titles,
+                              index: index,
+                            );
+                          },
+                        ),
+                      ).marginOnly(bottom: 40.0.h),
+                    ),
                   ],
                 ),
               ),
@@ -193,32 +288,36 @@ class FirstHomeSecCardWidget extends StatelessWidget {
   FirstHomeSecCardWidget({
     super.key,
     required this.secSelectedIndex,
+    // required this.onTap,
     required this.newImages,
     required this.titles,
     required this.index,
   });
 
   final RxInt secSelectedIndex;
+  // VoidCallback onTap;
   final List<String> newImages;
   final List<String> titles;
   int index;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-          () => GestureDetector(
+    return GestureDetector(
         onTap: () {
           secSelectedIndex.value = index;
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 5.0.h),
-          height: secSelectedIndex.value == index ? 80.h : 60.h,
-          width: secSelectedIndex.value == index ? 90.w : 70.w,
+          height: 60.h,
+          width: 70.w,
+          // height: secSelectedIndex.value == index ? 80.h : 60.h,
+          // width: secSelectedIndex.value == index ? 90.w : 70.w,
           decoration: BoxDecoration(
             color: VoidColors.lightBlack,
             borderRadius: BorderRadius.circular(10.0.r),
             border: Border.all(
-              color: secSelectedIndex.value == index ? VoidColors.whiteColor : Colors.transparent,
+              // color: secSelectedIndex.value == index ? VoidColors.whiteColor : Colors.transparent,
+              color: Colors.transparent,
             ),
           ),
           child: Column(
@@ -261,7 +360,6 @@ class FirstHomeSecCardWidget extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -86,8 +86,8 @@ class LoginView extends StatelessWidget {
                             Get.snackbar(
                               "Success",
                               "WELCOME TO ARK VIP!!!",
-                              snackPosition: SnackPosition.BOTTOM,
-                              backgroundColor: VoidColors.primary,
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
                               colorText: Colors.white,
                             );
                           } else {
@@ -96,7 +96,7 @@ class LoginView extends StatelessWidget {
                               "Error",
                               "Incorrect MAC Address or PIN",
                               snackPosition: SnackPosition.BOTTOM,
-                              backgroundColor: VoidColors.secondary,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
                               colorText: Colors.white,
                             );
                           }
