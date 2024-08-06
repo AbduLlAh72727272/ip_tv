@@ -11,6 +11,7 @@ class VoidColors {
   static const Color halfWhite = Color(0xFFF0EBEB);
   static const Color whiteColor = Color(0xFFFFFFFF);
   static const Color greenColor = Color(0xFF1A854C);
+  static const Color darkGreyColor = Color(0xFF575757);
 
   /// Theme Colors
   static const Color greyColor = Color(0xFFCACACA);

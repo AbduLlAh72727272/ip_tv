@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ip_tv/generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../../live_TV/controllers/live_t_v_controller.dart';
 import '../controllers/multiscreen_controller.dart'; // Import your color file
 
 class MultiscreenView2 extends GetView<MultiscreenController> {
-  const MultiscreenView2({Key? key}) : super(key: key);
+  final int initialIndex;
+  const MultiscreenView2({super.key, required this.initialIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +19,7 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
     final List<String> categories = [
       'All', 'Favourites', 'T20 World cup', 'Sports', 'Cricket', 'BEIN sport', 'Sky sport', 'Others'
     ];
+    final LiveTVController liveTVController = Get.put(LiveTVController());
 
     return Scaffold(
       backgroundColor: VoidColors.blackColor,
@@ -31,16 +35,16 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
           //     Get.back();
           //   },
           // ),
-          title: Text('Live TV', style: TextStyle(color: Colors.white)),
+          title: Text(LocaleKeys.LiveTv.tr, style: TextStyle(color: VoidColors.whiteColor)),
           actions: [
             IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
+              icon: Icon(Icons.search, color: VoidColors.whiteColor),
               onPressed: () {
 
               },
             ),
             IconButton(
-              icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
+              icon: Icon(Icons.settings_suggest_outlined, color: VoidColors.whiteColor),
               onPressed: () {
               },
             ),
@@ -60,35 +64,66 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
             ),
           ),
           // Category grid
-          Center(
-            child: GridView.builder(
-              padding: EdgeInsets.all(16.w),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.w,
-                mainAxisSpacing: 8.h,
-                childAspectRatio: 4,
-              ),
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.tv, color: Colors.white, size: 24.sp),
-                      SizedBox(width: 8.w),
-                      Text(
-                        categories[index],
-                        style: TextStyle(color: Colors.white, fontSize: 12.sp),
-                      ),
-                    ],
-                  ),
-                );
+          Obx(() {
+            if (liveTVController.isLoading.value &&
+                liveTVController.entries.isEmpty) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return NotificationListener<ScrollNotification>(
+              onNotification: (scrollInfo) {
+                if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+                    !liveTVController.isFetchingMore.value &&
+                    !liveTVController.allPagesLoaded.value) {
+                  liveTVController.fetchNextPage();
+                }
+                return false;
               },
-            ),
+              child: Center(
+                child: GridView.builder(
+                  padding: EdgeInsets.all(16.w),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8.w,
+                    mainAxisSpacing: 8.h,
+                    childAspectRatio: 6,
+                  ),
+                  // itemCount: categories.length,
+                  itemCount: liveTVController.entries.length,
+                  itemBuilder: (context, index) {
+                    final channel = liveTVController.entries[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // controller.addUrl(channel.url);
+                        Get.back(result: channel.url);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        decoration: BoxDecoration(
+                          color: VoidColors.darkGreyColor,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.tv, color: VoidColors.whiteColor, size: 15.sp),
+                            SizedBox(width: 8.w),
+                            SizedBox(
+                              width: 85.w,
+                              child: Text(
+                                // categories[index],
+                                  channel.displayName,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: VoidColors.whiteColor, fontSize: 9.sp),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          }
           ),
         ],
       ),

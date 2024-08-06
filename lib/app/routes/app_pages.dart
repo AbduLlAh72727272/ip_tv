@@ -154,7 +154,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MULTISCREEN,
-      page: () => const MultiscreenView(),
+      page: () => MultiscreenView(),
       binding: MultiscreenBinding(),
     ),
     GetPage(
