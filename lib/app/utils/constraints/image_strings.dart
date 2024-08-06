@@ -23,6 +23,7 @@ class VoidImages {
   static const String TV="assets/images/tvImg.png";
   static const String SEC_TV="assets/images/secTvImg.png";
   static const String Sports="assets/images/sportsImg.png";
+  static const String placeholder="assets/images/placeholder.png";
 
 
 

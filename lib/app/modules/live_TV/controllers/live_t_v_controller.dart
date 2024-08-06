@@ -1,11 +1,14 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class LiveTVController extends GetxController {
   var isLoading = true.obs;
+  var isFetchingMore = false.obs;
   var entries = <M3UEntry>[].obs;
+  var currentPage = 0.obs;
+  final int pageSize = 100;
+  var allPagesLoaded = false.obs;
 
   @override
   void onInit() {
@@ -14,22 +17,40 @@ class LiveTVController extends GetxController {
   }
 
   Future<void> fetchM3U() async {
+    if (isFetchingMore.value || allPagesLoaded.value) return;
+
     isLoading(true);
+    isFetchingMore(true);
+
     try {
-      final response = await http.get(Uri.parse('https://iptv-be-production.up.railway.app/api/channels'));
+      final response = await http.get(
+        Uri.parse('https://iptv-be-production.up.railway.app/api/channels?page=${currentPage.value}&size=$pageSize'),
+      );
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        entries.value = data.map((item) => M3UEntry.fromJson(item)).toList();
+        if (data.isEmpty) {
+          allPagesLoaded(true);
+        } else {
+          entries.addAll(data.map((item) => M3UEntry.fromJson(item)).toList());
+          currentPage.value++;
+        }
       } else {
-        print('Failed to load channels: ${response.statusCode}');
         Get.snackbar('Error', 'Failed to load channels');
       }
     } catch (e) {
-      print('Error occurred: $e');
       Get.snackbar('Error', 'An error occurred');
     } finally {
-      isLoading.value = false;
+      isLoading(false);
+      isFetchingMore(false);
     }
+  }
+
+  Future<void> fetchNextPage() async {
+    if (isFetchingMore.value || allPagesLoaded.value) return;
+
+    isFetchingMore(true);
+    await fetchM3U();
+    isFetchingMore(false);
   }
 }
 

@@ -8,8 +8,19 @@ import '../../../utils/constraints/image_strings.dart';
 class SeriesView extends StatelessWidget {
   final SeriesController controller = Get.put(SeriesController());
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
+    // Add listener to the scroll controller to load more series when reaching the end
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent &&
+          !controller.isFetchingMore.value &&
+          !controller.allPagesLoaded.value) {
+        controller.fetchNextPage();
+      }
+    });
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.h),
@@ -37,7 +48,6 @@ class SeriesView extends StatelessWidget {
           ],
         ),
       ),
-      // extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           // Background gradient
@@ -52,10 +62,11 @@ class SeriesView extends StatelessWidget {
           ),
           // Content
           SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               children: [
                 Obx(() {
-                  if (controller.isLoading.value) {
+                  if (controller.isLoading.value && controller.series.isEmpty) {
                     return Container(
                       width: double.infinity,
                       height: 400.h,
@@ -85,11 +96,15 @@ class SeriesView extends StatelessWidget {
                     height: 400.h,
                     child: Stack(
                       children: [
-                        Image.network(
-                          firstSeries.logo,
+                        FadeInImage.assetNetwork(
+                          placeholder: VoidImages.placeholder, // Placeholder image
+                          image: firstSeries.logo,
                           width: double.infinity,
                           height: double.infinity,
                           fit: BoxFit.cover,
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
+                          },
                         ),
                         Positioned(
                           left: 16.w,
@@ -113,7 +128,7 @@ class SeriesView extends StatelessWidget {
                     children: [
                       SizedBox(height: 10.h),
                       Obx(() {
-                        if (controller.isLoading.value) {
+                        if (controller.isLoading.value && controller.series.isEmpty) {
                           return Center(child: CircularProgressIndicator());
                         }
 
@@ -121,23 +136,51 @@ class SeriesView extends StatelessWidget {
                           height: 180.h,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.series.length,
+                            itemCount: controller.series.length + 1,
                             itemBuilder: (context, index) {
+                              if (index == controller.series.length) {
+                                if (controller.allPagesLoaded.value) {
+                                  return Center(child: Text('You have reached the end of the list'));
+                                } else {
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                              }
+
+                              final series = controller.series[index];
+
                               return GestureDetector(
                                 onTap: () {
-                                  Get.toNamed('/series_view2', arguments: controller.series[index]);
+                                  Get.toNamed('/series_view2', arguments: series);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(5.w),
                                   width: 120.w,
-                                  height: 180.h,
-                                  child: Stack(
+                                  child: Column(
                                     children: [
-                                      Image.network(
-                                        controller.series[index].logo,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        height: double.infinity,
+                                      Stack(
+                                        children: [
+                                          FadeInImage.assetNetwork(
+                                            placeholder: VoidImages.logo, // Placeholder image
+                                            image: series.logo,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: 140.h,
+                                            imageErrorBuilder: (context, error, stackTrace) {
+                                              return Image.asset(VoidImages.logo, fit: BoxFit.cover);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 1.h),
+                                      Text(
+                                        series.name,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 5.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),

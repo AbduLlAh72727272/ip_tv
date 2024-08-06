@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
+import 'package:ip_tv/app/common/widgets/vlc_player_screen.dart';
 import 'package:ip_tv/generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/image_strings.dart';
@@ -70,11 +71,23 @@ class MoviesView2 extends StatelessWidget {
                       Container(
                         width: 100.w,
                         height: 150.h,
+                        child: Image.network(
+                          imageUrl.isNotEmpty ? imageUrl : VoidImages.placeholder,
+                          width: 100.w,
+                          height: 150.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                            return Image.asset(
+                              VoidImages.placeholder,
+                              width: 100.w,
+                              height: 150.h,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(imageUrl),
-                            fit: BoxFit.cover,
-                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.grey,
                         ),
                       ),
                       SizedBox(width: 16.w),
@@ -103,7 +116,7 @@ class MoviesView2 extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    Get.to(() => BetterPlayerScreen(streamUrl: streamUrl));
+                                    Get.to(() => VlcPlayerScreen(streamUrl: streamUrl));
                                   },
                                   child: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
@@ -152,50 +165,7 @@ class MoviesView2 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 24.h),
-                  // Similar Movies Section
-                  Text(
-                    'Similar Movies',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        _buildSimilarMovieCard(imageUrl),
-                        _buildSimilarMovieCard(imageUrl),
-                        _buildSimilarMovieCard(imageUrl),
-                        _buildSimilarMovieCard(imageUrl),
-                      ],
-                    ),
-                  ),
                 ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSimilarMovieCard(String imagePath) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8.0.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 100.w,
-            height: 150.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(imagePath),
-                fit: BoxFit.cover,
               ),
             ),
           ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
+import 'package:get/get.dart';
+import 'package:ip_tv/app/common/widgets/vlc_player_screen.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
-import '../../../common/widgets/better_player_screen.dart';
-import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
+import '../controllers/series_controller.dart';
 
-class SeriesView2 extends GetView<SeriesController> {
+
+class SeriesView2 extends StatelessWidget {
   const SeriesView2({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +22,14 @@ class SeriesView2 extends GetView<SeriesController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(series.logo),
+                image: FadeInImage.assetNetwork(
+                  placeholder: VoidImages.logo, // Placeholder image
+                  image: series.logo,
+                  fit: BoxFit.cover,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(VoidImages.logo, fit: BoxFit.cover);
+                  },
+                ).image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -62,7 +70,14 @@ class SeriesView2 extends GetView<SeriesController> {
                         height: 150.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(series.logo),
+                            image: FadeInImage.assetNetwork(
+                              placeholder: VoidImages.logo, // Placeholder image
+                              image: series.logo,
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Image.asset(VoidImages.logo, fit: BoxFit.cover);
+                              },
+                            ).image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -93,7 +108,7 @@ class SeriesView2 extends GetView<SeriesController> {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
-                                    Get.to(() => BetterPlayerScreen(streamUrl: series.url));
+                                    Get.to(() => VlcPlayerScreen(streamUrl: series.url));
                                   },
                                   child: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
@@ -188,7 +203,14 @@ class SeriesView2 extends GetView<SeriesController> {
             height: 150.h,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(imagePath),
+                image: FadeInImage.assetNetwork(
+                  placeholder: VoidImages.placeholder, // Placeholder image
+                  image: imagePath,
+                  fit: BoxFit.cover,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
+                  },
+                ).image,
                 fit: BoxFit.cover,
               ),
             ),

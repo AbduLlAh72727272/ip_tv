@@ -8,12 +8,13 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
+import 'app/modules/Movies/controllers/movies_controller.dart';
 import 'app/modules/home/controllers/home_controller.dart';
 import 'app/modules/selectLanguage/controllers/select_language_controller.dart';
 import 'app/modules/splash/views/splash_view.dart';
 import 'app/routes/app_pages.dart';
 import 'generated/locales.g.dart';
-import 'app/modules/Movies/models/movie_model.dart'; // Import your model
+import 'app/modules/Movies/models/movie_model.dart';
 
 String language = "";
 
@@ -21,18 +22,20 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
+  Get.put(MoviesController());
 
   // Register the adapter
   Hive.registerAdapter(MovieAdapter());
 
   await Hive.openBox<Movie>('moviesBox');
 
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]).then((_) async {
     final languageController = Get.put(SelectLanguageController());
-    language = await languageController.loadSavedLanguage(); // Load saved language preference
+    language = await languageController.loadSavedLanguage();
     log("My Saved Language: $language");
     runApp(MyApp());
   });

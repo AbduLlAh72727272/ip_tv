@@ -4,14 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
+import '../../../common/widgets/vlc_player_screen.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/live_t_v_controller.dart';
-import 'live_t_v_view2.dart';
 
 class LiveTVView extends GetView<LiveTVController> {
   LiveTVView({Key? key}) : super(key: key);
 
   final LiveTVController liveTVController = Get.put(LiveTVController());
+
+  void _navigateToVlcPlayer(BuildContext context, String streamUrl) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VlcPlayerScreen(streamUrl: streamUrl),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,75 +83,90 @@ class LiveTVView extends GetView<LiveTVController> {
               ),
               // Main Body
               Expanded(
-                child: Obx(() => liveTVController.isLoading.value
-                    ? Center(child: CircularProgressIndicator())
-                    : Row(
-                  children: [
-                    // Left Sidebar
-                    Container(
-                      width: 90.w,
-                      color: Colors.black.withOpacity(0.5),
-                      child: ListView.builder(
-                        itemCount: liveTVController.entries.length,
-                        itemBuilder: (context, index) {
-                          final channel = liveTVController.entries[index];
-                          return Container(
-                            color: index == 0
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.transparent,
-                            child: ListTile(
-                              title: Text(
-                                channel.displayName,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              subtitle: Text(
-                                LocaleKeys.ProgramInfo.tr,
-                                style: TextStyle(
-                                    color: Colors.white.withOpacity(0.7)),
-                              ),
-                              onTap: () {
-                                Get.to(() => LiveTVView2(
-                                  imageUrl: channel.logo,
-                                  channelName: channel.displayName,
-                                  programInfo: 'A hidden truth',
-                                  date: '21-june-2022',
-                                ));
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    // Main Content
-                    Expanded(
-                      child: GridView.builder(
-                        padding: EdgeInsets.all(16.0.w),
-                        gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemCount: liveTVController.entries.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(() => LiveTVView2(
-                                imageUrl: liveTVController.entries[index].logo,
-                                channelName: liveTVController.entries[index].displayName,
-                                programInfo: 'A hidden truth',
-                                date: '21-june-2022',
-                              ));
+                child: Obx(() {
+                  if (liveTVController.isLoading.value && liveTVController.entries.isEmpty) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return NotificationListener<ScrollNotification>(
+                    onNotification: (scrollInfo) {
+                      if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+                          !liveTVController.isFetchingMore.value &&
+                          !liveTVController.allPagesLoaded.value) {
+                        liveTVController.fetchNextPage();
+                      }
+                      return false;
+                    },
+                    child: Row(
+                      children: [
+                        // Left Sidebar
+                        Container(
+                          width: 90.w,
+                          color: Colors.black.withOpacity(0.5),
+                          child: ListView.builder(
+                            itemCount: liveTVController.entries.length,
+                            itemBuilder: (context, index) {
+                              final channel = liveTVController.entries[index];
+                              return Container(
+                                color: index == 0
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.transparent,
+                                child: ListTile(
+                                  title: Text(
+                                    channel.displayName,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  subtitle: Text(
+                                    LocaleKeys.ProgramInfo.tr,
+                                    style: TextStyle(
+                                        color: Colors.white.withOpacity(0.7)),
+                                  ),
+                                  onTap: () {
+                                    _navigateToVlcPlayer(context, channel.url);
+                                  },
+                                ),
+                              );
                             },
-                            child: Image.network(
-                              liveTVController.entries[index].logo,
+                          ),
+                        ),
+                        // Main Content
+                        Expanded(
+                          child: GridView.builder(
+                            padding: EdgeInsets.all(16.0.w),
+                            gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
                             ),
-                          );
-                        },
-                      ),
+                            itemCount: liveTVController.entries.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index == liveTVController.entries.length) {
+                                if (liveTVController.allPagesLoaded.value) {
+                                  return Center(child: Text('You have reached the end of the list'));
+                                } else {
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                              }
+                              final entry = liveTVController.entries[index];
+                              final imageUrl = entry.logo.isNotEmpty ? entry.logo : VoidImages.placeholder;
+                              return GestureDetector(
+                                onTap: () {
+                                  _navigateToVlcPlayer(context, entry.url);
+                                },
+                                child: Image.network(
+                                  imageUrl,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(VoidImages.placeholder);
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                )),
+                  );
+                }),
               ),
             ],
           ),
