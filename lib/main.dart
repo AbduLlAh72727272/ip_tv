@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'app/modules/Movies/controllers/movies_controller.dart';
 import 'app/modules/home/controllers/home_controller.dart';
+import 'app/modules/live_TV/controllers/live_t_v_controller.dart';
 import 'app/modules/selectLanguage/controllers/select_language_controller.dart';
 import 'app/modules/splash/views/splash_view.dart';
 import 'app/routes/app_pages.dart';
@@ -23,6 +24,7 @@ Future<void> main() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocumentDir.path);
   Get.put(MoviesController());
+  Get.put(LiveTVController());
 
   // Register the adapter
   Hive.registerAdapter(MovieAdapter());

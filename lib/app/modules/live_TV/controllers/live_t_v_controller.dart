@@ -10,6 +10,9 @@ class LiveTVController extends GetxController {
   final int pageSize = 100;
   var allPagesLoaded = false.obs;
 
+  var selectedChannelLogo = ''.obs;
+  var selectedChannelUrl = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -24,7 +27,8 @@ class LiveTVController extends GetxController {
 
     try {
       final response = await http.get(
-        Uri.parse('https://iptv-be-production.up.railway.app/api/channels?page=${currentPage.value}&size=$pageSize'),
+        Uri.parse(
+            'https://iptv-be-production.up.railway.app/api/channels?page=${currentPage.value}&size=$pageSize'),
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);

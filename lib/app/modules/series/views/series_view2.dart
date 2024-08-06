@@ -163,26 +163,26 @@ class SeriesView2 extends StatelessWidget {
                   ),
                   SizedBox(height: 24.h),
                   // Similar Series Section
-                  Text(
-                    LocaleKeys.SimilarMovies.tr,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        _buildSimilarMovieCard(series.logo),
-                        _buildSimilarMovieCard(series.logo),
-                        _buildSimilarMovieCard(series.logo),
-                        _buildSimilarMovieCard(series.logo),
-                      ],
-                    ),
-                  ),
+                  // Text(
+                  //   LocaleKeys.SimilarMovies.tr,
+                  //   style: TextStyle(
+                  //     fontSize: 18.sp,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
+                  // SizedBox(height: 8.h),
+                  // SingleChildScrollView(
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     children: [
+                  //       _buildSimilarMovieCard(series.logo),
+                  //       _buildSimilarMovieCard(series.logo),
+                  //       _buildSimilarMovieCard(series.logo),
+                  //       _buildSimilarMovieCard(series.logo),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -192,31 +192,31 @@ class SeriesView2 extends StatelessWidget {
     );
   }
 
-  Widget _buildSimilarMovieCard(String imagePath) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8.0.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 100.w,
-            height: 150.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: FadeInImage.assetNetwork(
-                  placeholder: VoidImages.placeholder, // Placeholder image
-                  image: imagePath,
-                  fit: BoxFit.cover,
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
-                  },
-                ).image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildSimilarMovieCard(String imagePath) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(right: 8.0.w),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 100.w,
+  //           height: 150.h,
+  //           decoration: BoxDecoration(
+  //             image: DecorationImage(
+  //               image: FadeInImage.assetNetwork(
+  //                 placeholder: VoidImages.placeholder, // Placeholder image
+  //                 image: imagePath,
+  //                 fit: BoxFit.cover,
+  //                 imageErrorBuilder: (context, error, stackTrace) {
+  //                   return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
+  //                 },
+  //               ).image,
+  //               fit: BoxFit.cover,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

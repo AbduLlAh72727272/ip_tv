@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
-
+import 'package:ip_tv/app/routes/app_pages.dart';
+import 'package:ip_tv/app/utils/constraints/colors.dart';
+import 'package:ip_tv/app/utils/constraints/image_strings.dart';
 import '../../../../generated/locales.g.dart';
-import '../../../routes/app_pages.dart';
-import '../../../utils/constraints/colors.dart';
-import '../../../utils/constraints/image_strings.dart';
+import '../../../common/widgets/vlc_player_screen.dart';
+import '../../live_TV/controllers/live_t_v_controller.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 import '../../setting/views/setting_view.dart';
-import 'first_home_view.dart';
 
-class ThirdHomeView extends GetView {
+class ThirdHomeView extends GetView<LiveTVController> {
   const ThirdHomeView({Key? key}) : super(key: key);
 
   @override
@@ -23,8 +22,6 @@ class ThirdHomeView extends GetView {
       'assets/icons/moviesIcon.png',
       'assets/icons/multiScreenIcon.png',
       'assets/icons/seriesIcon.png',
-      'assets/icons/sportsIcon.png',
-      'assets/icons/recIcon.png',
       'assets/icons/settingsIcon.png'
     ];
 
@@ -34,8 +31,6 @@ class ThirdHomeView extends GetView {
       LocaleKeys.Movies.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.Series.tr,
-      LocaleKeys.Sports.tr,
-      LocaleKeys.Recording.tr,
       LocaleKeys.Settings.tr
     ];
 
@@ -161,33 +156,15 @@ class ThirdHomeView extends GetView {
                   ),
                 ),
               ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {},
-                  child: ThirdHomeCardWidget(
-                    icons: icons[5],
-                    titles: titles[5],
-                  ),
-                ),
-              ),
               Spacer(),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {},
-                  child: ThirdHomeCardWidget(
-                    icons: icons[6],
-                    titles: titles[6],
-                  ),
-                ),
-              ),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
                     Get.to(() => SettingView());
                   },
                   child: ThirdHomeCardWidget(
-                    icons: icons[7],
-                    titles: titles[7],
+                    icons: icons[5],
+                    titles: titles[5],
                   ),
                 ),
               ),
@@ -196,71 +173,88 @@ class ThirdHomeView extends GetView {
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 10.0.h),
-              child: Row(
-                children: [
-                  Image.asset('assets/images/thrdHomeImg.png'),
-                  SizedBox(width: 5.0.w),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              color: Theme.of(context).colorScheme.secondary,
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        children: List.generate(9, (index) {
-                                          return TextSpan(
-                                            text: '10\n',
-                                            style: TextStyle(
-                                              fontSize: 7.sp,
-                                              color: VoidColors.whiteColor,
-                                              fontFamily: 'Arial',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          );
-                                        }),
-                                      ),
-                                    ).marginSymmetric(vertical: 4.0.h),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              color: Theme.of(context).colorScheme.primary,
-                              child: RichText(
-                                text: TextSpan(
-                                  children: List.generate(9, (index) {
-                                    return TextSpan(
-                                      text: '  Sports      13   10     13    12    15\n',
-                                      style: TextStyle(
-                                        fontSize: 7.sp,
-                                        color: VoidColors.whiteColor,
-                                        fontFamily: 'Arial',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    );
-                                  }),
-                                ),
-                              ).marginSymmetric(vertical: 5.0.h),
-                            ),
-                          ),
-                        ],
+              child: Obx(() {
+                return Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (controller.selectedChannelUrl.value.isNotEmpty) {
+                          Get.to(() => VlcPlayerScreen(streamUrl: controller.selectedChannelUrl.value));
+                        }
+                      },
+                      child: Image.network(
+                        controller.selectedChannelLogo.value,
+                        height: 400.0,
+                        width: 400.0,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            VoidImages.placeholder,
+                            height: 400.0,
+                            width: 400.0,
+                          );
+                        },
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    SizedBox(width: 5.0.w),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        child: controller.isLoading.value
+                            ? Center(child: CircularProgressIndicator())
+                            : ListView.builder(
+                          itemCount: controller.entries.length,
+                          itemBuilder: (context, index) {
+                            final channel = controller.entries[index];
+                            return GestureDetector(
+                              onTap: () {
+                                controller.selectedChannelLogo.value =
+                                    channel.logo;
+                                controller.selectedChannelUrl.value =
+                                    channel.url;
+                              },
+                              child: Container(
+                                padding:
+                                EdgeInsets.symmetric(vertical: 4.0.h),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        '${index + 1}',
+                                        style: TextStyle(
+                                          fontSize: 7.sp,
+                                          color: VoidColors.whiteColor,
+                                          fontFamily: 'Arial',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: Text(
+                                        channel.displayName,
+                                        style: TextStyle(
+                                          fontSize: 7.sp,
+                                          color: VoidColors.whiteColor,
+                                          fontFamily: 'Arial',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
         ],
