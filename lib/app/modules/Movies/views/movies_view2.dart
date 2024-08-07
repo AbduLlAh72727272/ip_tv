@@ -58,7 +58,7 @@ class MoviesView2 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const BackButtonWidget(),  // Use the back button widget
+                      const BackButtonWidget(),
                       // IconButton(
                       //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
                       //   onPressed: () {},

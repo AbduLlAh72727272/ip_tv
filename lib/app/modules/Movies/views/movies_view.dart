@@ -18,7 +18,6 @@ class MoviesView extends GetView<MoviesController> {
 
   @override
   Widget build(BuildContext context) {
-    // Add listener to the scroll controller to load more movies when reaching the end
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent &&
@@ -50,7 +49,7 @@ class MoviesView extends GetView<MoviesController> {
                   controller: searchController,
                   onChanged: _performSearch,
                   decoration: InputDecoration(
-                    hintText: 'Search...',
+                    hintText: LocaleKeys.Search.tr,
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -73,8 +72,6 @@ class MoviesView extends GetView<MoviesController> {
       ),
       extendBodyBehindAppBar: false,
       body: Obx(() {
-        // Background gradient with the first movie's image
-        // Background gradient with the first movie's image
         final moviesWithImages = controller.movies
             .where((movie) => movie.logo.isNotEmpty && movie.logo != VoidImages.placeholder)
             .toList();
@@ -221,7 +218,7 @@ class MoviesView extends GetView<MoviesController> {
                             return Center(child: CircularProgressIndicator());
                           } else if (controller.allPagesLoaded.value) {
                             return Center(
-                                child: Text('You have reached the end of the list'));
+                                child: Text(LocaleKeys.Youhavereachedtheendofthelist.tr));
                           } else {
                             return SizedBox.shrink();
                           }
@@ -254,7 +251,6 @@ class MoviesView extends GetView<MoviesController> {
               return Center(child: CircularProgressIndicator());
             }
 
-            // Separate movies with and without images
             final moviesWithImages = controller.movies
                 .where((movie) => movie.logo.isNotEmpty && movie.logo != VoidImages.placeholder)
                 .toList();
@@ -262,7 +258,6 @@ class MoviesView extends GetView<MoviesController> {
                 .where((movie) => movie.logo.isEmpty || movie.logo == VoidImages.placeholder)
                 .toList();
 
-            // Combine the movies, putting movies with images first
             final combinedMovies = [...moviesWithImages];
             combinedMovies.addAll(moviesWithoutImages);
             combinedMovies.add(combinedMovies.removeAt(0));
@@ -276,7 +271,7 @@ class MoviesView extends GetView<MoviesController> {
                 return GestureDetector(
                   onTap: () {
                     Get.to(() => MoviesView2(
-                      imageUrl: movie.logo ?? VoidImages.placeholder,
+                      imageUrl: movie.logo ,
                       channelName: movie.name,
                       programInfo: movie.group,
                       date: '',
@@ -343,12 +338,12 @@ class MoviesView extends GetView<MoviesController> {
             child: ListBody(
               children: <Widget>[
                 Text(
-                  'Program Info: ${movie.group}',
+                  '${LocaleKeys.ProgramInfo.tr}: ${movie.group}',
                   style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 10.h),
                 Text(
-                  'Stream URL: ${movie.url}',
+                  '${LocaleKeys.StreamURL.tr}: ${movie.url}',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -356,7 +351,7 @@ class MoviesView extends GetView<MoviesController> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Close', style: TextStyle(color: Colors.white)),
+              child: Text(LocaleKeys.Close.tr, style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.of(context).pop();
               },

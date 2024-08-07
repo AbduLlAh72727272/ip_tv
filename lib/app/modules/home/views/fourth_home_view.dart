@@ -18,20 +18,14 @@ class FourthHomeView extends GetView {
   @override
   Widget build(BuildContext context) {
     List<String> newImages = [
-      // 'assets/images/mikeImg.png',
       'assets/images/tvImg.png',
       'assets/images/secTvImg.png',
       'assets/images/sportsImg.png',
-      // 'assets/images/secTvImg.png',
-      // 'assets/images/sportsImg.png',
     ];
     List<String> titles = [
-      // LocaleKeys.Recording.tr,
       LocaleKeys.Epg.tr,
       LocaleKeys.MultiScreen.tr,
       LocaleKeys.SportGuide.tr,
-      // LocaleKeys.MultiScreen.tr,
-      // LocaleKeys.SportGuide.tr,
     ];
 
     return Scaffold(
@@ -45,13 +39,13 @@ class FourthHomeView extends GetView {
             child: Row(
               children: [
                 Image.asset(
-                  'assets/images/vpnImg.png',
+                  VoidImages.vpn_blue,
                   height: 25.0.h,
                   width: 25.0.w,
                 ),
                 Spacer(),
                 Image.asset(
-                  'assets/images/iptv logo.png',
+                  VoidImages.logo,
                   height: 40.0.h,
                   width: 40.0.w,
                 ),
@@ -65,7 +59,7 @@ class FourthHomeView extends GetView {
                 ),
                 Spacer(),
                 Image.asset(
-                  'assets/icons/searchIcon.png',
+                  VoidImages.search,
                   height: 20.0.h,
                   width: 20.0.w,
                 ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
 
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 
 class SeriesView extends StatelessWidget {
@@ -15,7 +16,6 @@ class SeriesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Add listener to the scroll controller to load more series when reaching the end
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent &&
           !controller.isFetchingMore.value &&
@@ -49,7 +49,7 @@ class SeriesView extends StatelessWidget {
                     controller: searchController,
                     onChanged: _performSearch,
                     decoration: InputDecoration(
-                      hintText: 'Search...',
+                      hintText: LocaleKeys.Search.tr,
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -105,7 +105,7 @@ class SeriesView extends StatelessWidget {
                       height: 400.h,
                       child: Center(
                         child: Text(
-                          'No Series Available',
+                          LocaleKeys.NoSeriesAvailable.tr,
                           style: TextStyle(color: Colors.white, fontSize: 18.sp),
                         ),
                       ),
@@ -172,7 +172,7 @@ class SeriesView extends StatelessWidget {
                               if (index == combinedSeries.length) {
 
                                 if (controller.allPagesLoaded.value) {
-                                  return Center(child: Text('You have reached the end of the list'));
+                                  return Center(child: Text(LocaleKeys.Youhavereachedtheendofthelist.tr));
                                 } else {
                                   return Center(child: CircularProgressIndicator());
                                 }
@@ -194,28 +194,30 @@ class SeriesView extends StatelessWidget {
                                       Stack(
                                         children: [
                                           FadeInImage.assetNetwork(
-                                            placeholder: VoidImages.logo, // Placeholder image
+                                            placeholder: VoidImages.placeholder,
                                             image: series.logo,
                                             fit: BoxFit.cover,
                                             width: double.infinity,
                                             height: 140.h,
                                             imageErrorBuilder: (context, error, stackTrace) {
-                                              return Image.asset(VoidImages.logo, fit: BoxFit.cover);
+                                              return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
                                             },
                                           ),
                                         ],
                                       ),
                                       SizedBox(height: 1.h),
-                                      Flexible(
-                                        child: Text(
-                                          series.name,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 5.sp,
-                                            fontWeight: FontWeight.bold,
+                                      SingleChildScrollView(
+                                        child: Flexible(
+                                          child: Text(
+                                            series.name,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 5.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ],
@@ -230,7 +232,7 @@ class SeriesView extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          'Expiration: 24/09/2022',
+                          '${LocaleKeys.Expiration.tr}: 24/09/2022',
                           style: TextStyle(color: Colors.white, fontSize: 8.sp),
                         ),
                       ),

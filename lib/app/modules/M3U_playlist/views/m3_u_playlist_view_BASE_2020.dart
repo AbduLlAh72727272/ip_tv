@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
 import '../controllers/m3_u_playlist_controller.dart';
 
 class M3UPlaylistView extends GetView<M3UPlaylistController> {
@@ -65,17 +66,17 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                       SizedBox(height: 20.h), // Spacing using ScreenUtil
                       Row(
                         children: [
-                          Expanded(child: _buildTextField('Playlist name', playlistNameController)),
+                          Expanded(child: _buildTextField(LocaleKeys.PlayListName.tr, playlistNameController)),
                           SizedBox(width: 10.w), // Spacing using ScreenUtil
-                          Expanded(child: _buildTextField('Playlist URL', playlistUrlController)),
+                          Expanded(child: _buildTextField(LocaleKeys.PlayListUrl.tr, playlistUrlController)),
                         ],
                       ),
                       SizedBox(height: 20.h), // Spacing using ScreenUtil
                       Row(
                         children: [
-                          Expanded(child: _buildTextField('User name', userNameController)),
+                          Expanded(child: _buildTextField(LocaleKeys.UserName.tr, userNameController)),
                           SizedBox(width: 10.w), // Spacing using ScreenUtil
-                          Expanded(child: _buildTextField('Password', passwordController)),
+                          Expanded(child: _buildTextField(LocaleKeys.Password.tr, passwordController)),
                         ],
                       ),
                       SizedBox(height: 20.h), // Spacing using ScreenUtil
@@ -98,7 +99,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                         ),
                         ),
                         child: Text(
-                        'Cancel',
+                          LocaleKeys.Cancel.tr,
                         ),
                         ),
 
@@ -126,7 +127,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                               ),
                             ),
                             child: Text(
-                              'Save',
+                              LocaleKeys.Save.tr,
                             ),
                           ),
                           // _buildButton('Save', Colors.red, Colors.white, () {

@@ -120,6 +120,10 @@ class LocaleKeys {
   static const Polish = 'Polish';
   static const German = 'German';
   static const Italian = 'Italian';
+  static const Youhavereachedtheendofthelist = 'Youhavereachedtheendofthelist';
+  static const NoSeriesAvailable = 'NoSeriesAvailable';
+  static const StreamURL = 'StreamURL';
+  static const Close = 'Close';
 }
 
 class Locales {
@@ -230,6 +234,10 @@ class Locales {
     'Polish': 'Polnisch',
     'German': 'Deutsch',
     'Italian': 'Italienisch',
+    'Youhavereachedtheendofthelist': 'Du hast das Ende der Liste erreicht',
+    'NoSeriesAvailable': 'Keine Serie verfügbar',
+    'StreamURL': 'Stream-URL',
+    'Close': 'Schließen',
   };
   static const en_US = {
     'English': 'English',
@@ -338,6 +346,10 @@ class Locales {
     'Polish': 'Polish',
     'German': 'German',
     'Italian': 'Italian',
+    'Youhavereachedtheendofthelist': 'You have reached the end of the list',
+    'NoSeriesAvailable': 'No Series Available',
+    'StreamURL': 'Stream URL',
+    'Close': 'Close',
   };
   static const es_ES = {
     'English': 'Inglesa',
@@ -447,6 +459,10 @@ class Locales {
     'Polish': 'Polaco',
     'German': 'Alemán',
     'Italian': 'Italiano',
+    'Youhavereachedtheendofthelist': 'Has llegado al final de la lista',
+    'NoSeriesAvailable': 'No hay series disponibles',
+    'StreamURL': 'URL de transmisión',
+    'Close': 'Cerca',
   };
   static const it_IT = {
     'English': 'Inglese',
@@ -555,6 +571,10 @@ class Locales {
     'Polish': 'Polacco',
     'German': 'Tedesco',
     'Italian': 'Italiano',
+    'Youhavereachedtheendofthelist': 'Hai raggiunto la fine della lista',
+    'NoSeriesAvailable': 'Nessuna serie disponibile',
+    'StreamURL': 'URL stream',
+    'Close': 'Chiudi',
   };
   static const pl_PL = {
     'English': 'Angielski',
@@ -664,5 +684,9 @@ class Locales {
     'Polish': 'Polski',
     'German': 'Niemiecki',
     'Italian': 'Włoski',
+    'Youhavereachedtheendofthelist': 'Doszedłeś do końca listy',
+    'NoSeriesAvailable': 'Brak dostępnych serii',
+    'StreamURL': 'URL strumienia',
+    'Close': 'Zamknij',
   };
 }

@@ -23,11 +23,11 @@ class SeriesView2 extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: FadeInImage.assetNetwork(
-                  placeholder: VoidImages.logo, // Placeholder image
+                  placeholder: VoidImages.placeholder, // Placeholder image
                   image: series.logo,
                   fit: BoxFit.cover,
                   imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(VoidImages.logo, fit: BoxFit.cover);
+                    return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
                   },
                 ).image,
                 fit: BoxFit.cover,
@@ -55,7 +55,7 @@ class SeriesView2 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const BackButtonWidget(), // Use the back button widget
+                      const BackButtonWidget(),
                       // IconButton(
                       //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
                       //   onPressed: () {},
@@ -71,11 +71,11 @@ class SeriesView2 extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: FadeInImage.assetNetwork(
-                              placeholder: VoidImages.logo, // Placeholder image
+                              placeholder: VoidImages.placeholder, // Placeholder image
                               image: series.logo,
                               fit: BoxFit.cover,
                               imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.asset(VoidImages.logo, fit: BoxFit.cover);
+                                return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
                               },
                             ).image,
                             fit: BoxFit.cover,

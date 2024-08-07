@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
-import 'package:ip_tv/app/utils/constraints/colors.dart';
-
 import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
@@ -49,8 +47,8 @@ class HomeView extends StatelessWidget {
             children: [
               // Side Menu
               Container(
-                width: 100.w, // Adjusted width using ScreenUtil
-                color: Color(0x1E000399), // Updated background color
+                width: 100.w,
+                color: Color(0x1E000399),
                 child: Column(
                   children: [
                     Container(
@@ -126,15 +124,15 @@ class HomeView extends StatelessWidget {
                   children: [
                     SingleChildScrollView(
                       child: Container(
-                        padding: EdgeInsets.all(16.0.w), // Padding using ScreenUtil
+                        padding: EdgeInsets.all(16.0.w),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 20.h), // Spacing using ScreenUtil
+                            SizedBox(height: 20.h),
                             Container(
-                              height: 300.h, // Ensure a fixed height for the movies section
-                              width: MediaQuery.of(context).size.width, // Ensure bounded width for ListView
-                              child: _buildMoviesSection(controller), // Replace with the movies section
+                              height: 300.h,
+                              width: MediaQuery.of(context).size.width,
+                              child: _buildMoviesSection(controller),
                             ),
                           ],
                         ),
@@ -145,7 +143,7 @@ class HomeView extends StatelessWidget {
                       right: 16.w,
                       child: Text(
                         '${LocaleKeys.Expiration.tr} : 24/09/2022',
-                        style: TextStyle(color: Colors.white, fontSize: 7.sp), // Adjust font size using ScreenUtil
+                        style: TextStyle(color: Colors.white, fontSize: 7.sp),
                       ),
                     ),
                   ],
@@ -165,7 +163,7 @@ class HomeView extends StatelessWidget {
         leading: Icon(icon, color: Colors.white),
         title: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjust font size using ScreenUtil
+          style: TextStyle(color: Colors.white, fontSize: 9.sp),
         ),
         onTap: onTap ?? () {},
       ),
@@ -176,9 +174,9 @@ class HomeView extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        color: Colors.transparent, // Set the background color to black
-        padding: EdgeInsets.all(2.0.w), // Add padding for better alignment using ScreenUtil
-        child: Image.asset(imagePath, height: 50.h, width: 10.w), // Adjusted size using ScreenUtil
+        color: Colors.transparent,
+        padding: EdgeInsets.all(2.0.w),
+        child: Image.asset(imagePath, height: 50.h, width: 10.w),
       ),
     );
   }

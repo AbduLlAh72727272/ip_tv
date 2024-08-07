@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/back_button_widget.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
@@ -49,7 +48,6 @@ class LiveTVView extends GetView<LiveTVController> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
           Positioned.fill(
             child: Image.asset(
               VoidImages.background1,
@@ -212,7 +210,7 @@ class LiveTVView extends GetView<LiveTVController> {
                                     .allPagesLoaded.value) {
                                   return Center(
                                       child: Text(
-                                          'You have reached the end of the list'));
+                                          LocaleKeys.Youhavereachedtheendofthelist.tr));
                                 } else {
                                   return Center(
                                       child: CircularProgressIndicator());

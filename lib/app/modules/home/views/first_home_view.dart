@@ -14,7 +14,6 @@ import '../../selectLanguage/views/select_language_view.dart';
 
 class FirstHomeView extends StatelessWidget {
   FirstHomeView({super.key}) {
-    // Ensure MoviesController is initialized
     Get.lazyPut(() => MoviesController());
   }
 
@@ -24,7 +23,6 @@ class FirstHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Find the MoviesController instance
     final MoviesController controller = Get.find<MoviesController>();
 
     return Scaffold(
@@ -167,7 +165,6 @@ class FirstHomeView extends StatelessWidget {
                                 controller: controller,
                               ),
                               SizedBox(width: 15.0.w),
-                              // Removed the "Sports Info" tab button
                             ],
                           ),
                         ),

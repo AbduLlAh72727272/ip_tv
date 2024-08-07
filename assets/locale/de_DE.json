@@ -104,5 +104,9 @@
   "Search": "Suche",
   "Polish": "Polnisch",
   "German": "Deutsch",
-    "Italian": "Italienisch"
+  "Italian": "Italienisch",
+  "Youhavereachedtheendofthelist": "Du hast das Ende der Liste erreicht",
+  "NoSeriesAvailable": "Keine Serie verfügbar",
+  "StreamURL": "Stream-URL",
+  "Close": "Schließen"
 }

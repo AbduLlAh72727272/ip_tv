@@ -103,6 +103,10 @@
   "Season": "Temporada",
   "Search": "Buscar",
   "Polish": "Polaco",
-    "German": "Alemán",
-    "Italian": "Italiano"
+  "German": "Alemán",
+  "Italian": "Italiano",
+  "Youhavereachedtheendofthelist": "Has llegado al final de la lista",
+  "NoSeriesAvailable": "No hay series disponibles",
+  "StreamURL": "URL de transmisión",
+  "Close": "Cerca"
 }

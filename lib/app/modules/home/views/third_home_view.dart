@@ -73,7 +73,7 @@ class ThirdHomeView extends GetView<LiveTVController> {
                 ),
                 Spacer(),
                 Image.asset(
-                  'assets/images/iptv logo.png',
+                  VoidImages.logo,
                   height: 40.0.h,
                   width: 40.0.w,
                 ),

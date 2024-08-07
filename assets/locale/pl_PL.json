@@ -102,7 +102,11 @@
   "Later": "Później",
   "Season": "Sezon",
   "Search": "Szukaj",
-    "Polish": "Polski",
-    "German": "Niemiecki",
-    "Italian": "Włoski"
+  "Polish": "Polski",
+  "German": "Niemiecki",
+  "Italian": "Włoski",
+  "Youhavereachedtheendofthelist": "Doszedłeś do końca listy",
+  "NoSeriesAvailable": "Brak dostępnych serii",
+  "StreamURL": "URL strumienia",
+  "Close": "Zamknij"
 }
