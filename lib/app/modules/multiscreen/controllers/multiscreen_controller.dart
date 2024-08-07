@@ -1,15 +1,46 @@
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:get/get.dart';
 
+// class MultiscreenController extends GetxController {
+//
+//
+//   var selectedUrls = List<String?>.filled(4, null, growable: false).obs;
+//
+//   void updateUrl(int index, String? url) {
+//     if (index >= 0 && index < selectedUrls.length) {
+//       selectedUrls[index] = url;
+//     }
+//   }
+
 class MultiscreenController extends GetxController {
-
-
   var selectedUrls = List<String?>.filled(4, null, growable: false).obs;
+  var controllers = List<VlcPlayerController?>.filled(4, null, growable: false).obs;
 
   void updateUrl(int index, String? url) {
     if (index >= 0 && index < selectedUrls.length) {
       selectedUrls[index] = url;
+      if (url != null) {
+        controllers[index] = VlcPlayerController.network(
+          url,
+          autoPlay: true,
+          allowBackgroundPlayback: true,
+          options: VlcPlayerOptions(video: VlcVideoOptions([VlcVideoOptions.dropLateFrames(true),VlcVideoOptions.skipFrames(true)],),),
+        );
+      } else {
+        controllers[index]?.dispose();
+        controllers[index] = null;
+      }
     }
   }
+
+  @override
+  void onClose() {
+    for (var controller in controllers) {
+      controller?.dispose();
+    }
+    super.onClose();
+  }
+}
 
   //
   // var selectedUrls = <String>[].obs;
@@ -50,4 +81,4 @@ class MultiscreenController extends GetxController {
   // }
   //
   // void increment() => count.value++;
-}
+// }
