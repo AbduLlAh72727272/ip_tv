@@ -56,10 +56,10 @@ class SeriesView2 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const BackButtonWidget(), // Use the back button widget
-                      IconButton(
-                        icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
-                        onPressed: () {},
-                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
                   // Series details

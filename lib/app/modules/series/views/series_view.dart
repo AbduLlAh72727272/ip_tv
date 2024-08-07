@@ -9,6 +9,9 @@ class SeriesView extends StatelessWidget {
   final SeriesController controller = Get.put(SeriesController());
 
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController searchController = TextEditingController();
+  final RxBool isSearchActive = false.obs;
+  final RxList searchResults = [].obs;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class SeriesView extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40.h),
+        preferredSize: Size.fromHeight(50.h),
         child: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           automaticallyImplyLeading: false,
@@ -37,14 +40,34 @@ class SeriesView extends StatelessWidget {
             ],
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
-              onPressed: () {},
-            ),
+            Obx(() {
+              return isSearchActive.value
+                  ? Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                  child: TextField(
+                    controller: searchController,
+                    onChanged: _performSearch,
+                    decoration: InputDecoration(
+                      hintText: 'Search...',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.7),
+                    ),
+                  ),
+                ),
+              )
+                  : IconButton(
+                icon: Icon(Icons.search, color: Colors.white),
+                onPressed: () {
+                  isSearchActive.value = true;
+                },
+              );
+            }),
           ],
         ),
       ),
@@ -128,6 +151,8 @@ class SeriesView extends StatelessWidget {
                     children: [
                       SizedBox(height: 10.h),
                       Obx(() {
+                        final displaySeries = isSearchActive.value ? searchResults : controller.series;
+
                         if (controller.isLoading.value && controller.series.isEmpty) {
                           return Center(child: CircularProgressIndicator());
                         }
@@ -136,9 +161,9 @@ class SeriesView extends StatelessWidget {
                           height: 180.h,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.series.length + 1,
+                            itemCount: displaySeries.length + 1,
                             itemBuilder: (context, index) {
-                              if (index == controller.series.length) {
+                              if (index == displaySeries.length) {
                                 if (controller.allPagesLoaded.value) {
                                   return Center(child: Text('You have reached the end of the list'));
                                 } else {
@@ -146,7 +171,7 @@ class SeriesView extends StatelessWidget {
                                 }
                               }
 
-                              final series = controller.series[index];
+                              final series = displaySeries[index];
 
                               return GestureDetector(
                                 onTap: () {
@@ -208,5 +233,16 @@ class SeriesView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _performSearch(String query) {
+    if (query.isEmpty) {
+      searchResults.clear();
+    } else {
+      searchResults.value = controller.series
+          .where((series) =>
+          series.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
   }
 }

@@ -12,6 +12,9 @@ class LiveTVView extends GetView<LiveTVController> {
   LiveTVView({Key? key}) : super(key: key);
 
   final LiveTVController liveTVController = Get.put(LiveTVController());
+  final TextEditingController searchController = TextEditingController();
+  final RxBool isSearchActive = false.obs;
+  final RxList searchResults = [].obs;
 
   void _navigateToVlcPlayer(BuildContext context, String streamUrl) {
     Navigator.push(
@@ -20,6 +23,25 @@ class LiveTVView extends GetView<LiveTVController> {
         builder: (context) => VlcPlayerScreen(streamUrl: streamUrl),
       ),
     );
+  }
+
+  void _toggleSearch() {
+    isSearchActive.value = !isSearchActive.value;
+    if (!isSearchActive.value) {
+      searchController.clear();
+      searchResults.clear();
+    }
+  }
+
+  void _performSearch(String query) {
+    if (query.isEmpty) {
+      searchResults.clear();
+    } else {
+      searchResults.value = liveTVController.entries
+          .where((entry) =>
+          entry.displayName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
   }
 
   @override
@@ -43,53 +65,96 @@ class LiveTVView extends GetView<LiveTVController> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                   child: PreferredSize(
-                    preferredSize: Size.fromHeight(20.0.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const BackButtonWidget(),
-                        Expanded(
-                          child: Center(
-                            child: Text(
-                              LocaleKeys.LiveTv.tr,
-                              style: TextStyle(color: Colors.white, fontSize: 18),
+                    preferredSize: Size.fromHeight(56.0.h),
+                    child: Obx(() {
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 300),
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SizeTransition(
+                              sizeFactor: animation,
+                              axis: Axis.horizontal,
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: isSearchActive.value
+                            ? Padding(
+                          key: ValueKey('searchBar'),
+                          padding: EdgeInsets.all(8.0.w),
+                          child: TextField(
+                            controller: searchController,
+                            onChanged: _performSearch,
+                            decoration: InputDecoration(
+                              hintText: LocaleKeys.Search.tr,
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide.none,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.7),
                             ),
                           ),
+                        )
+                            : Row(
+                          key: ValueKey('normalBar'),
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            const BackButtonWidget(),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  LocaleKeys.LiveTv.tr,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 9.sp),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 65.w),
+                            Text(
+                              LocaleKeys.ChannelHd.tr,
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 9.sp),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              icon: Icon(
+                                isSearchActive.value
+                                    ? Icons.close
+                                    : Icons.search,
+                                color: Colors.white,
+                              ),
+                              onPressed: _toggleSearch,
+                              iconSize: 12.sp,
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 45.w),
-                        Text(
-                          LocaleKeys.ChannelHd.tr,
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          icon: Icon(Icons.search, color: Colors.white),
-                          onPressed: () {
-                            // Handle search action
-                          },
-                          iconSize: 10.w,
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.settings, color: Colors.white),
-                          onPressed: () {
-                            // Handle settings action
-                          },
-                          iconSize: 10.w,
-                        ),
-                      ],
-                    ),
+                      );
+                    }),
                   ),
                 ),
               ),
               // Main Body
               Expanded(
                 child: Obx(() {
-                  if (liveTVController.isLoading.value && liveTVController.entries.isEmpty) {
+                  if (liveTVController.isLoading.value &&
+                      liveTVController.entries.isEmpty) {
                     return Center(child: CircularProgressIndicator());
                   }
+
+                  final displayEntries = isSearchActive.value
+                      ? searchResults
+                      : liveTVController.entries;
+
                   return NotificationListener<ScrollNotification>(
                     onNotification: (scrollInfo) {
-                      if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+                      if (scrollInfo.metrics.pixels ==
+                          scrollInfo.metrics.maxScrollExtent &&
                           !liveTVController.isFetchingMore.value &&
                           !liveTVController.allPagesLoaded.value) {
                         liveTVController.fetchNextPage();
@@ -105,7 +170,8 @@ class LiveTVView extends GetView<LiveTVController> {
                           child: ListView.builder(
                             itemCount: liveTVController.entries.length,
                             itemBuilder: (context, index) {
-                              final channel = liveTVController.entries[index];
+                              final channel =
+                              liveTVController.entries[index];
                               return Container(
                                 color: index == 0
                                     ? Theme.of(context).colorScheme.primary
@@ -121,7 +187,8 @@ class LiveTVView extends GetView<LiveTVController> {
                                         color: Colors.white.withOpacity(0.7)),
                                   ),
                                   onTap: () {
-                                    _navigateToVlcPlayer(context, channel.url);
+                                    _navigateToVlcPlayer(
+                                        context, channel.url);
                                   },
                                 ),
                               );
@@ -133,30 +200,39 @@ class LiveTVView extends GetView<LiveTVController> {
                           child: GridView.builder(
                             padding: EdgeInsets.all(16.0.w),
                             gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                            SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10.w,
+                              mainAxisSpacing: 10.h,
                             ),
-                            itemCount: liveTVController.entries.length + 1,
+                            itemCount: displayEntries.length + 1,
                             itemBuilder: (context, index) {
-                              if (index == liveTVController.entries.length) {
-                                if (liveTVController.allPagesLoaded.value) {
-                                  return Center(child: Text('You have reached the end of the list'));
+                              if (index == displayEntries.length) {
+                                if (liveTVController
+                                    .allPagesLoaded.value) {
+                                  return Center(
+                                      child: Text(
+                                          'You have reached the end of the list'));
                                 } else {
-                                  return Center(child: CircularProgressIndicator());
+                                  return Center(
+                                      child: CircularProgressIndicator());
                                 }
                               }
-                              final entry = liveTVController.entries[index];
-                              final imageUrl = entry.logo.isNotEmpty ? entry.logo : VoidImages.placeholder;
+                              final entry = displayEntries[index];
+                              final imageUrl = entry.logo.isNotEmpty
+                                  ? entry.logo
+                                  : VoidImages.placeholder;
                               return GestureDetector(
                                 onTap: () {
-                                  _navigateToVlcPlayer(context, entry.url);
+                                  _navigateToVlcPlayer(
+                                      context, entry.url);
                                 },
                                 child: Image.network(
                                   imageUrl,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image.asset(VoidImages.placeholder);
+                                  errorBuilder:
+                                      (context, error, stackTrace) {
+                                    return Image.asset(
+                                        VoidImages.placeholder);
                                   },
                                 ),
                               );

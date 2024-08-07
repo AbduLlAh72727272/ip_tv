@@ -11,11 +11,12 @@ class MoviesView extends GetView<MoviesController> {
   MoviesView({super.key});
 
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController searchController = TextEditingController();
+  final RxBool isSearchActive = false.obs;
+  final RxList searchResults = [].obs;
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-
     // Add listener to the scroll controller to load more movies when reaching the end
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -28,7 +29,7 @@ class MoviesView extends GetView<MoviesController> {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 40.h,
+        toolbarHeight: 70.h,
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         leading: Padding(
@@ -39,14 +40,34 @@ class MoviesView extends GetView<MoviesController> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
-            onPressed: () {},
-          ),
+          Obx(() {
+            return isSearchActive.value
+                ? Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                child: TextField(
+                  controller: searchController,
+                  onChanged: _performSearch,
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.7),
+                  ),
+                ),
+              ),
+            )
+                : IconButton(
+              icon: Icon(Icons.search, color: Colors.white),
+              onPressed: () {
+                isSearchActive.value = true;
+              },
+            );
+          }),
         ],
       ),
       extendBodyBehindAppBar: false,
@@ -84,14 +105,10 @@ class MoviesView extends GetView<MoviesController> {
                                   : VoidImages.placeholder,
                             ),
                             fit: BoxFit.fill,
-                            // onError: (_, __) {
-                            //   return AssetImage(VoidImages.placeholder);
-                            // },
                           ),
                         ),
                       ),
                       Positioned(
-
                         bottom: 0.h,
                         left: 16.w,
                         right: 16.w,
@@ -210,6 +227,8 @@ class MoviesView extends GetView<MoviesController> {
   }
 
   Widget _buildMatchedSection() {
+    final displayMovies = isSearchActive.value ? searchResults : controller.movies;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -222,10 +241,10 @@ class MoviesView extends GetView<MoviesController> {
               return Center(child: CircularProgressIndicator());
             }
             return ListView.builder(
-              itemCount: controller.movies.length,
+              itemCount: displayMovies.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final movie = controller.movies[index];
+                final movie = displayMovies[index];
                 return GestureDetector(
                   onTap: () {
                     Get.to(() => MoviesView2(
@@ -258,33 +277,17 @@ class MoviesView extends GetView<MoviesController> {
               children: [
                 Image.network(
                   imageUrl.isNotEmpty ? imageUrl : VoidImages.placeholder,
-                 // width: 50.w,
                   height: 150.h,
                   fit: BoxFit.contain,
                   errorBuilder: (BuildContext context, Object exception,
                       StackTrace? stackTrace) {
                     return Image.asset(
                       VoidImages.placeholder,
-                      //width: 100.w,
                       height: 150.h,
                       fit: BoxFit.contain,
                     );
                   },
                 ),
-                // Positioned(
-                //   bottom: 0,
-                //   right: 0,
-                //   left: 0,
-                //   child: Text(
-                //     title,
-                //     style: TextStyle(
-                //       color: Colors.black,
-                //       fontSize: 10.sp,
-                //     ),
-                //     overflow: TextOverflow.ellipsis,
-                //     maxLines: 2,
-                //  ),
-               // ),
               ],
             ),
             decoration: BoxDecoration(
@@ -334,5 +337,16 @@ class MoviesView extends GetView<MoviesController> {
         );
       },
     );
+  }
+
+  void _performSearch(String query) {
+    if (query.isEmpty) {
+      searchResults.clear();
+    } else {
+      searchResults.value = controller.movies
+          .where((movie) =>
+          movie.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
   }
 }

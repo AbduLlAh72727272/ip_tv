@@ -14,9 +14,6 @@ class AppTranslation {
 
 class LocaleKeys {
   LocaleKeys._();
-  static const Polish='Polish';
-  static const Italian='Italian';
-  static const German='German';
   static const English = 'English';
   static const Russian = 'Russian';
   static const Hindi = 'Hindi';
@@ -118,6 +115,11 @@ class LocaleKeys {
   static const Enjoying = 'Enjoying';
   static const RateUs = 'RateUs';
   static const Later = 'Later';
+  static const Season = 'Season';
+  static const Search = 'Search';
+  static const Polish = 'Polish';
+  static const German = 'German';
+  static const Italian = 'Italian';
 }
 
 class Locales {
@@ -223,6 +225,11 @@ class Locales {
     'Enjoying': 'Genießt du ARK VIP?',
     'RateUs': 'Möchtest du uns bewerten?',
     'Later': 'Später',
+    'Season': 'Jahreszeit',
+    'Search': 'Suche',
+    'Polish': 'Polnisch',
+    'German': 'Deutsch',
+    'Italian': 'Italienisch',
   };
   static const en_US = {
     'English': 'English',
@@ -326,6 +333,11 @@ class Locales {
     'Enjoying': 'Enjoying ARK VIP ?',
     'RateUs': 'Would you like to rate us ?',
     'Later': 'Later',
+    'Season': 'Season',
+    'Search': 'Search',
+    'Polish': 'Polish',
+    'German': 'German',
+    'Italian': 'Italian',
   };
   static const es_ES = {
     'English': 'Inglesa',
@@ -430,6 +442,11 @@ class Locales {
     'Enjoying': '¿Disfrutando de ARK VIP?',
     'RateUs': '¿Quieres calificarnos?',
     'Later': 'Más tarde',
+    'Season': 'Temporada',
+    'Search': 'Buscar',
+    'Polish': 'Polaco',
+    'German': 'Alemán',
+    'Italian': 'Italiano',
   };
   static const it_IT = {
     'English': 'Inglese',
@@ -533,6 +550,11 @@ class Locales {
     'Enjoying': 'Ti piace ARK VIP?',
     'RateUs': 'Vuoi votarci?',
     'Later': 'Più tardi',
+    'Season': 'Stagione',
+    'Search': 'Cerca',
+    'Polish': 'Polacco',
+    'German': 'Tedesco',
+    'Italian': 'Italiano',
   };
   static const pl_PL = {
     'English': 'Angielski',
@@ -637,5 +659,10 @@ class Locales {
     'Enjoying': 'Czy podoba ci się ARK VIP?',
     'RateUs': 'Chcesz nas ocenić?',
     'Later': 'Później',
+    'Season': 'Sezon',
+    'Search': 'Szukaj',
+    'Polish': 'Polski',
+    'German': 'Niemiecki',
+    'Italian': 'Włoski',
   };
 }
