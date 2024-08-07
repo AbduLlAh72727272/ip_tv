@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
+import 'package:get/get.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
+import '../../modules/live_TV/controllers/live_t_v_controller.dart';
 import '../../utils/constraints/image_strings.dart';
 import 'back_button_widget.dart';
+
 
 class VlcPlayerScreen extends StatefulWidget {
   final String streamUrl;
@@ -24,6 +27,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   bool isChannelListOpen = false;
   bool _isControlsVisible = true;
   Timer? _hideTimer;
+  final LiveTVController _liveTVController = Get.put(LiveTVController());
 
   @override
   void initState() {
@@ -45,6 +49,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
     ).animate(_animationController);
 
     _startHideTimer();
+    _liveTVController.fetchM3U();
   }
 
   void _startHideTimer() {
@@ -98,12 +103,12 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
     _animationController.forward();
   }
 
-  void openSettings() {
-    setState(() {
-      isChannelListOpen = false;
-    });
-    _animationController.forward();
-  }
+  // void openSettings() {
+  //   setState(() {
+  //     isChannelListOpen = false;
+  //   });
+  //   _animationController.forward();
+  // }
 
   void closeSidePanel() {
     _animationController.reverse();
@@ -174,10 +179,10 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                   right: 20.w,
                   child: Row(
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.settings_suggest_outlined, color: Colors.white, size: 30.h),
-                        onPressed: openSettings,
-                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white, size: 30.h),
+                      //   onPressed: openSettings,
+                      // ),
                       SizedBox(width: 5.w),
                       GestureDetector(
                         onTap: openChannelList,
@@ -250,83 +255,85 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                         ),
                         Expanded(
                           child: isChannelListOpen
-                              ? ListView(
-                            padding: EdgeInsets.all(20.w),
-                            children: [
-                              Text('All', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              SizedBox(height: 10.h),
-                              Text('Favourites', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              SizedBox(height: 10.h),
-                              Container(
-                                color: Colors.red,
-                                padding: EdgeInsets.all(5.w),
-                                child: Text('T20 World Cup', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              ),
-                              SizedBox(height: 10.h),
-                              Text('Sports', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              SizedBox(height: 10.h),
-                              Text('Cricket', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              SizedBox(height: 10.h),
-                              Text('BEIN Sport', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              SizedBox(height: 10.h),
-                              Text('Sky Sport', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              SizedBox(height: 10.h),
-                              Text('3HD Sports', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                            ],
-                          )
+                              ? Obx(() {
+                            if (_liveTVController.isLoading.value) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            if (_liveTVController.entries.isEmpty) {
+                              return Center(child: Text('No channels available', style: TextStyle(color: Colors.white)));
+                            }
+                            return ListView.builder(
+                              padding: EdgeInsets.all(20.w),
+                              itemCount: _liveTVController.entries.length,
+                              itemBuilder: (context, index) {
+                                final channel = _liveTVController.entries[index];
+                                return ListTile(
+                                 // leading: Image.network(channel.logo),
+
+                                  title: Text(channel.displayName ?? "No name", style: TextStyle(color: Colors.white, fontSize: 10.sp)),
+                                  onTap: () {
+                                    setState(() {
+                                      _vlcPlayerController.setMediaFromNetwork(channel.url);
+                                      closeSidePanel();
+                                    });
+                                  },
+                                );
+                              },
+                            );
+                          })
                               : ListView(
                             padding: EdgeInsets.all(20.w),
                             children: [
-                              Text(
-                                'Settings',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 20.h),
-                              SwitchListTile(
-                                title: Text('Active Subtitles', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
-                                value: true,
-                                onChanged: (bool value) {},
-                              ),
-                              ListTile(
-                                title: Text('Themes', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
-                                trailing: DropdownButton<String>(
-                                  dropdownColor: VoidColors.primary,
-                                  items: <String>['Dark', 'Light'].map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value, style: TextStyle(color: Colors.white)),
-                                    );
-                                  }).toList(),
-                                  onChanged: (_) {},
-                                ),
-                              ),
-                              ListTile(
-                                title: Text('Change Language', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
-                                trailing: DropdownButton<String>(
-                                  dropdownColor: VoidColors.primary,
-                                  items: <String>['English', 'Spanish', 'French'].map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value, style: TextStyle(color: Colors.white)),
-                                    );
-                                  }).toList(),
-                                  onChanged: (_) {},
-                                ),
-                              ),
-                              SizedBox(height: 10.h),
-                              ElevatedButton(
-                                onPressed: closeSidePanel,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: VoidColors.primary,
-                                  padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                child: Text('Done', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              ),
+                              // Text(
+                              //   'Settings',
+                              //   style: TextStyle(
+                              //       color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.bold),
+                              //   textAlign: TextAlign.center,
+                              // ),
+                             // SizedBox(height: 20.h),
+                              // SwitchListTile(
+                              //   title: Text('Active Subtitles', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
+                              //   value: true,
+                              //   onChanged: (bool value) {},
+                              // ),
+                              // ListTile(
+                              //   title: Text('Themes', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
+                              //   trailing: DropdownButton<String>(
+                              //     dropdownColor: VoidColors.primary,
+                              //     items: <String>['Dark', 'Light'].map((String value) {
+                              //       return DropdownMenuItem<String>(
+                              //         value: value,
+                              //         child: Text(value, style: TextStyle(color: Colors.white)),
+                              //       );
+                              //     }).toList(),
+                              //     onChanged: (_) {},
+                              //   ),
+                              // ),
+                              // ListTile(
+                              //   title: Text('Change Language', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
+                              //   trailing: DropdownButton<String>(
+                              //     dropdownColor: VoidColors.primary,
+                              //     items: <String>['English', 'Spanish', 'French'].map((String value) {
+                              //       return DropdownMenuItem<String>(
+                              //         value: value,
+                              //         child: Text(value, style: TextStyle(color: Colors.white)),
+                              //       );
+                              //     }).toList(),
+                              //     onChanged: (_) {},
+                              //   ),
+                              // ),
+                             // SizedBox(height: 10.h),
+                              // ElevatedButton(
+                              //   onPressed: closeSidePanel,
+                              //   style: ElevatedButton.styleFrom(
+                              //     backgroundColor: VoidColors.primary,
+                              //     padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(8.0),
+                              //     ),
+                              //   ),
+                              //   child: Text('Done', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
+                              // ),
                             ],
                           ),
                         ),
@@ -335,6 +342,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                   ),
                 ),
               ),
+
             ],
           ),
         ),
