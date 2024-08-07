@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 // import 'package:get/get.dart';
@@ -222,8 +221,7 @@
 //
 
 
-import 'package:fijkplayer/fijkplayer.dart';
->>>>>>> d7e3d8b4ef60cdbe29710ec88b78a115a224ec5e
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:get/get.dart';
@@ -234,50 +232,6 @@ import '../controllers/multiscreen_controller.dart';
 import '../../../common/widgets/back_button_widget.dart';
 import 'multiscreen_view2.dart';
 
-class VlcPlayerWidget extends StatefulWidget {
-  final String streamUrl;
-
-  const VlcPlayerWidget({super.key, required this.streamUrl});
-
-  @override
-  _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
-}
-
-class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
-  late VlcPlayerController _vlcPlayerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _vlcPlayerController = VlcPlayerController.network(
-      widget.streamUrl,
-      autoPlay: true,
-      hwAcc: HwAcc.full,
-    );
-  }
-
-  @override
-  void dispose() {
-    _vlcPlayerController.stop();
-    _vlcPlayerController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: VlcPlayer(
-        controller: _vlcPlayerController,
-        aspectRatio: 16 / 9,
-        placeholder: Center(child: CircularProgressIndicator()),
-      ),
-    );
-  }
-}
 
 class MultiscreenView extends GetView<MultiscreenController> {
   const MultiscreenView({super.key});
@@ -336,7 +290,7 @@ class MultiscreenView extends GetView<MultiscreenController> {
                     ),
                   ),
                 )
-                    : VlcPlayerWidget(streamUrl: url);
+                    : VlcPlayerWidget(streamUrl: url,);
               });
             },
           ),
@@ -345,8 +299,58 @@ class MultiscreenView extends GetView<MultiscreenController> {
     );
   }
 }
-<<<<<<< HEAD
-=======
+
+class VlcPlayerWidget extends StatefulWidget {
+  final String streamUrl;
+
+
+  VlcPlayerWidget({super.key, required this.streamUrl,});
+
+  @override
+  _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
+}
+
+class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
+  late VlcPlayerController _vlcPlayerController;
+
+  @override
+  void initState() {
+    super.initState();
+    _vlcPlayerController = VlcPlayerController.network(
+      widget.streamUrl,
+      autoPlay: true,
+      allowBackgroundPlayback: true,
+    );
+
+    _vlcPlayerController.addListener(() {
+      print('VLC Player Controller State: ${ _vlcPlayerController.value}');
+    });
+  }
+
+  @override
+  void dispose() {
+    print('Disposing VLC Player Controller for URL: ${widget.streamUrl}');
+    _vlcPlayerController.startRendererScanning();
+    _vlcPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: VlcPlayer(
+        controller:  _vlcPlayerController,
+        aspectRatio: 16 / 10,
+        placeholder: Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+}
+
 
 // class FijkPlayerWidget extends StatefulWidget {
 //   final String streamUrl;
@@ -422,55 +426,55 @@ class MultiscreenView extends GetView<MultiscreenController> {
 
 
 
-class VlcPlayerWidget extends StatefulWidget {
-  final String streamUrl;
-
-  const VlcPlayerWidget({super.key, required this.streamUrl});
-
-  @override
-  _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
-}
-
-class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
-  late VlcPlayerController _vlcPlayerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _vlcPlayerController = VlcPlayerController.network(
-      widget.streamUrl,
-      autoPlay: true,
-      allowBackgroundPlayback: true,
-    );
-
-    _vlcPlayerController.addListener(() {
-      print('VLC Player Controller State: ${_vlcPlayerController.value}');
-    });
-  }
-
-  @override
-  void dispose() {
-    print('Disposing VLC Player Controller for URL: ${widget.streamUrl}');
-    _vlcPlayerController.startRendererScanning();
-    _vlcPlayerController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: VlcPlayer(
-        controller: _vlcPlayerController,
-        aspectRatio: 16 / 10,
-        placeholder: Center(child: CircularProgressIndicator()),
-      ),
-    );
-  }
-}
+// class VlcPlayerWidget extends StatefulWidget {
+//   final String streamUrl;
+//
+//   const VlcPlayerWidget({super.key, required this.streamUrl});
+//
+//   @override
+//   _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
+// }
+//
+// class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
+//   late VlcPlayerController _vlcPlayerController;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _vlcPlayerController = VlcPlayerController.network(
+//       widget.streamUrl,
+//       autoPlay: true,
+//       allowBackgroundPlayback: true,
+//     );
+//
+//     _vlcPlayerController.addListener(() {
+//       print('VLC Player Controller State: ${_vlcPlayerController.value}');
+//     });
+//   }
+//
+//   @override
+//   void dispose() {
+//     print('Disposing VLC Player Controller for URL: ${widget.streamUrl}');
+//     _vlcPlayerController.startRendererScanning();
+//     _vlcPlayerController.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         border: Border.all(color: Colors.black),
+//         borderRadius: BorderRadius.circular(8.0),
+//       ),
+//       child: VlcPlayer(
+//         controller: _vlcPlayerController,
+//         aspectRatio: 16 / 10,
+//         placeholder: Center(child: CircularProgressIndicator()),
+//       ),
+//     );
+//   }
+// }
 
 
 
@@ -519,4 +523,4 @@ class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
 //   }
 // }
 //
->>>>>>> d7e3d8b4ef60cdbe29710ec88b78a115a224ec5e
+

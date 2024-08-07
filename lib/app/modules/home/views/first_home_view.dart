@@ -8,6 +8,7 @@ import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../Movies/controllers/movies_controller.dart';
+import '../../Movies/models/movie_model.dart';
 import '../../Movies/views/movies_view2.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 
@@ -306,10 +307,21 @@ class FirstHomeView extends StatelessWidget {
         return Center(child: CircularProgressIndicator());
       }
 
-      final moviesWithImages = controller.movies.where((movie) => movie.logo.isNotEmpty == true).toList();
-      final moviesWithoutImages = controller.movies.where((movie) => movie.logo.isEmpty == true || movie.logo == null).toList();
+      // Separate movies with and without images
+      List<Movie> moviesWithImages = [];
+      List<Movie> moviesWithoutImages = [];
 
-      final combinedMovies = [...moviesWithImages, ...moviesWithoutImages];
+      for (var movie in controller.movies) {
+        if (movie.logo.isNotEmpty && movie.logo != VoidImages.placeholder) {
+          moviesWithImages.add(movie);
+        } else {
+          moviesWithoutImages.add(movie);
+        }
+      }
+
+      List<Movie> combinedMovies = [...moviesWithImages];
+      combinedMovies.addAll(moviesWithoutImages);
+      combinedMovies.add(combinedMovies.removeAt(0));
 
       return ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -332,6 +344,9 @@ class FirstHomeView extends StatelessWidget {
       );
     });
   }
+
+
+
 
   Widget _buildMovieCard(String imageUrl, String title) {
     return Padding(

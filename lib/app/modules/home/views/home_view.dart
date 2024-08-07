@@ -8,6 +8,7 @@ import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../Movies/controllers/movies_controller.dart';
+import '../../Movies/models/movie_model.dart';
 import '../../Movies/views/movies_view2.dart';
 import '../../live_TV/views/live_t_v_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
@@ -187,11 +188,28 @@ class HomeView extends StatelessWidget {
       if (controller.isLoading.value && controller.movies.isEmpty) {
         return Center(child: CircularProgressIndicator());
       }
+
+      // Separate movies with and without images
+      List<Movie> moviesWithImages = [];
+      List<Movie> moviesWithoutImages = [];
+
+      for (var movie in controller.movies) {
+        if (movie.logo.isNotEmpty && movie.logo != VoidImages.placeholder) {
+          moviesWithImages.add(movie);
+        } else {
+          moviesWithoutImages.add(movie);
+        }
+      }
+
+      List<Movie> combinedMovies = [...moviesWithImages];
+      combinedMovies.addAll(moviesWithoutImages);
+      combinedMovies.add(combinedMovies.removeAt(0));
+
       return ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: controller.movies.length > 10 ? 10 : controller.movies.length,
+        itemCount: combinedMovies.length > 10 ? 10 : combinedMovies.length,
         itemBuilder: (context, index) {
-          final movie = controller.movies[index];
+          final movie = combinedMovies[index];
           return GestureDetector(
             onTap: () {
               Get.to(() => MoviesView2(

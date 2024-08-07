@@ -74,7 +74,17 @@ class MoviesView extends GetView<MoviesController> {
       extendBodyBehindAppBar: false,
       body: Obx(() {
         // Background gradient with the first movie's image
-        final firstMovie = controller.movies.isNotEmpty ? controller.movies[0] : null;
+        // Background gradient with the first movie's image
+        final moviesWithImages = controller.movies
+            .where((movie) => movie.logo.isNotEmpty && movie.logo != VoidImages.placeholder)
+            .toList();
+        final moviesWithoutImages = controller.movies
+            .where((movie) => movie.logo.isEmpty || movie.logo == VoidImages.placeholder)
+            .toList();
+        final combinedMovies = [...moviesWithImages];
+        combinedMovies.addAll(moviesWithoutImages);
+        combinedMovies.add(combinedMovies.removeAt(0));
+        final firstMovie = combinedMovies.isNotEmpty ? combinedMovies[0] : null;
         return Stack(
           children: [
             Container(
@@ -210,7 +220,8 @@ class MoviesView extends GetView<MoviesController> {
                           if (controller.isFetchingMore.value) {
                             return Center(child: CircularProgressIndicator());
                           } else if (controller.allPagesLoaded.value) {
-                            return Center(child: Text('You have reached the end of the list'));
+                            return Center(
+                                child: Text('You have reached the end of the list'));
                           } else {
                             return SizedBox.shrink();
                           }
@@ -227,47 +238,9 @@ class MoviesView extends GetView<MoviesController> {
     );
   }
 
-  // Widget _buildMatchedSection() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       SizedBox(height: 8.h),
-  //       // Movies List
-  //       SizedBox(
-  //         height: 180.h,
-  //         child: Obx(() {
-  //           if (controller.isLoading.value && controller.movies.isEmpty) {
-  //             return Center(child: CircularProgressIndicator());
-  //           }
-  //           return ListView.builder(
-  //             itemCount: controller.movies.length,
-  //             scrollDirection: Axis.horizontal,
-  //             itemBuilder: (context, index) {
-  //               final movie = controller.movies[index];
-  //               return GestureDetector(
-  //                 onTap: () {
-  //                   Get.to(() => MoviesView2(
-  //                     imageUrl: movie.logo,
-  //                     channelName: movie.name,
-  //                     programInfo: movie.group,
-  //                     date: '',
-  //                     streamUrl: movie.url,
-  //                   ));
-  //                 },
-  //                 child: buildMovieCard(movie.logo, movie.name),
-  //               );
-  //             },
-  //           );
-  //         }),
-  //       ),
-  //       SizedBox(height: 16.h),
-  //     ],
-  //   );
-  // }
-
-
   Widget _buildMatchedSection() {
-    final displayMovies = isSearchActive.value ? searchResults : controller.movies;
+    final displayMovies =
+    isSearchActive.value ? searchResults : controller.movies;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -281,14 +254,20 @@ class MoviesView extends GetView<MoviesController> {
               return Center(child: CircularProgressIndicator());
             }
 
+            // Separate movies with and without images
+            final moviesWithImages = controller.movies
+                .where((movie) => movie.logo.isNotEmpty && movie.logo != VoidImages.placeholder)
+                .toList();
+            final moviesWithoutImages = controller.movies
+                .where((movie) => movie.logo.isEmpty || movie.logo == VoidImages.placeholder)
+                .toList();
 
-            final moviesWithImages = controller.movies.where((movie) => movie.logo.isNotEmpty == true).toList();
-            final moviesWithoutImages = controller.movies.where((movie) => movie.logo.isEmpty == true || movie.logo == null).toList();
-
-            final combinedMovies = [...moviesWithImages, ...moviesWithoutImages];
+            // Combine the movies, putting movies with images first
+            final combinedMovies = [...moviesWithImages];
+            combinedMovies.addAll(moviesWithoutImages);
+            combinedMovies.add(combinedMovies.removeAt(0));
 
             return ListView.builder(
-
               itemCount: combinedMovies.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -304,10 +283,7 @@ class MoviesView extends GetView<MoviesController> {
                       streamUrl: movie.url,
                     ));
                   },
-                  child: buildMovieCard(
-                      movie.logo,
-                      movie.name
-                  ),
+                  child: buildMovieCard(movie.logo, movie.name),
                 );
               },
             );
@@ -317,8 +293,6 @@ class MoviesView extends GetView<MoviesController> {
       ],
     );
   }
-
-
 
   Widget buildMovieCard(String imageUrl, String title) {
     return Padding(
