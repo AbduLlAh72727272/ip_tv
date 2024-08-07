@@ -84,6 +84,7 @@ class LoginView extends StatelessWidget {
                             // Credentials are correct, navigate to PlaylistView
                             Get.offNamed(Routes.PLAYLIST);
                             Get.snackbar(
+                              duration: const Duration(milliseconds: 700),
                               "Success",
                               "WELCOME TO ARK VIP!!!",
                               snackPosition: SnackPosition.TOP,
