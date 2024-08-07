@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/movies_controller.dart';
@@ -149,7 +150,7 @@ class MoviesView extends GetView<MoviesController> {
                                     }
                                   },
                                   icon: Icon(Icons.play_arrow),
-                                  label: Text('Play'),
+                                  label: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.black,
                                     padding: EdgeInsets.symmetric(
@@ -186,7 +187,7 @@ class MoviesView extends GetView<MoviesController> {
                                         width: 18.w,
                                       ),
                                       SizedBox(width: 8.w),
-                                      Text('More Info'),
+                                      Text(LocaleKeys.MoreInfo.tr),
                                     ],
                                   ),
                                 ),
@@ -226,6 +227,45 @@ class MoviesView extends GetView<MoviesController> {
     );
   }
 
+  // Widget _buildMatchedSection() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       SizedBox(height: 8.h),
+  //       // Movies List
+  //       SizedBox(
+  //         height: 180.h,
+  //         child: Obx(() {
+  //           if (controller.isLoading.value && controller.movies.isEmpty) {
+  //             return Center(child: CircularProgressIndicator());
+  //           }
+  //           return ListView.builder(
+  //             itemCount: controller.movies.length,
+  //             scrollDirection: Axis.horizontal,
+  //             itemBuilder: (context, index) {
+  //               final movie = controller.movies[index];
+  //               return GestureDetector(
+  //                 onTap: () {
+  //                   Get.to(() => MoviesView2(
+  //                     imageUrl: movie.logo,
+  //                     channelName: movie.name,
+  //                     programInfo: movie.group,
+  //                     date: '',
+  //                     streamUrl: movie.url,
+  //                   ));
+  //                 },
+  //                 child: buildMovieCard(movie.logo, movie.name),
+  //               );
+  //             },
+  //           );
+  //         }),
+  //       ),
+  //       SizedBox(height: 16.h),
+  //     ],
+  //   );
+  // }
+
+
   Widget _buildMatchedSection() {
     final displayMovies = isSearchActive.value ? searchResults : controller.movies;
 
@@ -240,22 +280,34 @@ class MoviesView extends GetView<MoviesController> {
             if (controller.isLoading.value && controller.movies.isEmpty) {
               return Center(child: CircularProgressIndicator());
             }
+
+
+            final moviesWithImages = controller.movies.where((movie) => movie.logo.isNotEmpty == true).toList();
+            final moviesWithoutImages = controller.movies.where((movie) => movie.logo.isEmpty == true || movie.logo == null).toList();
+
+            final combinedMovies = [...moviesWithImages, ...moviesWithoutImages];
+
             return ListView.builder(
-              itemCount: displayMovies.length,
+
+              itemCount: combinedMovies.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final movie = displayMovies[index];
+                final movie = combinedMovies[index];
+
                 return GestureDetector(
                   onTap: () {
                     Get.to(() => MoviesView2(
-                      imageUrl: movie.logo,
+                      imageUrl: movie.logo ?? VoidImages.placeholder,
                       channelName: movie.name,
                       programInfo: movie.group,
                       date: '',
                       streamUrl: movie.url,
                     ));
                   },
-                  child: buildMovieCard(movie.logo, movie.name),
+                  child: buildMovieCard(
+                      movie.logo,
+                      movie.name
+                  ),
                 );
               },
             );
@@ -265,6 +317,8 @@ class MoviesView extends GetView<MoviesController> {
       ],
     );
   }
+
+
 
   Widget buildMovieCard(String imageUrl, String title) {
     return Padding(

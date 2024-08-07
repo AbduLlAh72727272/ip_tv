@@ -34,6 +34,7 @@ dependencies:
   path_provider: ^2.1.4
   video_player: ^2.9.1
   flutter_vlc_player: ^7.4.2
+  fijkplayer: ^0.11.0
 
 
 dev_dependencies:
