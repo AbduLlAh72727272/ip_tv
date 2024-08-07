@@ -220,6 +220,7 @@
 //
 
 
+import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -248,58 +249,127 @@ class MultiscreenView extends GetView<MultiscreenController> {
           title: Text(LocaleKeys.MultiScreenLayout.tr, style: TextStyle(color: VoidColors.whiteColor)),
         ),
       ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [VoidColors.blackColor, Theme.of(context).colorScheme.primary],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [VoidColors.blackColor, Theme.of(context).colorScheme.primary],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          Center(
-            child: GridView.builder(
-              padding: EdgeInsets.all(16.w),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16.w,
-                mainAxisSpacing: 16.h,
-                childAspectRatio: 2,
-              ),
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return Obx(() {
-                  final url = multiScreenController.selectedUrls[index];
-                  return url == null
-                      ? GestureDetector(
-                    onTap: () async {
-                      final selectedUrl = await Get.to(() => MultiscreenView2(initialIndex: index));
-                      if (selectedUrl != null) {
-                        multiScreenController.updateUrl(index, selectedUrl);
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Center(
-                        child: Icon(Icons.add_circle, color: Colors.white, size: 50.sp),
-                      ),
+        ),
+        child:   Center(
+          child: GridView.builder(
+            padding: EdgeInsets.all(16.w),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16.w,
+              mainAxisSpacing: 16.h,
+              childAspectRatio: 2,
+            ),
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return Obx(() {
+                final url = multiScreenController.selectedUrls[index];
+                return url == null
+                    ? GestureDetector(
+                  onTap: () async {
+                    final selectedUrl = await Get.to(() => MultiscreenView2(initialIndex: index));
+                    if (selectedUrl != null) {
+                      multiScreenController.updateUrl(index, selectedUrl);
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
-                  )
-                      : VlcPlayerWidget(streamUrl: url);
-                });
-              },
-            ),
+                    child: Center(
+                      child: Icon(Icons.add_circle, color: Colors.white, size: 50.sp),
+                    ),
+                  ),
+                )
+                    : VlcPlayerWidget(streamUrl: url);
+              });
+            },
           ),
-        ],
+        ),
       ),
     );
   }
 }
+
+// class FijkPlayerWidget extends StatefulWidget {
+//   final String streamUrl;
+//
+//   const FijkPlayerWidget({Key? key, required this.streamUrl}) : super(key: key);
+//
+//   @override
+//   _FijkPlayerWidgetState createState() => _FijkPlayerWidgetState();
+// }
+//
+// class _FijkPlayerWidgetState extends State<FijkPlayerWidget> {
+//   late FijkPlayer _fijkPlayer;
+//   bool isMuted = false;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _fijkPlayer = FijkPlayer();
+//     _fijkPlayer.setDataSource(widget.streamUrl, autoPlay: true);
+//   }
+//
+//   @override
+//   void dispose() {
+//     _fijkPlayer.release();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Expanded(
+//           child: FijkView(
+//             player: _fijkPlayer,
+//             fit: FijkFit.cover,
+//             color: Colors.black,
+//           ),
+//         ),
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//           children: [
+//             IconButton(
+//               icon: Icon(Icons.play_arrow),
+//               onPressed: () {
+//                 _fijkPlayer.start();
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(Icons.pause),
+//               onPressed: () {
+//                 _fijkPlayer.pause();
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(isMuted ? Icons.volume_off : Icons.volume_up),
+//               onPressed: () {
+//                 if (isMuted) {
+//                   _fijkPlayer.setVolume(1.0);
+//                 } else {
+//                   _fijkPlayer.setVolume(0.0);
+//                 }
+//                 setState(() {
+//                   isMuted = !isMuted;
+//                 });
+//               },
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+// }
+
 
 
 class VlcPlayerWidget extends StatefulWidget {
@@ -320,13 +390,18 @@ class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
     _vlcPlayerController = VlcPlayerController.network(
       widget.streamUrl,
       autoPlay: true,
-      hwAcc: HwAcc.full,
+      allowBackgroundPlayback: true,
     );
+
+    _vlcPlayerController.addListener(() {
+      print('VLC Player Controller State: ${_vlcPlayerController.value}');
+    });
   }
 
   @override
   void dispose() {
-    _vlcPlayerController.stop();
+    print('Disposing VLC Player Controller for URL: ${widget.streamUrl}');
+    _vlcPlayerController.startRendererScanning();
     _vlcPlayerController.dispose();
     super.dispose();
   }
@@ -346,6 +421,7 @@ class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
     );
   }
 }
+
 
 
 // class VlcPlayerWidget extends StatefulWidget {

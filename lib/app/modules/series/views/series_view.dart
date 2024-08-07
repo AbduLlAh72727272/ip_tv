@@ -132,13 +132,18 @@ class SeriesView extends StatelessWidget {
                           return Center(child: CircularProgressIndicator());
                         }
 
+                        final seriesWithImages = controller.series.where((series) => series.logo.isNotEmpty == true).toList();
+                        final seriesWithoutImages = controller.series.where((series) => series.logo.isEmpty == true || series.logo == null).toList();
+
+                        final combinedSeries = [...seriesWithImages, ...seriesWithoutImages];
+
                         return Container(
                           height: 180.h,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.series.length + 1,
+                            itemCount: combinedSeries.length + 1,
                             itemBuilder: (context, index) {
-                              if (index == controller.series.length) {
+                              if (index == combinedSeries.length) {
                                 if (controller.allPagesLoaded.value) {
                                   return Center(child: Text('You have reached the end of the list'));
                                 } else {
@@ -146,7 +151,7 @@ class SeriesView extends StatelessWidget {
                                 }
                               }
 
-                              final series = controller.series[index];
+                              final series = combinedSeries[index];
 
                               return GestureDetector(
                                 onTap: () {
@@ -172,15 +177,17 @@ class SeriesView extends StatelessWidget {
                                         ],
                                       ),
                                       SizedBox(height: 1.h),
-                                      Text(
-                                        series.name,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 5.sp,
-                                          fontWeight: FontWeight.bold,
+                                      Flexible(
+                                        child: Text(
+                                          series.name,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 5.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ],
                                   ),

@@ -305,11 +305,17 @@ class FirstHomeView extends StatelessWidget {
       if (controller.isLoading.value && controller.movies.isEmpty) {
         return Center(child: CircularProgressIndicator());
       }
+
+      final moviesWithImages = controller.movies.where((movie) => movie.logo.isNotEmpty == true).toList();
+      final moviesWithoutImages = controller.movies.where((movie) => movie.logo.isEmpty == true || movie.logo == null).toList();
+
+      final combinedMovies = [...moviesWithImages, ...moviesWithoutImages];
+
       return ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: controller.movies.length > 10 ? 10 : controller.movies.length,
+        itemCount: combinedMovies.length > 10 ? 10 : combinedMovies.length,
         itemBuilder: (context, index) {
-          final movie = controller.movies[index];
+          final movie = combinedMovies[index];
           return GestureDetector(
             onTap: () {
               Get.to(() => MoviesView2(
@@ -334,10 +340,15 @@ class FirstHomeView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: Colors.grey,
+            ),
             child: Stack(
               children: [
                 Image.network(
-                  imageUrl.isNotEmpty ? imageUrl : VoidImages.placeholder,
+                  // imageUrl.isNotEmpty ? imageUrl : VoidImages.placeholder,
+                  imageUrl,
                   height: 150.h,
                   fit: BoxFit.contain,
                   errorBuilder: (BuildContext context, Object exception,
@@ -350,10 +361,6 @@ class FirstHomeView extends StatelessWidget {
                   },
                 ),
               ],
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: Colors.grey,
             ),
           ),
           SizedBox(height: 8.h),
