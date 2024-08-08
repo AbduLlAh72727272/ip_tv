@@ -9,7 +9,6 @@ import '../../modules/live_TV/controllers/live_t_v_controller.dart';
 import '../../utils/constraints/image_strings.dart';
 import 'back_button_widget.dart';
 
-
 class VlcPlayerScreen extends StatefulWidget {
   final String streamUrl;
 
@@ -28,6 +27,8 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   bool _isControlsVisible = true;
   Timer? _hideTimer;
   final LiveTVController _liveTVController = Get.put(LiveTVController());
+  RxBool isBuffering = true.obs;
+  RxBool isLoading = true.obs;
 
   @override
   void initState() {
@@ -36,6 +37,9 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
     _vlcPlayerController = VlcPlayerController.network(
       widget.streamUrl,
       autoPlay: true,
+      onInit: () {
+        _vlcPlayerController.addListener(_onPlayerStateChanged);
+      },
     );
 
     _animationController = AnimationController(
@@ -50,11 +54,15 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
 
     _startHideTimer();
     _liveTVController.fetchM3U();
+
+    Future.delayed(Duration(seconds: 8), () {
+      isLoading.value = false;
+    });
   }
 
   void _startHideTimer() {
     _hideTimer?.cancel();
-    _hideTimer = Timer(const Duration(seconds: 5), () {
+    _hideTimer = Timer(const Duration(seconds: 3), () {
       setState(() {
         _isControlsVisible = false;
       });
@@ -68,8 +76,17 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
     });
   }
 
+  void _onPlayerStateChanged() {
+    if (_vlcPlayerController.value.isBuffering) {
+      isBuffering.value = true;
+    } else {
+      isBuffering.value = false;
+    }
+  }
+
   @override
   void dispose() {
+    _vlcPlayerController.removeListener(_onPlayerStateChanged);
     _vlcPlayerController.stop();
     _vlcPlayerController.dispose();
     _animationController.dispose();
@@ -103,13 +120,6 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
     _animationController.forward();
   }
 
-  // void openSettings() {
-  //   setState(() {
-  //     isChannelListOpen = false;
-  //   });
-  //   _animationController.forward();
-  // }
-
   void closeSidePanel() {
     _animationController.reverse();
   }
@@ -134,6 +144,17 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                   placeholder: Center(child: CircularProgressIndicator()),
                 ),
               ),
+              Obx(() {
+                return isLoading.value || isBuffering.value  // Show CircularProgressIndicator if loading or buffering
+                    ? Positioned.fill(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    ),
+                  ),
+                )
+                    : SizedBox.shrink();
+              }),
               if (_isControlsVisible) ...[
                 Positioned(
                   top: 20.h,
@@ -179,10 +200,6 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                   right: 20.w,
                   child: Row(
                     children: [
-                      // IconButton(
-                      //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white, size: 30.h),
-                      //   onPressed: openSettings,
-                      // ),
                       SizedBox(width: 5.w),
                       GestureDetector(
                         onTap: openChannelList,
@@ -268,8 +285,6 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                               itemBuilder: (context, index) {
                                 final channel = _liveTVController.entries[index];
                                 return ListTile(
-                                 // leading: Image.network(channel.logo),
-
                                   title: Text(channel.displayName ?? "No name", style: TextStyle(color: Colors.white, fontSize: 10.sp)),
                                   onTap: () {
                                     setState(() {
@@ -283,58 +298,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                           })
                               : ListView(
                             padding: EdgeInsets.all(20.w),
-                            children: [
-                              // Text(
-                              //   'Settings',
-                              //   style: TextStyle(
-                              //       color: Colors.white, fontSize: 10.sp, fontWeight: FontWeight.bold),
-                              //   textAlign: TextAlign.center,
-                              // ),
-                             // SizedBox(height: 20.h),
-                              // SwitchListTile(
-                              //   title: Text('Active Subtitles', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
-                              //   value: true,
-                              //   onChanged: (bool value) {},
-                              // ),
-                              // ListTile(
-                              //   title: Text('Themes', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
-                              //   trailing: DropdownButton<String>(
-                              //     dropdownColor: VoidColors.primary,
-                              //     items: <String>['Dark', 'Light'].map((String value) {
-                              //       return DropdownMenuItem<String>(
-                              //         value: value,
-                              //         child: Text(value, style: TextStyle(color: Colors.white)),
-                              //       );
-                              //     }).toList(),
-                              //     onChanged: (_) {},
-                              //   ),
-                              // ),
-                              // ListTile(
-                              //   title: Text('Change Language', style: TextStyle(color: Colors.white, fontSize: 8.sp)),
-                              //   trailing: DropdownButton<String>(
-                              //     dropdownColor: VoidColors.primary,
-                              //     items: <String>['English', 'Spanish', 'French'].map((String value) {
-                              //       return DropdownMenuItem<String>(
-                              //         value: value,
-                              //         child: Text(value, style: TextStyle(color: Colors.white)),
-                              //       );
-                              //     }).toList(),
-                              //     onChanged: (_) {},
-                              //   ),
-                              // ),
-                             // SizedBox(height: 10.h),
-                              // ElevatedButton(
-                              //   onPressed: closeSidePanel,
-                              //   style: ElevatedButton.styleFrom(
-                              //     backgroundColor: VoidColors.primary,
-                              //     padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-                              //     shape: RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.circular(8.0),
-                              //     ),
-                              //   ),
-                              //   child: Text('Done', style: TextStyle(color: Colors.white, fontSize: 10.sp)),
-                              // ),
-                            ],
+                            children: [],
                           ),
                         ),
                       ],
@@ -342,7 +306,6 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                   ),
                 ),
               ),
-
             ],
           ),
         ),

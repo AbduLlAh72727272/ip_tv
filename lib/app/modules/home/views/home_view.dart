@@ -80,21 +80,21 @@ class HomeView extends StatelessWidget {
                           children: [
                             _buildMenuItem(Icons.home, LocaleKeys.Home.tr, selected: true),
                             _buildMenuItem(Icons.live_tv, LocaleKeys.LiveTv.tr, onTap: () {
-                              Get.to(() => LiveTVView()); // Navigate to LiveTVView
+                              Get.toNamed(Routes.LIVE_T_V); // Navigate to LiveTVView
                             }),
                             _buildMenuItem(Icons.movie, LocaleKeys.Movies.tr, onTap: () {
-                              Get.toNamed(Routes.MOVIES); // Navigate to Movies
+                              Get.toNamed(Routes.LIVE_T_V); // Navigate to Movies
                             }),
                             _buildMenuItem(Icons.screen_share, LocaleKeys.MultiScreen.tr, onTap: () {
                               Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiScreen
                             }),
                             _buildMenuItem(Icons.tv, LocaleKeys.Series.tr, onTap: () {
-                              Get.toNamed(Routes.SERIES); // Navigate to SeriesScreen
+                              Get.toNamed(Routes.LIVE_T_V); // Navigate to SeriesScreen
                             }),
                             //  _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
                             //  _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
                             //  _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
-                            SizedBox(height: 20.h), // Spacing using ScreenUtil
+                            SizedBox(height: 10.h), // Spacing using ScreenUtil
                           ],
                         ),
                       ),

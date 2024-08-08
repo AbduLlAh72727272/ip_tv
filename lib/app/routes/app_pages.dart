@@ -142,11 +142,11 @@ class AppPages {
       page: () => SelectLanguageView(),
       binding: SelectLanguageBinding(),
     ),
-    GetPage(
-      name: _Paths.SERIES,
-      page: () => SeriesView(),
-      binding: SeriesBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.SERIES,
+    //   page: () => SeriesView(),
+    //   binding: SeriesBinding(),
+    // ),
     GetPage(
       name: _Paths.LOGIN,
       page: () => LoginView(),
@@ -157,14 +157,10 @@ class AppPages {
       page: () => MultiscreenView(),
       binding: MultiscreenBinding(),
     ),
-    GetPage(
-      name: _Paths.MOVIES,
-      page: () => MoviesView(),
-      binding: MoviesBinding(),
-    ),
     // GetPage(
-    //   name: '/movies_view2',
-    //   page: () => const MoviesView2(),
+    //   name: _Paths.MOVIES,
+    //   page: () => MoviesView(),
+    //   binding: MoviesBinding(),
     // ),
     GetPage(
       name: '/series_view2',

@@ -9,7 +9,6 @@ import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../setting/views/setting_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
-import 'first_home_view.dart';
 
 class FourthHomeView extends GetView {
   FourthHomeView({super.key});
@@ -245,10 +244,13 @@ class FourthHomeView extends GetView {
                           scrollDirection: Axis.horizontal,
                           itemCount: newImages.length,
                           itemBuilder: (context, index) {
-                            return
-                            index == 1 ? GestureDetector(
+                            return GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.MULTISCREEN);
+                                if (index == 1) {
+                                  print("MultiScreen tapped");
+                                  Get.toNamed(Routes.MULTISCREEN);
+                                }
+                                secSelectedIndex.value = index;
                               },
                               child: FirstHomeSecCardWidget(
                                 secSelectedIndex: secSelectedIndex,
@@ -256,12 +258,6 @@ class FourthHomeView extends GetView {
                                 titles: titles,
                                 index: index,
                               ),
-                            ) :
-                            FirstHomeSecCardWidget(
-                              secSelectedIndex: secSelectedIndex,
-                              newImages: newImages,
-                              titles: titles,
-                              index: index,
                             );
                           },
                         ),
@@ -282,78 +278,68 @@ class FirstHomeSecCardWidget extends StatelessWidget {
   FirstHomeSecCardWidget({
     super.key,
     required this.secSelectedIndex,
-    // required this.onTap,
     required this.newImages,
     required this.titles,
     required this.index,
   });
 
   final RxInt secSelectedIndex;
-  // VoidCallback onTap;
   final List<String> newImages;
   final List<String> titles;
   int index;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          secSelectedIndex.value = index;
-        },
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 5.0.h),
-          height: 60.h,
-          width: 70.w,
-          // height: secSelectedIndex.value == index ? 80.h : 60.h,
-          // width: secSelectedIndex.value == index ? 90.w : 70.w,
-          decoration: BoxDecoration(
-            color: VoidColors.lightBlack,
-            borderRadius: BorderRadius.circular(10.0.r),
-            border: Border.all(
-              // color: secSelectedIndex.value == index ? VoidColors.whiteColor : Colors.transparent,
-              color: Colors.transparent,
-            ),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                      child: Container(
-                        height: 50.0.h,
-                        width: 50.0.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Image.asset(
-                              newImages[index],
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ).marginOnly(top: 10.0.h),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 3.0.w, vertical: 5.0.h),
+      height: 60.h,
+      width: 70.w,
+      decoration: BoxDecoration(
+        color: VoidColors.lightBlack,
+        borderRadius: BorderRadius.circular(10.0.r),
+        border: Border.all(
+          color: Colors.transparent,
+        ),
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                  child: Container(
+                    height: 50.0.h,
+                    width: 50.0.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text(
-                      titles[index],
-                      style: TextStyle(
-                        fontSize: 5.sp,
-                        color: VoidColors.whiteColor,
-                        fontFamily: 'Arial',
-                        fontWeight: FontWeight.w400,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          newImages[index],
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ],
+                  ).marginOnly(top: 10.0.h),
                 ),
-              ),
-            ],
+                Text(
+                  titles[index],
+                  style: TextStyle(
+                    fontSize: 5.sp,
+                    color: VoidColors.whiteColor,
+                    fontFamily: 'Arial',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      );
+        ],
+      ),
+    );
   }
 }

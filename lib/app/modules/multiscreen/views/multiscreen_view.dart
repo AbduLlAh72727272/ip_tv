@@ -1,227 +1,3 @@
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-// import 'package:get/get.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import '../../../common/widgets/back_button_widget.dart';
-// import '../../../utils/constraints/image_strings.dart';
-// import '../controllers/multiscreen_controller.dart';
-// import 'multiscreen_view2.dart';
-//
-// class MultiscreenView extends GetView<MultiscreenController> {
-//   MultiscreenView({super.key});
-//
-//   final MultiscreenController multiScreenController = Get.put(MultiscreenController());
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     return Scaffold(
-//       backgroundColor: Colors.black,
-//       appBar: PreferredSize(
-//         preferredSize: Size.fromHeight(40.h),
-//         child: AppBar(
-//           backgroundColor: Colors.black,
-//           automaticallyImplyLeading: false,
-//           leading: const BackButtonWidget(),
-//           // leading: IconButton(
-//           //   icon: Image.asset(VoidImages.back),
-//           //   onPressed: () {
-//           //     Get.back(); // Navigate back
-//           //   },
-//           // ),
-//           title: Text('Multi Screen Layout', style: TextStyle(color: Colors.white)),
-//         ),
-//       ),
-//       body: Stack(
-//         children: [
-//           // Gradient background
-//           Container(
-//             decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 colors: [Colors.black, Theme.of(context).colorScheme.primary],
-//                 begin: Alignment.topCenter,
-//                 end: Alignment.bottomCenter,
-//               ),
-//             ),
-//           ),
-//           // Multi-screen grid
-//           Center(
-//             child:
-//               GridView.builder(
-//                 padding: EdgeInsets.all(16.w),
-//                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                   crossAxisCount: 2,
-//                   crossAxisSpacing: 16.w,
-//                   mainAxisSpacing: 16.h,
-//                   childAspectRatio: 2,
-//                 ),
-//                 itemCount: 4,
-//                 itemBuilder: (context, index) {
-//                   return
-//                     VlcPlayerWidget(streamUrl: );
-//                   // if (index > controller.selectedUrls.length) {
-//                   //   return VlcPlayerWidget(streamUrl: controller.selectedUrls[index]);
-//                   // }
-//                   // else {
-//                   //   return GestureDetector(
-//                   //     onTap: () {
-//                   //       // Get.to(() => MultiscreenView2());
-//                   //       Get.to(() => MultiscreenView2(initialIndex: index));
-//                   //     },
-//                       child: Container(
-//                         decoration: BoxDecoration(
-//                           color: Theme.of(context).colorScheme.primary,
-//                           borderRadius: BorderRadius.circular(10.r),
-//                         ),
-//                         child: Center(
-//                           child: Icon(Icons.add_circle, color: Colors.white, size: 50.sp),
-//                         ),
-//                       ),
-//                   //   );
-//                   // }
-//                 },
-//               ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-//
-//
-//
-// class VlcPlayerWidget extends StatefulWidget {
-//   final String streamUrl;
-//
-//   const VlcPlayerWidget({Key? key, required this.streamUrl}) : super(key: key);
-//
-//   @override
-//   _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
-// }
-//
-// class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
-//   late VlcPlayerController _vlcPlayerController;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _vlcPlayerController = VlcPlayerController.network(
-//       widget.streamUrl,
-//       autoPlay: true,
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     _vlcPlayerController.stop();
-//     _vlcPlayerController.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         border: Border.all(color: Colors.black),
-//         borderRadius: BorderRadius.circular(8.0),
-//       ),
-//       child: VlcPlayer(
-//         controller: _vlcPlayerController,
-//         aspectRatio: 16 / 9,
-//         placeholder: Center(child: CircularProgressIndicator()),
-//       ),
-//     );
-//   }
-// }
-//
-//
-// //
-// // import 'package:flutter/material.dart';
-// // import 'package:flutter_screenutil/flutter_screenutil.dart';
-// // import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-// //
-// // class MultiscreenView extends StatelessWidget {
-// //   MultiscreenView({Key? key,}) : super(key: key);
-// //
-// //   final List<String> streamUrls = [
-// //     'https://media.w3.org/2010/05/sintel/trailer.mp4',
-// //     'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-// //     'https://media.w3.org/2010/05/sintel/trailer.mp4',
-// //     'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'
-// //   ];
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       appBar: AppBar(
-// //         title: Text('Multi VLC Player'),
-// //       ),
-// //       body: Padding(
-// //         padding: EdgeInsets.all(8.0),
-// //         child: GridView.builder(
-// //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-// //             crossAxisCount: 3, // Number of videos per row
-// //             crossAxisSpacing: 8.0,
-// //             mainAxisSpacing: 8.0,
-// //           ),
-// //           itemCount: streamUrls.length,
-// //           itemBuilder: (context, index) {
-// //             return VlcPlayerWidget(streamUrl: streamUrls[index]);
-// //           },
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-// //
-// // class VlcPlayerWidget extends StatefulWidget {
-// //   final String streamUrl;
-// //
-// //   const VlcPlayerWidget({Key? key, required this.streamUrl}) : super(key: key);
-// //
-// //   @override
-// //   _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
-// // }
-// //
-// // class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
-// //   late VlcPlayerController _vlcPlayerController;
-// //
-// //   @override
-// //   void initState() {
-// //     super.initState();
-// //     _vlcPlayerController = VlcPlayerController.network(
-// //       widget.streamUrl,
-// //       autoPlay: true,
-// //     );
-// //   }
-// //
-// //   @override
-// //   void dispose() {
-// //     _vlcPlayerController.stop();
-// //     _vlcPlayerController.dispose();
-// //     super.dispose();
-// //   }
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Container(
-// //       decoration: BoxDecoration(
-// //         border: Border.all(color: Colors.black),
-// //         borderRadius: BorderRadius.circular(8.0),
-// //       ),
-// //       child: VlcPlayer(
-// //         controller: _vlcPlayerController,
-// //         aspectRatio: 16 / 9,
-// //         placeholder: Center(child: CircularProgressIndicator()),
-// //       ),
-// //     );
-// //   }
-// // }
-//
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:get/get.dart';
@@ -231,7 +7,6 @@ import '../../../utils/constraints/colors.dart';
 import '../controllers/multiscreen_controller.dart';
 import '../../../common/widgets/back_button_widget.dart';
 import 'multiscreen_view2.dart';
-
 
 class MultiscreenView extends GetView<MultiscreenController> {
   const MultiscreenView({super.key});
@@ -259,17 +34,10 @@ class MultiscreenView extends GetView<MultiscreenController> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child:   Center(
-          child: GridView.builder(
-            padding: EdgeInsets.all(16.w),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16.w,
-              mainAxisSpacing: 16.h,
-              childAspectRatio: 2,
-            ),
-            itemCount: 4,
-            itemBuilder: (context, index) {
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(2, (index) {
               return Obx(() {
                 final url = multiScreenController.selectedUrls[index];
                 return url == null
@@ -281,6 +49,8 @@ class MultiscreenView extends GetView<MultiscreenController> {
                     }
                   },
                   child: Container(
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    height: MediaQuery.of(context).size.height * 0.8,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(10.r),
@@ -290,9 +60,9 @@ class MultiscreenView extends GetView<MultiscreenController> {
                     ),
                   ),
                 )
-                    : VlcPlayerWidget(streamUrl: url,);
+                    : VlcPlayerWidget(streamUrl: url, index: index);
               });
-            },
+            }),
           ),
         ),
       ),
@@ -302,9 +72,9 @@ class MultiscreenView extends GetView<MultiscreenController> {
 
 class VlcPlayerWidget extends StatefulWidget {
   final String streamUrl;
+  final int index;
 
-
-  VlcPlayerWidget({super.key, required this.streamUrl,});
+  const VlcPlayerWidget({super.key, required this.streamUrl, required this.index});
 
   @override
   _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
@@ -312,6 +82,11 @@ class VlcPlayerWidget extends StatefulWidget {
 
 class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
   late VlcPlayerController _vlcPlayerController;
+  RxBool isBuffering = true.obs;
+  RxBool isEnded = false.obs;
+  RxBool paused = true.obs;
+  RxDouble bufferPercent = 0.0.obs;
+  RxBool isMuted = false.obs;
 
   @override
   void initState() {
@@ -320,207 +95,98 @@ class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
       widget.streamUrl,
       autoPlay: true,
       allowBackgroundPlayback: true,
+      onInit: () {
+        _vlcPlayerController.addListener(_onPlayerStateChanged);
+      },
     );
 
     _vlcPlayerController.addListener(() {
-      print('VLC Player Controller State: ${ _vlcPlayerController.value}');
+      setState(() {
+        bufferPercent.value = _vlcPlayerController.value.bufferPercent;
+      });
+
+      if (_vlcPlayerController.value.playingState == PlayingState.ended) {
+        _vlcPlayerController.stop();
+        _vlcPlayerController.play();
+      }
     });
+  }
+
+  void _onPlayerStateChanged() {
+    if (_vlcPlayerController.value.isBuffering || _vlcPlayerController.value.isEnded) {
+      isBuffering.value = true;
+      isEnded.value = true;
+    } else {
+      isBuffering.value = false;
+      isEnded.value = false;
+    }
+  }
+
+  void _toggleMute() {
+    if (isMuted.value) {
+      _vlcPlayerController.setVolume(100);
+    } else {
+      _vlcPlayerController.setVolume(0);
+    }
+    isMuted.value = !isMuted.value;
   }
 
   @override
   void dispose() {
     print('Disposing VLC Player Controller for URL: ${widget.streamUrl}');
-    _vlcPlayerController.startRendererScanning();
+    _vlcPlayerController.removeListener(_onPlayerStateChanged);
+    _vlcPlayerController.stop();
     _vlcPlayerController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: VlcPlayer(
-        controller:  _vlcPlayerController,
-        aspectRatio: 16 / 10,
-        placeholder: Center(child: CircularProgressIndicator()),
-      ),
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.45,
+          height: MediaQuery.of(context).size.height * 0.8,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: VlcPlayer(
+            controller: _vlcPlayerController,
+            aspectRatio: 16 / 10,
+            placeholder: Center(child: CircularProgressIndicator()),
+          ),
+        ),
+        Obx(() {
+          return isBuffering.value || isEnded.value
+              ? Positioned.fill(
+            child: Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ),
+          )
+              : SizedBox.shrink();
+        }),
+        Obx(() {
+          return Positioned(
+            bottom: 10,
+            right: 10,
+            child: Text(
+              'Buffering: ${(bufferPercent.value * 100).toStringAsFixed(2)}%',
+              style: TextStyle(color: Colors.white, fontSize: 7.sp),
+            ),
+          );
+        }),
+        Positioned(
+          top: 10,
+          right: 10,
+          child: IconButton(
+            icon: Icon(isMuted.value ? Icons.volume_off : Icons.volume_up, color: Colors.white),
+            onPressed: _toggleMute,
+          ),
+        ),
+      ],
     );
   }
 }
-
-
-// class FijkPlayerWidget extends StatefulWidget {
-//   final String streamUrl;
-//
-//   const FijkPlayerWidget({Key? key, required this.streamUrl}) : super(key: key);
-//
-//   @override
-//   _FijkPlayerWidgetState createState() => _FijkPlayerWidgetState();
-// }
-//
-// class _FijkPlayerWidgetState extends State<FijkPlayerWidget> {
-//   late FijkPlayer _fijkPlayer;
-//   bool isMuted = false;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _fijkPlayer = FijkPlayer();
-//     _fijkPlayer.setDataSource(widget.streamUrl, autoPlay: true);
-//   }
-//
-//   @override
-//   void dispose() {
-//     _fijkPlayer.release();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Expanded(
-//           child: FijkView(
-//             player: _fijkPlayer,
-//             fit: FijkFit.cover,
-//             color: Colors.black,
-//           ),
-//         ),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//           children: [
-//             IconButton(
-//               icon: Icon(Icons.play_arrow),
-//               onPressed: () {
-//                 _fijkPlayer.start();
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(Icons.pause),
-//               onPressed: () {
-//                 _fijkPlayer.pause();
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(isMuted ? Icons.volume_off : Icons.volume_up),
-//               onPressed: () {
-//                 if (isMuted) {
-//                   _fijkPlayer.setVolume(1.0);
-//                 } else {
-//                   _fijkPlayer.setVolume(0.0);
-//                 }
-//                 setState(() {
-//                   isMuted = !isMuted;
-//                 });
-//               },
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-
-
-// class VlcPlayerWidget extends StatefulWidget {
-//   final String streamUrl;
-//
-//   const VlcPlayerWidget({super.key, required this.streamUrl});
-//
-//   @override
-//   _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
-// }
-//
-// class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
-//   late VlcPlayerController _vlcPlayerController;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _vlcPlayerController = VlcPlayerController.network(
-//       widget.streamUrl,
-//       autoPlay: true,
-//       allowBackgroundPlayback: true,
-//     );
-//
-//     _vlcPlayerController.addListener(() {
-//       print('VLC Player Controller State: ${_vlcPlayerController.value}');
-//     });
-//   }
-//
-//   @override
-//   void dispose() {
-//     print('Disposing VLC Player Controller for URL: ${widget.streamUrl}');
-//     _vlcPlayerController.startRendererScanning();
-//     _vlcPlayerController.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         border: Border.all(color: Colors.black),
-//         borderRadius: BorderRadius.circular(8.0),
-//       ),
-//       child: VlcPlayer(
-//         controller: _vlcPlayerController,
-//         aspectRatio: 16 / 10,
-//         placeholder: Center(child: CircularProgressIndicator()),
-//       ),
-//     );
-//   }
-// }
-
-
-
-// class VlcPlayerWidget extends StatefulWidget {
-//   final String streamUrl;
-//
-//   const VlcPlayerWidget({super.key, required this.streamUrl});
-//
-//   @override
-//   _VlcPlayerWidgetState createState() => _VlcPlayerWidgetState();
-// }
-//
-// class _VlcPlayerWidgetState extends State<VlcPlayerWidget> {
-//   late VlcPlayerController _vlcPlayerController;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _vlcPlayerController = VlcPlayerController.network(
-//       widget.streamUrl,
-//       autoPlay: true,
-//       hwAcc: HwAcc.full,
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     _vlcPlayerController.stop();
-//     _vlcPlayerController.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         border: Border.all(color: Colors.black),
-//         borderRadius: BorderRadius.circular(8.0),
-//       ),
-//       child: VlcPlayer(
-//         controller: _vlcPlayerController,
-//         aspectRatio: 16 / 10,
-//         placeholder: Center(child: CircularProgressIndicator()),
-//       ),
-//     );
-//   }
-// }
-//
-
