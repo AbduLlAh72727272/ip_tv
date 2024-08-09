@@ -8,6 +8,7 @@ import 'package:ip_tv/app/utils/constraints/image_strings.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
 import '../../live_TV/controllers/live_t_v_controller.dart';
+import '../../live_TV/views/live_t_v_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 import '../../setting/views/setting_view.dart';
 
@@ -115,7 +116,7 @@ class ThirdHomeView extends GetView<LiveTVController> {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.LIVE_T_V);
+                    Get.to(() => LiveTVView(initialSelectedTab: 0));
                   },
                   child: ThirdHomeCardWidget(
                     icons: icons[1],
@@ -126,7 +127,7 @@ class ThirdHomeView extends GetView<LiveTVController> {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.MOVIES);
+                    Get.to(() => LiveTVView(initialSelectedTab: 1));
                   },
                   child: ThirdHomeCardWidget(
                     icons: icons[2],
@@ -148,7 +149,7 @@ class ThirdHomeView extends GetView<LiveTVController> {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.SERIES);
+                    Get.to(() => LiveTVView(initialSelectedTab: 2));
                   },
                   child: ThirdHomeCardWidget(
                     icons: icons[4],

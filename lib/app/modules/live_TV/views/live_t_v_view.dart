@@ -26,9 +26,10 @@ class LiveTVView extends GetView<LiveTVController> {
   final RxInt selectedTab = 0.obs;
 
   @override
-  void onInit() {
+  void ini() {
     //super.onInit();
-    selectedTab.value = initialSelectedTab; // Set the initial selected tab
+    selectedTab.value = initialSelectedTab;
+    print("Initial selected tab: $initialSelectedTab");
   }
 
   void _navigateToVlcPlayer(BuildContext context, String streamUrl) {
@@ -78,7 +79,9 @@ class LiveTVView extends GetView<LiveTVController> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {selectedTab.value = initialSelectedTab;
+  print("Initial selected tab: $initialSelectedTab");
+
     return GestureDetector(
       onTap: () {
         if (isSearchActive.value) {
@@ -244,6 +247,7 @@ class LiveTVView extends GetView<LiveTVController> {
                 // Main Body
                 Expanded(
                   child: Obx(() {
+                    print("Selected tab value: ${selectedTab.value}");
                     if (selectedTab.value == 0 &&
                         liveTVController.isLoading.value &&
                         liveTVController.entries.isEmpty) {
@@ -316,10 +320,10 @@ class LiveTVView extends GetView<LiveTVController> {
                                     // ),
                                     onTap: () {
                                       if(selectedTab.value == 0) {
-                                         _navigateToVlcPlayer(
+                                        _navigateToVlcPlayer(
                                             context, entry.url);
                                       }
-                                     else if(selectedTab.value ==1){
+                                      else if(selectedTab.value ==1){
                                         Get.to(() => MoviesView2(
                                           imageUrl: entry.logo,
                                           channelName: entry.name,
@@ -330,9 +334,9 @@ class LiveTVView extends GetView<LiveTVController> {
                                         );
 
                                       }
-                                     else if(selectedTab.value==2){
-                                       Get.toNamed('/series_view2', arguments: entry,
-                                       );
+                                      else if(selectedTab.value==2){
+                                        Get.toNamed('/series_view2', arguments: entry,
+                                        );
                                       }
                                     },
                                   ),
@@ -413,3 +417,4 @@ class LiveTVView extends GetView<LiveTVController> {
     );
   }
 }
+

@@ -10,6 +10,7 @@ import '../../../utils/constraints/image_strings.dart';
 import '../../Movies/controllers/movies_controller.dart';
 import '../../Movies/models/movie_model.dart';
 import '../../Movies/views/movies_view2.dart';
+import '../../live_TV/views/live_t_v_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 
 class FirstHomeView extends StatelessWidget {
@@ -108,21 +109,21 @@ class FirstHomeView extends StatelessWidget {
                         children: [
                           _buildHomeCard(
                             onTap: () {
-                              Get.toNamed(Routes.LIVE_T_V);
+                              Get.to(() => LiveTVView(initialSelectedTab: 0));
                             },
                             image: VoidImages.live_Tv,
                             label: LocaleKeys.LiveTv.tr,
                           ),
                           _buildHomeCard(
                             onTap: () {
-                              Get.toNamed(Routes.MOVIES);
+                              Get.to(() => LiveTVView(initialSelectedTab: 1));
                             },
                             image: VoidImages.movie,
                             label: LocaleKeys.Movies.tr,
                           ),
                           _buildHomeCard(
                             onTap: () {
-                              Get.toNamed(Routes.SERIES);
+                              Get.to(() => LiveTVView(initialSelectedTab: 2));
                             },
                             image: VoidImages.series,
                             label: LocaleKeys.Series.tr,

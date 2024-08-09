@@ -80,20 +80,18 @@ class HomeView extends StatelessWidget {
                           children: [
                             _buildMenuItem(Icons.home, LocaleKeys.Home.tr, selected: true),
                             _buildMenuItem(Icons.live_tv, LocaleKeys.LiveTv.tr, onTap: () {
-                              Get.toNamed(Routes.LIVE_T_V); // Navigate to LiveTVView
+                              Get.to(() => LiveTVView(initialSelectedTab: 0));  // Navigate to LiveTVView with index 0
                             }),
                             _buildMenuItem(Icons.movie, LocaleKeys.Movies.tr, onTap: () {
-                              Get.toNamed(Routes.LIVE_T_V); // Navigate to Movies
+                              print("Navigating to LiveTVView with index 1 (Movies)");
+                              Get.to(() => LiveTVView(initialSelectedTab: 1)); // Navigate to LiveTVView with index 1
                             }),
                             _buildMenuItem(Icons.screen_share, LocaleKeys.MultiScreen.tr, onTap: () {
                               Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiScreen
                             }),
                             _buildMenuItem(Icons.tv, LocaleKeys.Series.tr, onTap: () {
-                              Get.toNamed(Routes.LIVE_T_V); // Navigate to SeriesScreen
+                              Get.to(() => LiveTVView(initialSelectedTab: 2)); // Navigate to LiveTVView with index 2
                             }),
-                            //  _buildMenuItem(Icons.sports, LocaleKeys.Sports.tr),
-                            //  _buildMenuItem(Icons.playlist_play, LocaleKeys.Playlist.tr),
-                            //  _buildMenuItem(Icons.videocam, LocaleKeys.Recording.tr),
                             SizedBox(height: 10.h), // Spacing using ScreenUtil
                           ],
                         ),
@@ -187,7 +185,6 @@ class HomeView extends StatelessWidget {
         return Center(child: CircularProgressIndicator());
       }
 
-      // Separate movies with and without images
       List<Movie> moviesWithImages = [];
       List<Movie> moviesWithoutImages = [];
 
@@ -201,28 +198,70 @@ class HomeView extends StatelessWidget {
 
       List<Movie> combinedMovies = [...moviesWithImages];
       combinedMovies.addAll(moviesWithoutImages);
-      combinedMovies.add(combinedMovies.removeAt(0));
 
-      return ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: combinedMovies.length > 10 ? 10 : combinedMovies.length,
-        itemBuilder: (context, index) {
-          final movie = combinedMovies[index];
-          return GestureDetector(
-            onTap: () {
-              Get.to(() => MoviesView2(
-                imageUrl: movie.logo,
-                channelName: movie.name,
-                programInfo: movie.group,
-                date: '',
-                streamUrl: movie.url,
-              ));
-            },
-            child: _buildMovieCard(movie.logo, movie.name),
-          );
-        },
-      );
+      return AnimatedMoviesSlider(movies: combinedMovies);
     });
+  }
+}
+
+class AnimatedMoviesSlider extends StatefulWidget {
+  final List<Movie> movies;
+
+  AnimatedMoviesSlider({required this.movies});
+
+  @override
+  _AnimatedMoviesSliderState createState() => _AnimatedMoviesSliderState();
+}
+
+class _AnimatedMoviesSliderState extends State<AnimatedMoviesSlider> {
+  int _currentIndex = 0;
+  bool _isVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  void _startAutoSlide() {
+    Future.delayed(Duration(seconds: 4), () {
+      if (mounted) {
+        setState(() {
+          _isVisible = false;
+        });
+        Future.delayed(Duration(milliseconds: 800), () {
+          if (mounted) {
+            _currentIndex = (_currentIndex + 1) % widget.movies.length;
+            setState(() {
+              _isVisible = true;
+            });
+            _startAutoSlide();
+          }
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final movie = widget.movies[_currentIndex];
+
+    return AnimatedOpacity(
+      opacity: _isVisible ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 500),
+      child: GestureDetector(
+        onTap: () {
+          Get.to(() => MoviesView2(
+            imageUrl: movie.logo,
+            channelName: movie.name,
+            programInfo: movie.group,
+            date: '',
+            streamUrl: movie.url,
+          ));
+        },
+        child: _buildMovieCard(movie.logo, movie.name),
+      ),
+    );
   }
 
   Widget _buildMovieCard(String imageUrl, String title) {
@@ -255,6 +294,10 @@ class HomeView extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8.h),
+          // Text(
+          //   title,
+          //   style: TextStyle(color: Colors.white, fontSize: 12.sp),
+          // ),
         ],
       ),
     );

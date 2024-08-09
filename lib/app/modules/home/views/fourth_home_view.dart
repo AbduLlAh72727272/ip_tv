@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
-
 import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
+import '../../live_TV/views/live_t_v_view.dart';
 import '../../setting/views/setting_view.dart';
 import '../../selectLanguage/views/select_language_view.dart';
 
@@ -120,7 +120,7 @@ class FourthHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.LIVE_T_V);
+                                Get.to(() => LiveTVView(initialSelectedTab: 0));
                               },
                               child: Container(
                                   height: 200.0.h, width: 160.0.w,
@@ -159,7 +159,7 @@ class FourthHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.MOVIES);
+                                Get.to(() => LiveTVView(initialSelectedTab: 1));
                               },
                               child: Container(
                                   height: 200.0.h, width: 160.0.w,
@@ -198,7 +198,7 @@ class FourthHomeView extends GetView {
                             flex: 2,
                             child: GestureDetector(
                               onTap: () {
-                                Get.toNamed(Routes.SERIES);
+                                Get.to(() => LiveTVView(initialSelectedTab: 2));
                               },
                               child: Container(
                                   height: 200.0.h, width: 160.0.w,
