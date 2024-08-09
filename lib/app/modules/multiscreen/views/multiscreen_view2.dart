@@ -1,46 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ip_tv/generated/locales.g.dart';
+import '../../../common/widgets/back_button_widget.dart';
 import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
+import '../../live_TV/controllers/live_t_v_controller.dart';
 import '../controllers/multiscreen_controller.dart'; // Import your color file
 
 class MultiscreenView2 extends GetView<MultiscreenController> {
-  const MultiscreenView2({Key? key}) : super(key: key);
+  final int initialIndex;
+  const MultiscreenView2({super.key, required this.initialIndex});
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     final List<String> categories = [
       'All', 'Favourites', 'T20 World cup', 'Sports', 'Cricket', 'BEIN sport', 'Sky sport', 'Others'
     ];
+    final LiveTVController liveTVController = Get.put(LiveTVController());
 
     return Scaffold(
-      backgroundColor: VoidColors.black,
+      backgroundColor: VoidColors.blackColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(40.h), // Decrease the height of the AppBar
+        preferredSize: Size.fromHeight(40.h),
         child: AppBar(
-          backgroundColor: VoidColors.black, // Set app bar color to black
-          automaticallyImplyLeading: false, // Remove the default back button
-          leading: IconButton(
-            icon: Image.asset('assets/images/back_button.png'), // Custom back button
-            onPressed: () {
-              Get.back(); // Navigate back
-            },
-          ),
-          title: Text('Live TV', style: TextStyle(color: Colors.white)),
+          backgroundColor: VoidColors.blackColor,
+          automaticallyImplyLeading: false,
+          leading: const BackButtonWidget(),
+          // IconButton(
+          //   icon: Image.asset(VoidImages.back),
+          //   onPressed: () {
+          //     Get.back();
+          //   },
+          // ),
+          title: Text(LocaleKeys.LiveTv.tr, style: TextStyle(color: VoidColors.whiteColor)),
           actions: [
             IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
+              icon: Icon(Icons.search, color: VoidColors.whiteColor),
               onPressed: () {
-                // Add search functionality here
+
               },
             ),
             IconButton(
-              icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
+              icon: Icon(Icons.settings_suggest_outlined, color: VoidColors.whiteColor),
               onPressed: () {
-                // Add settings functionality here
               },
             ),
           ],
@@ -52,43 +57,73 @@ class MultiscreenView2 extends GetView<MultiscreenController> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [VoidColors.black, VoidColors.primary],
+                colors: [VoidColors.blackColor, Theme.of(context).colorScheme.primary],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
             ),
           ),
           // Category grid
-          Center(
-            child: GridView.builder(
-              padding: EdgeInsets.all(16.w), // Adjust padding using ScreenUtil
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.w, // Adjust spacing using ScreenUtil
-                mainAxisSpacing: 8.h, // Adjust spacing using ScreenUtil
-                childAspectRatio: 4, // Adjust aspect ratio to make boxes rectangular
-              ),
-              itemCount: categories.length, // Number of categories
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w), // Add horizontal padding
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    // borderRadius: BorderRadius.circular(10.r), // Adjust border radius using ScreenUtil
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.tv, color: Colors.white, size: 24.sp), // Adjust icon size using ScreenUtil
-                      SizedBox(width: 8.w),
-                      Text(
-                        categories[index],
-                        style: TextStyle(color: Colors.white, fontSize: 12.sp), // Adjust text size using ScreenUtil
-                      ),
-                    ],
-                  ),
-                );
+          Obx(() {
+            if (liveTVController.isLoading.value &&
+                liveTVController.entries.isEmpty) {
+              return Center(child: CircularProgressIndicator());
+            }
+            return NotificationListener<ScrollNotification>(
+              onNotification: (scrollInfo) {
+                if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+                    !liveTVController.isFetchingMore.value &&
+                    !liveTVController.allPagesLoaded.value) {
+                  liveTVController.fetchNextPage();
+                }
+                return false;
               },
-            ),
+              child: Center(
+                child: GridView.builder(
+                  padding: EdgeInsets.all(16.w),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8.w,
+                    mainAxisSpacing: 8.h,
+                    childAspectRatio: 6,
+                  ),
+                  // itemCount: categories.length,
+                  itemCount: liveTVController.entries.length,
+                  itemBuilder: (context, index) {
+                    final channel = liveTVController.entries[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // controller.addUrl(channel.url);
+                        Get.back(result: channel.url);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        decoration: BoxDecoration(
+                          color: VoidColors.darkGreyColor,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.tv, color: VoidColors.whiteColor, size: 15.sp),
+                            SizedBox(width: 8.w),
+                            SizedBox(
+                              width: 85.w,
+                              child: Text(
+                                // categories[index],
+                                  channel.displayName,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: VoidColors.whiteColor, fontSize: 9.sp),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          }
           ),
         ],
       ),

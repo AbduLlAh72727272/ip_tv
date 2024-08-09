@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../utils/constraints/colors.dart';
-import '../controllers/movies_controller.dart';
+import 'package:get/get.dart';
+import 'package:ip_tv/app/common/widgets/better_player_screen.dart';
+import 'package:ip_tv/app/common/widgets/vlc_player_screen.dart';
+import 'package:ip_tv/generated/locales.g.dart';
+import '../../../common/widgets/back_button_widget.dart';
+import '../../../utils/constraints/image_strings.dart';
 
-class MoviesView2 extends GetView<MoviesController> {
-  const MoviesView2({Key? key}) : super(key: key);
+class MoviesView2 extends StatelessWidget {
+  final String imageUrl;
+  final String channelName;
+  final String programInfo;
+  final String date;
+  final String streamUrl;
+
+  MoviesView2({
+    Key? key,
+    required this.imageUrl,
+    required this.channelName,
+    required this.programInfo,
+    required this.date,
+    required this.streamUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -19,7 +32,7 @@ class MoviesView2 extends GetView<MoviesController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -45,18 +58,11 @@ class MoviesView2 extends GetView<MoviesController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        icon: SizedBox(
-                          width: 28.w,
-                          height: 28.h,
-                          child: Image.asset('assets/images/back_button.png'),
-                        ),
-                        onPressed: () => Get.back(),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
-                        onPressed: () {},
-                      ),
+                      const BackButtonWidget(),
+                      // IconButton(
+                      //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
                   // Movie details
@@ -65,11 +71,23 @@ class MoviesView2 extends GetView<MoviesController> {
                       Container(
                         width: 100.w,
                         height: 150.h,
+                        child: Image.network(
+                          imageUrl.isNotEmpty ? imageUrl : VoidImages.placeholder,
+                          width: 100.w,
+                          height: 150.h,
+                          fit: BoxFit.cover,
+                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                            return Image.asset(
+                              VoidImages.placeholder,
+                              width: 100.w,
+                              height: 150.h,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/sample.png'),
-                            fit: BoxFit.cover,
-                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.grey,
                         ),
                       ),
                       SizedBox(width: 16.w),
@@ -78,7 +96,7 @@ class MoviesView2 extends GetView<MoviesController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Akuaman The Saga',
+                              channelName,
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -87,7 +105,7 @@ class MoviesView2 extends GetView<MoviesController> {
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              'Half-human, half-Atlantean Arthur Curry must take his rightful place as the king of Atlantis and prevent a large-scale conflict from breaking out between the underwater kingdom and the surface world.',
+                              programInfo,
                               style: TextStyle(
                                 fontSize: 7.sp,
                                 color: Colors.white,
@@ -97,29 +115,47 @@ class MoviesView2 extends GetView<MoviesController> {
                             Row(
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Play'),
+                                  onPressed: () {
+                                    Get.to(() => VlcPlayerScreen(streamUrl: streamUrl));
+                                  },
+                                  child: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: VoidColors.primary,
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
-                                OutlinedButton(
-                                  onPressed: () {},
-                                  child: Text('Continue Watching',style: TextStyle(color: VoidColors.white)),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.white),
-                                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                Flexible(
+                                  child: OutlinedButton(
+                                    onPressed: () {},
+                                    child: Text(LocaleKeys.ContinueWatching.tr,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(color: Colors.white)),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(color: Colors.white),
+                                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
-                                OutlinedButton(
-                                  onPressed: () {},
-                                  child: Text('Watch Later',style: TextStyle(color: VoidColors.white),),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.white),
-                                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                Flexible(
+                                  child: OutlinedButton(
+                                    onPressed: () {},
+                                    child: Text(LocaleKeys.WatchLater.tr,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(color: Colors.white)),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(color: Colors.white),
+                                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -129,50 +165,7 @@ class MoviesView2 extends GetView<MoviesController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 24.h),
-                  // Similar Movies Section
-                  Text(
-                    'Similar Movies',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                      ],
-                    ),
-                  ),
                 ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSimilarMovieCard(String imagePath) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8.0.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 100.w,
-            height: 150.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
               ),
             ),
           ),

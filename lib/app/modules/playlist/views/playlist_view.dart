@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
-import '../../M3U_playlist/views/m3_u_playlist_view.dart';
-import '../../parental/views/parental_view.dart';
-//import 'app_pages.dart'; // Import the routes
+import '../../../utils/constraints/image_strings.dart';
+
 
 class PlaylistView extends StatefulWidget {
   @override
@@ -12,12 +13,11 @@ class PlaylistView extends StatefulWidget {
 }
 
 class _PlaylistViewState extends State<PlaylistView> {
-  List<Map<String, String>> playlists = []; // List to store playlist details
+  List<Map<String, String>> playlists = [];
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     return Scaffold(
       body: Stack(
@@ -26,7 +26,7 @@ class _PlaylistViewState extends State<PlaylistView> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'), // Background image
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -34,25 +34,26 @@ class _PlaylistViewState extends State<PlaylistView> {
           // Playlist content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
+              width: 300.w,
               height: 300.h,
-              padding: EdgeInsets.all(16.0.w), // Padding using ScreenUtil
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to start
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Playlist',
+                    // 'Playlist',
+                  LocaleKeys.Playlist.tr,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 10.sp, // Font size using ScreenUtil
+                      fontSize: 10.sp,
                     ),
                   ),
-                  SizedBox(height: 10.h), // Spacing using ScreenUtil
+                  SizedBox(height: 10.h),
                   Expanded(
                     child: ListView.builder(
                       itemCount: (playlists.length / 2).ceil(),
@@ -74,11 +75,10 @@ class _PlaylistViewState extends State<PlaylistView> {
                       },
                     ),
                   ),
-                  SizedBox(height: 10.h), // Spacing using ScreenUtil
+                  SizedBox(height: 10.h),
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: () async {
-                        // Navigate to M3UPlaylistView and wait for result
                         final result = await Get.toNamed(Routes.M3_U_PLAYLIST);
                         if (result != null && result is Map<String, String>) {
                           setState(() {
@@ -87,15 +87,15 @@ class _PlaylistViewState extends State<PlaylistView> {
                         }
                       },
                       icon: Icon(Icons.add),
-                      label: Text('Add Playlist'),
+                      label: Text(LocaleKeys.AddPlaylist.tr),
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 8.0.w, // Padding using ScreenUtil
-                          vertical: 8.0.h, // Padding using ScreenUtil
+                          horizontal: 8.0.w,
+                          vertical: 8.0.h,
                         ),
-                        textStyle: TextStyle(fontSize: 8.sp), // Font size using ScreenUtil
+                        textStyle: TextStyle(fontSize: 8.sp),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                       ),
                     ),
@@ -115,12 +115,12 @@ class _PlaylistViewState extends State<PlaylistView> {
         Get.toNamed(Routes.PARENTAL);
       },
       child: Container(
-        width: 120.w, // Adjusted width using ScreenUtil
+        width: 120.w,
         height: 95.h,
-        padding: EdgeInsets.all(8.0.w), // Padding using ScreenUtil
+        padding: EdgeInsets.all(8.0.w),
         decoration: BoxDecoration(
           color: Colors.black,
-          borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+          borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: Colors.white),
         ),
         child: Row(

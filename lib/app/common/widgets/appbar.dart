@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../utils/constraints/colors.dart';
-import '../../utils/constraints/sizes.dart';
-import '../../utils/device/device.dart';
-import '../../utils/helpers/helper_functions.dart';
+
 
 class VoidAppBar extends StatelessWidget implements PreferredSizeWidget {
   const VoidAppBar(
@@ -25,7 +23,7 @@ class VoidAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: VoidSizes.md),
+      padding: EdgeInsets.symmetric(horizontal: 10.0.w),
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showBackArrow
@@ -42,9 +40,7 @@ class VoidAppBar extends StatelessWidget implements PreferredSizeWidget {
                     onPressed: leadingOnPressed,
                     icon: Icon(
                       leadingIcon,
-                      color: VoidHelperFunctions.isDarkMode(context)
-                          ? VoidColors.white
-                          : VoidColors.black,
+                      color: VoidColors.blackColor,
                     ))
                 : null,
         title: title,
@@ -55,5 +51,5 @@ class VoidAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(VoidDeviceUtils.getAppBarHeight());
+  Size get preferredSize => Size.fromHeight(100.h);
 }

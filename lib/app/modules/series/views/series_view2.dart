@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ip_tv/app/modules/series/controllers/series_controller.dart';
-import '../../../utils/constraints/colors.dart';
-//import '../controllers/movies_controller.dart';
+import 'package:get/get.dart';
+import 'package:ip_tv/app/common/widgets/vlc_player_screen.dart';
+import '../../../../generated/locales.g.dart';
+import '../../../common/widgets/back_button_widget.dart';
+import '../../../utils/constraints/image_strings.dart';
+import '../controllers/series_controller.dart';
 
-class SeriesView2 extends GetView<SeriesController> {
+
+class SeriesView2 extends StatelessWidget {
   const SeriesView2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+    final Series series = Get.arguments;
 
     return Scaffold(
       body: Stack(
@@ -20,7 +22,14 @@ class SeriesView2 extends GetView<SeriesController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: FadeInImage.assetNetwork(
+                  placeholder: VoidImages.placeholder, // Placeholder image
+                  image: series.logo,
+                  fit: BoxFit.cover,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
+                  },
+                ).image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -46,21 +55,14 @@ class SeriesView2 extends GetView<SeriesController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                        icon: SizedBox(
-                          width: 28.w,
-                          height: 28.h,
-                          child: Image.asset('assets/images/back_button.png'),
-                        ),
-                        onPressed: () => Get.back(),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
-                        onPressed: () {},
-                      ),
+                      const BackButtonWidget(),
+                      // IconButton(
+                      //   icon: Icon(Icons.settings_suggest_outlined, color: Colors.white),
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
-                  // Movie details
+                  // Series details
                   Row(
                     children: [
                       Container(
@@ -68,7 +70,14 @@ class SeriesView2 extends GetView<SeriesController> {
                         height: 150.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/sample.png'),
+                            image: FadeInImage.assetNetwork(
+                              placeholder: VoidImages.placeholder, // Placeholder image
+                              image: series.logo,
+                              fit: BoxFit.cover,
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
+                              },
+                            ).image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -79,7 +88,7 @@ class SeriesView2 extends GetView<SeriesController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Akuaman The Saga',
+                              series.name,
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
@@ -88,7 +97,7 @@ class SeriesView2 extends GetView<SeriesController> {
                             ),
                             SizedBox(height: 8.h),
                             Text(
-                              'Half-human, half-Atlantean Arthur Curry must take his rightful place as the king of Atlantis and prevent a large-scale conflict from breaking out between the underwater kingdom and the surface world.',
+                              series.group,
                               style: TextStyle(
                                 fontSize: 7.sp,
                                 color: Colors.white,
@@ -98,29 +107,51 @@ class SeriesView2 extends GetView<SeriesController> {
                             Row(
                               children: [
                                 ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text('Play'),
+                                  onPressed: () {
+                                    Get.to(() => VlcPlayerScreen(streamUrl: series.url));
+                                  },
+                                  child: Text(LocaleKeys.Play.tr),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: VoidColors.primary,
                                     padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
-                                OutlinedButton(
-                                  onPressed: () {},
-                                  child: Text('Continue Watching',style: TextStyle(color: VoidColors.white)),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.white),
-                                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                Flexible(
+                                  child: OutlinedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      LocaleKeys.ContinueWatching.tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(color: Colors.white),
+                                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: 8.w),
-                                OutlinedButton(
-                                  onPressed: () {},
-                                  child: Text('Watch Later',style: TextStyle(color: VoidColors.white),),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.white),
-                                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                Flexible(
+                                  child: OutlinedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      LocaleKeys.WatchLater.tr,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(color: Colors.white),
+                                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0), // Decrease roundness
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -131,27 +162,27 @@ class SeriesView2 extends GetView<SeriesController> {
                     ],
                   ),
                   SizedBox(height: 24.h),
-                  // Similar Movies Section
-                  Text(
-                    'Similar Movies',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8.h),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                        _buildSimilarMovieCard('assets/images/sample.png'),
-                      ],
-                    ),
-                  ),
+                  // Similar Series Section
+                  // Text(
+                  //   LocaleKeys.SimilarMovies.tr,
+                  //   style: TextStyle(
+                  //     fontSize: 18.sp,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
+                  // SizedBox(height: 8.h),
+                  // SingleChildScrollView(
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     children: [
+                  //       _buildSimilarMovieCard(series.logo),
+                  //       _buildSimilarMovieCard(series.logo),
+                  //       _buildSimilarMovieCard(series.logo),
+                  //       _buildSimilarMovieCard(series.logo),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -161,24 +192,31 @@ class SeriesView2 extends GetView<SeriesController> {
     );
   }
 
-  Widget _buildSimilarMovieCard(String imagePath) {
-    return Padding(
-      padding: EdgeInsets.only(right: 8.0.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 100.w,
-            height: 150.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imagePath),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildSimilarMovieCard(String imagePath) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(right: 8.0.w),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           width: 100.w,
+  //           height: 150.h,
+  //           decoration: BoxDecoration(
+  //             image: DecorationImage(
+  //               image: FadeInImage.assetNetwork(
+  //                 placeholder: VoidImages.placeholder, // Placeholder image
+  //                 image: imagePath,
+  //                 fit: BoxFit.cover,
+  //                 imageErrorBuilder: (context, error, stackTrace) {
+  //                   return Image.asset(VoidImages.placeholder, fit: BoxFit.cover);
+  //                 },
+  //               ).image,
+  //               fit: BoxFit.cover,
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

@@ -1,8 +1,9 @@
-import 'dart:math' as math; // Import the math library
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/splash_controller.dart';
 
@@ -14,11 +15,10 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
+
 
     Future.delayed(Duration(seconds: 3), () {
-      Get.offNamed(Routes.LOGIN); // Use named route for navigation
+      Get.offNamed(Routes.LOGIN);
     });
 
     return Scaffold(
@@ -28,23 +28,23 @@ class SplashView extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Overlay with logo and custom loading indicator
+
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Logo
                 Image.asset(
-                  'assets/images/iptv logo.png',
-                  height: 150.h, // Adjust height using ScreenUtil
+                 VoidImages.logo,
+                  height: 150.h,
                 ),
-                SizedBox(height: 20.h), // Spacing using ScreenUtil
-                // Custom loading indicator
+                SizedBox(height: 20.h),
+
                 CustomCircularProgressIndicator(),
               ],
             ),
@@ -83,8 +83,8 @@ class _CustomCircularProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 20.w, // Adjust width using ScreenUtil
-      height: 20.h, // Adjust height using ScreenUtil
+      width: 20.w,
+      height: 20.h,
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
