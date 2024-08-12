@@ -9,6 +9,7 @@ import '../../../utils/constraints/image_strings.dart';
 import '../../Movies/controllers/movies_controller.dart';
 import '../../Movies/views/movies_view2.dart';
 import '../../series/controllers/series_controller.dart';
+import '../../time_format/controllers/time_format_controller.dart';
 import '../controllers/live_t_v_controller.dart';
 
 class LiveTVView extends GetView<LiveTVController> {
@@ -24,6 +25,7 @@ class LiveTVView extends GetView<LiveTVController> {
   final RxBool isSearchActive = false.obs;
   final RxList searchResults = [].obs;
   final RxInt selectedTab = 0.obs;
+  final TimeFormatController timeFormatController =Get.isRegistered()?Get.find(): Get.put(TimeFormatController() , permanent: true);
 
   @override
   void ini() {
@@ -71,7 +73,10 @@ class LiveTVView extends GetView<LiveTVController> {
   }
 
   String getCurrentTime() {
-    return DateFormat('hh:mm a').format(DateTime.now());
+    String format = timeFormatController.selectedTimeFormat.value == '12'
+        ? 'hh:mm a'
+        : 'HH:mm';
+    return DateFormat(format).format(DateTime.now());
   }
 
   String getCurrentDate() {
@@ -211,12 +216,12 @@ class LiveTVView extends GetView<LiveTVController> {
                               SizedBox(width: 20.w),
                               Row(
                                 children: [
-                                  Text(
+                                 Obx(()=>Text(
                                     getCurrentTime(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 8.sp),
-                                  ),
+                                  )),
                                   SizedBox(width: 4.w),
                                   Text(
                                     getCurrentDate(),

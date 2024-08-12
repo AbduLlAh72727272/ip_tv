@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../../generated/locales.g.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../controllers/time_format_controller.dart';
-
 
 class TimeFormatView extends GetView<TimeFormatController> {
   const TimeFormatView({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -57,10 +54,10 @@ class TimeFormatView extends GetView<TimeFormatController> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  _buildCheckboxItem(LocaleKeys.Hr.tr),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  _buildCheckboxItem(LocaleKeys.twentyFourHr.tr),
+                  SizedBox(height: 20.h),
+                  _buildCheckboxItem(LocaleKeys.Hr.tr, '12'),
+                  SizedBox(height: 20.h),
+                  _buildCheckboxItem(LocaleKeys.twentyFourHr.tr, '24'),
                 ],
               ),
             ),
@@ -92,7 +89,9 @@ class TimeFormatView extends GetView<TimeFormatController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Handle save action
+                    // Save selected time format
+                    controller.setTimeFormat(controller.selectedTimeFormat.value);
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
@@ -114,31 +113,28 @@ class TimeFormatView extends GetView<TimeFormatController> {
     );
   }
 
-  Widget _buildCheckboxItem(String title) {
-    bool isChecked = title == LocaleKeys.Hr.tr;
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value ?? false;
-                });
-              },
-              checkColor: Colors.black,
-              activeColor: Colors.white,
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp),
-            ),
-          ],
-        );
-      },
-    );
+  Widget _buildCheckboxItem(String title, String format) {
+    return Obx(() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Checkbox(
+            value: controller.selectedTimeFormat.value == format,
+            onChanged: (bool? value) {
+              if (value != null && value) {
+                controller.setTimeFormat(format);
+              }
+            },
+            checkColor: Colors.black,
+            activeColor: Colors.white,
+          ),
+          SizedBox(width: 10.w),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white, fontSize: 9.sp),
+          ),
+        ],
+      );
+    });
   }
 }

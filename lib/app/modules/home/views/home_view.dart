@@ -80,19 +80,19 @@ class HomeView extends StatelessWidget {
                           children: [
                             _buildMenuItem(Icons.home, LocaleKeys.Home.tr, selected: true),
                             _buildMenuItem(Icons.live_tv, LocaleKeys.LiveTv.tr, onTap: () {
-                              Get.to(() => LiveTVView(initialSelectedTab: 0));  // Navigate to LiveTVView with index 0
+                              Get.to(() => LiveTVView(initialSelectedTab: 0));
                             }),
                             _buildMenuItem(Icons.movie, LocaleKeys.Movies.tr, onTap: () {
-                              print("Navigating to LiveTVView with index 1 (Movies)");
-                              Get.to(() => LiveTVView(initialSelectedTab: 1)); // Navigate to LiveTVView with index 1
+
+                              Get.to(() => LiveTVView(initialSelectedTab: 1));
                             }),
                             _buildMenuItem(Icons.screen_share, LocaleKeys.MultiScreen.tr, onTap: () {
-                              Get.toNamed(Routes.MULTISCREEN); // Navigate to MultiScreen
+                              Get.toNamed(Routes.MULTISCREEN);
                             }),
                             _buildMenuItem(Icons.tv, LocaleKeys.Series.tr, onTap: () {
-                              Get.to(() => LiveTVView(initialSelectedTab: 2)); // Navigate to LiveTVView with index 2
+                              Get.to(() => LiveTVView(initialSelectedTab: 2));
                             }),
-                            SizedBox(height: 10.h), // Spacing using ScreenUtil
+                            SizedBox(height: 10.h),
                           ],
                         ),
                       ),
@@ -158,10 +158,11 @@ class HomeView extends StatelessWidget {
     return Container(
       color: selected ? Color(0xFF3C0F71) : Colors.black.withOpacity(0.1),
       child: ListTile(
-        leading: Icon(icon, color: Colors.white),
+        minTileHeight: 40.h,
+        leading: Icon(icon, color: Colors.white,size: 9.sp,),
         title: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 9.sp),
+          style: TextStyle(color: Colors.white, fontSize: 8.sp),
         ),
         onTap: onTap ?? () {},
       ),
