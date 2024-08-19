@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 import '../../../../generated/locales.g.dart';
+import '../../../common/controller/vpn_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/colors.dart';
 import '../../../utils/constraints/image_strings.dart';
@@ -37,10 +38,16 @@ class FourthHomeView extends GetView {
             padding: EdgeInsets.only(top: 5.0.h),
             child: Row(
               children: [
-                Image.asset(
-                  VoidImages.vpn_blue,
-                  height: 25.0.h,
-                  width: 25.0.w,
+                GestureDetector(
+                onTap: () async {
+      final VPNController vpnController = Get.put<VPNController>(VPNController());
+      await vpnController.toggleVPN();
+      },
+                  child: Image.asset(
+                    VoidImages.vpn_blue,
+                    height: 25.0.h,
+                    width: 25.0.w,
+                  ),
                 ),
                 Spacer(),
                 Image.asset(

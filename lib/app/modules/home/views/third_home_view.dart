@@ -6,6 +6,7 @@ import 'package:ip_tv/app/routes/app_pages.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
 import 'package:ip_tv/app/utils/constraints/image_strings.dart';
 import '../../../../generated/locales.g.dart';
+import '../../../common/controller/vpn_controller.dart';
 import '../../../common/widgets/vlc_player_screen.dart';
 import '../../live_TV/controllers/live_t_v_controller.dart';
 import '../../live_TV/views/live_t_v_view.dart';
@@ -47,10 +48,16 @@ class ThirdHomeView extends GetView<LiveTVController> {
             color: Colors.transparent,
             child: Row(
               children: [
-                Image.asset(
-                  'assets/images/transBgVpn.png',
-                  height: 25.0.h,
-                  width: 25.0.w,
+                GestureDetector(
+                onTap: () async {
+          final VPNController vpnController = Get.put<VPNController>(VPNController());
+          await vpnController.toggleVPN();
+          },
+                  child: Image.asset(
+                    'assets/images/transBgVpn.png',
+                    height: 25.0.h,
+                    width: 25.0.w,
+                  ),
                 ),
                 GestureDetector(
                   onTap: () {

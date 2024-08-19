@@ -35,6 +35,7 @@ dependencies:
   video_player: ^2.9.1
   flutter_vlc_player: ^7.4.2
   fijkplayer: ^0.11.0
+  flutter_vpn: ^0.12.0
 
 
 dev_dependencies:

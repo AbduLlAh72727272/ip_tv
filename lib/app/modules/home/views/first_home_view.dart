@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 import 'package:ip_tv/app/utils/constraints/colors.dart';
 import '../../../../generated/locales.g.dart';
+import '../../../common/controller/vpn_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../Movies/controllers/movies_controller.dart';
@@ -35,10 +36,16 @@ class FirstHomeView extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
             child: Row(
               children: [
-                Image.asset(
-                  VoidImages.vpn_blue,
-                  height: 30.0.h,
-                  width: 30.0.w,
+                GestureDetector(
+                onTap: () async {
+      final VPNController vpnController = Get.put<VPNController>(VPNController());
+      await vpnController.toggleVPN();
+      },
+                  child: Image.asset(
+                    VoidImages.vpn_blue,
+                    height: 30.0.h,
+                    width: 30.0.w,
+                  ),
                 ),
                 Text(
                   '',

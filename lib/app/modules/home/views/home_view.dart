@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ip_tv/app/modules/home/views/home_theme_dialog.dart';
 import '../../../../generated/locales.g.dart';
+import '../../../common/controller/vpn_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constraints/image_strings.dart';
 import '../../Movies/controllers/movies_controller.dart';
@@ -15,9 +16,11 @@ class HomeView extends StatelessWidget {
   HomeView({super.key}) {
     // Ensure MoviesController is initialized
     Get.lazyPut(() => MoviesController());
+    Get.put(VPNController());
   }
 
   final MoviesController controller = Get.find<MoviesController>();
+  final VPNController vpnController = Get.put<VPNController>(VPNController());
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +103,10 @@ class HomeView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildIconButton(VoidImages.vpn_red),
+                        _buildIconButton(VoidImages.vpn_red ,onTap: () async {
+                          final VPNController vpnController = Get.put<VPNController>(VPNController());
+                          await vpnController.toggleVPN();
+                        }),
                         _buildIconButton(VoidImages.homeTheme, onTap: () {
                           showHomeScreenDialog();
                         }),
@@ -171,7 +177,10 @@ class HomeView extends StatelessWidget {
 
   Widget _buildIconButton(String imagePath, {VoidCallback? onTap}) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap ?? () async {
+        final VPNController vpnController = Get.find<VPNController>();
+        await vpnController.toggleVPN();
+      },
       child: Container(
         color: Colors.transparent,
         padding: EdgeInsets.all(2.0.w),
@@ -179,6 +188,7 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+
 
   Widget _buildMoviesSection(MoviesController controller) {
     return Obx(() {
