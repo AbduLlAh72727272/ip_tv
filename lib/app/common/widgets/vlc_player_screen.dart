@@ -25,6 +25,7 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   late Animation<Offset> _offsetAnimation;
   bool isChannelListOpen = false;
   bool _isControlsVisible = true;
+  bool _isError = false;  // Flag to indicate if there is an error
   Timer? _hideTimer;
   final LiveTVController _liveTVController = Get.put(LiveTVController());
   RxBool isBuffering = true.obs;
@@ -34,13 +35,20 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   void initState() {
     super.initState();
 
-    _vlcPlayerController = VlcPlayerController.network(
-      widget.streamUrl,
-      autoPlay: true,
-      onInit: () {
-        _vlcPlayerController.addListener(_onPlayerStateChanged);
-      },
-    );
+    try {
+      _vlcPlayerController = VlcPlayerController.network(
+        widget.streamUrl,
+        autoPlay: true,
+        onInit: () {
+          _vlcPlayerController.addListener(_onPlayerStateChanged);
+        },
+      );
+    } catch (e) {
+      // Handle the error
+      _isError = true;
+      isLoading.value = false;
+      isBuffering.value = false;
+    }
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
@@ -77,7 +85,13 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
   }
 
   void _onPlayerStateChanged() {
-    if (_vlcPlayerController.value.isBuffering) {
+    if (_vlcPlayerController.value.hasError) {
+      // Handle the error and show the error message on the screen
+      setState(() {
+        _isError = true;
+        isBuffering.value = false;
+      });
+    } else if (_vlcPlayerController.value.isBuffering) {
       isBuffering.value = true;
     } else {
       isBuffering.value = false;
@@ -144,8 +158,26 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                   placeholder: Center(child: CircularProgressIndicator()),
                 ),
               ),
+              // Display the error message but allow interaction with the player
+              if (_isError)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    ignoring: true, // Allows interactions to pass through
+                    child: Center(
+                      child: Container(
+                        color: Colors.white.withOpacity(0.5),
+                        child: Text(
+                          'An Error Occured Try Again Later',
+                          style: TextStyle(color: Colors.red, fontSize: 12.sp),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              // Separate Obx for buffering and loading indicators
               Obx(() {
-                return isLoading.value || isBuffering.value  // Show CircularProgressIndicator if loading or buffering
+                return isLoading.value || isBuffering.value
                     ? Positioned.fill(
                   child: Center(
                     child: CircularProgressIndicator(
@@ -221,7 +253,8 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                     ],
                   ),
                 ),
-                if (_vlcPlayerController.value.duration != null && _vlcPlayerController.value.duration.inSeconds > 0) ...[
+                if (_vlcPlayerController.value.duration != null &&
+                    _vlcPlayerController.value.duration.inSeconds > 0) ...[
                   Positioned(
                     bottom: 40.h,
                     left: 0,
@@ -277,7 +310,9 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                               return Center(child: CircularProgressIndicator());
                             }
                             if (_liveTVController.entries.isEmpty) {
-                              return Center(child: Text('No channels available', style: TextStyle(color: Colors.white)));
+                              return Center(
+                                  child: Text('No channels available',
+                                      style: TextStyle(color: Colors.white)));
                             }
                             return ListView.builder(
                               padding: EdgeInsets.all(20.w),
@@ -285,7 +320,8 @@ class _VlcPlayerScreenState extends State<VlcPlayerScreen> with SingleTickerProv
                               itemBuilder: (context, index) {
                                 final channel = _liveTVController.entries[index];
                                 return ListTile(
-                                  title: Text(channel.displayName ?? "No name", style: TextStyle(color: Colors.white, fontSize: 10.sp)),
+                                  title: Text(channel.displayName ?? "No name",
+                                      style: TextStyle(color: Colors.white, fontSize: 10.sp)),
                                   onTap: () {
                                     setState(() {
                                       _vlcPlayerController.setMediaFromNetwork(channel.url);
