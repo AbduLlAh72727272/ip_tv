@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+
+import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/stream_format_controller.dart';
 
 class StreamFormatView extends GetView<StreamFormatController> {
@@ -8,9 +12,6 @@ class StreamFormatView extends GetView<StreamFormatController> {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -19,29 +20,29 @@ class StreamFormatView extends GetView<StreamFormatController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           // Settings title
           Positioned(
-            top: 20.h, // Adjusted position using ScreenUtil
-            left: 25.w, // Adjusted position using ScreenUtil
+            top: 20.h,
+            left: 25.w,
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                fontSize: 10.sp,
               ),
             ),
           ),
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
+              width: 300.w,
               height: 250.h,
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
               ),
@@ -50,19 +51,16 @@ class StreamFormatView extends GetView<StreamFormatController> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Stream Format',
+                      LocaleKeys.StreamFormat.tr,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 12.sp, // Adjusted font size using ScreenUtil
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
-                    _buildCheckboxItem('Default'),
-                    //SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
-                    _buildCheckboxItem('MPEGTS'),
-                   // SizedBox(height: 1.h), // Adjusted spacing using ScreenUtil
-                    _buildCheckboxItem('HSL'),
+                    _buildCheckboxItem(LocaleKeys.Default.tr, context),
+                    _buildCheckboxItem(LocaleKeys.MPEGTS.tr, context),
+                    _buildCheckboxItem(LocaleKeys.Hsl.tr, context),
                   ],
                 ),
               ),
@@ -70,7 +68,7 @@ class StreamFormatView extends GetView<StreamFormatController> {
           ),
           // Buttons
           Positioned(
-            bottom: 2.h, // Adjusted position using ScreenUtil
+            bottom: 2.h,
             left: MediaQuery.of(context).size.width / 4,
             right: MediaQuery.of(context).size.width / 4,
             child: Row(
@@ -78,18 +76,18 @@ class StreamFormatView extends GetView<StreamFormatController> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.back(); // Navigate back to previous screen
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.4),
-                    padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 7.sp), // Adjusted font size using ScreenUtil
+                    backgroundColor: Colors.white.withOpacity(0.4),
+                    padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h),
+                    textStyle: TextStyle(fontSize: 7.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -98,15 +96,14 @@ class StreamFormatView extends GetView<StreamFormatController> {
                     // Handle save action
                   },
                   style: ElevatedButton.styleFrom(
-                    // backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 7.sp), // Adjusted font size using ScreenUtil
+                    padding: EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 16.0.h),
+                    textStyle: TextStyle(fontSize: 7.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -118,31 +115,35 @@ class StreamFormatView extends GetView<StreamFormatController> {
     );
   }
 
-  Widget _buildCheckboxItem(String title) {
-    bool isChecked = false;
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value ?? false;
-                });
-              },
-              checkColor: Colors.black,
-              activeColor: Colors.white,
+  Widget _buildCheckboxItem(String title, BuildContext context) {
+    return Obx(() {
+      bool isChecked = controller.isSelected(title);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Checkbox(
+            value: isChecked,
+            onChanged: (bool? value) {
+              if (value != null && value) {
+                controller.setSelectedFormat(title);
+              }
+            },
+            checkColor: Colors.white,
+            activeColor: Theme.of(context).colorScheme.primary,
+            side: MaterialStateBorderSide.resolveWith(
+                  (states) => BorderSide(
+                width: 1.5,
+                color: isChecked ?  Theme.of(context).colorScheme.primary : Colors.white,
+              ),
             ),
-            SizedBox(width: 5.w), // Adjusted spacing using ScreenUtil
-            Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
-            ),
-          ],
-        );
-      },
-    );
+          ),
+          SizedBox(width: 5.w),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white, fontSize: 9.sp),
+          ),
+        ],
+      );
+    });
   }
 }

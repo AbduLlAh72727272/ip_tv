@@ -1,23 +1,9 @@
 import 'package:get/get.dart';
 
 class TimeFormatController extends GetxController {
-  //TODO: Implement TimeFormatController
+  var selectedTimeFormat = '12'.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void setTimeFormat(String format) {
+    selectedTimeFormat.value = format;
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

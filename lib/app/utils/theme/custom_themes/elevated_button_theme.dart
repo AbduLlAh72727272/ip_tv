@@ -13,12 +13,12 @@ class VoidElevatedButtonTheme {
       textStyle: TextStyle(color: VoidColors.whiteColor),
     ),
   );
-  static final secHomeElevatedButtonTheme = ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      elevation: 0,
-      foregroundColor: VoidColors.whiteColor,
-      backgroundColor: VoidColors.greenColor,
-      textStyle: TextStyle(color: VoidColors.whiteColor),
-    ),
-  );
+  // static final secHomeElevatedButtonTheme = ElevatedButtonThemeData(
+  //   style: ElevatedButton.styleFrom(
+  //     elevation: 0,
+  //     foregroundColor: VoidColors.whiteColor,
+  //     backgroundColor: VoidColors.greenColor,
+  //     textStyle: TextStyle(color: VoidColors.whiteColor),
+  //   ),
+  // );
 }

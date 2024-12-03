@@ -1,23 +1,13 @@
 import 'package:get/get.dart';
 
 class StreamFormatController extends GetxController {
-  //TODO: Implement StreamFormatController
+  var selectedFormat = ''.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void setSelectedFormat(String format) {
+    selectedFormat.value = format;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  bool isSelected(String format) {
+    return selectedFormat.value == format;
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

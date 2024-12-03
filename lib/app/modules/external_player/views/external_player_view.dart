@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+
+import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/colors.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/external_player_controller.dart';
 
 class ExternalPlayerView extends GetView<ExternalPlayerController> {
-  const ExternalPlayerView({Key? key}) : super(key: key);
+  ExternalPlayerView({Key? key}) : super(key: key);
+
+  var selectedPlayer = 'MX Player'.obs;
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -19,7 +22,7 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -27,36 +30,36 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              width: 300.w,
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.r), // Adjusted border radius using ScreenUtil
+               // borderRadius: BorderRadius.circular(10.r),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Select External Players',
+                    LocaleKeys.SelectExternalPlayer.tr,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('Default', context),
-                  SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('Vlc Player', context),
-                  SizedBox(height: 8.h), // Adjusted spacing using ScreenUtil
-                  _buildRadioItem('MX Player', context),
+                  SizedBox(height: 26.h), // Increased spacing
+                  _buildRadioItem(LocaleKeys.Default.tr, context),
+                  SizedBox(height: 26.h), // Increased spacing
+                  _buildRadioItem(LocaleKeys.VlcPlayer.tr, context),
+                  SizedBox(height: 26.h), // Increased spacing
+                  _buildRadioItem(LocaleKeys.MxPlayer.tr, context),
                 ],
               ),
             ),
           ),
           // Buttons
           Positioned(
-            bottom: 50.h, // Adjusted position using ScreenUtil
+            bottom: 10.h,
             left: MediaQuery.of(context).size.width / 4,
             right: MediaQuery.of(context).size.width / 4,
             child: Row(
@@ -64,36 +67,40 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.back(); // Navigate back to previous screen
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.4),
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    backgroundColor: Colors.white.withOpacity(0.4),
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
-                    'Cancel',
+                    LocaleKeys.Cancel.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle OK action
-                  },
-                  style: ElevatedButton.styleFrom(
-                    // backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 9.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                SizedBox(width: 5.0.w,),
+                Flexible(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle save action
+                    },
+                    style: ElevatedButton.styleFrom(
+                      //backgroundColor: VoidColors.primary,
+                      padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                      textStyle: TextStyle(fontSize: 9.sp),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    'OK',
-                    style: TextStyle(color: Colors.white),
+                    child: Text(
+                      LocaleKeys.Ok.tr,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -105,32 +112,43 @@ class ExternalPlayerView extends GetView<ExternalPlayerController> {
   }
 
   Widget _buildRadioItem(String title, BuildContext context) {
-    final controller = Get.put(ExternalPlayerController());
     return Obx(() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
+            style: TextStyle(color: Colors.white, fontSize: 9.sp),
           ),
-          Radio<String>(
-            value: title,
-            groupValue: controller.selectedPlayer.value,
-            onChanged: (String? value) {
-              controller.selectedPlayer.value = value!;
+          GestureDetector(
+            onTap: () {
+              selectedPlayer.value = title;
             },
-            activeColor: Theme.of(context).colorScheme.primary,
-            fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-              return states.contains(MaterialState.selected) ? Theme.of(context).colorScheme.primary : Colors.white;
-            }),
+            child: Container(
+              width: 13.w,
+              height: 28.h,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: selectedPlayer.value == title
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.white,
+                ),
+                // borderRadius: BorderRadius.circular(4.r),
+                color: selectedPlayer.value == title
+                    ? Theme.of(context).colorScheme.secondary
+                    : Colors.transparent,
+              ),
+              // child: selectedPlayer.value == title
+              //     ? Icon(
+              //   Icons.check,
+              //   size: 14.w,
+              //   color: Colors.white,
+              // )
+              //     : null,
+            ),
           ),
         ],
       );
     });
   }
-}
-
-class ExternalPlayerController extends GetxController {
-  var selectedPlayer = 'MX Player'.obs;
 }

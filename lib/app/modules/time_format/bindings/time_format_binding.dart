@@ -5,8 +5,7 @@ import '../controllers/time_format_controller.dart';
 class TimeFormatBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<TimeFormatController>(
-      () => TimeFormatController(),
-    );
+    final TimeFormatController timeFormatController =Get.isRegistered()?Get.find(): Get.put(TimeFormatController() , permanent: true);
+
   }
 }

@@ -1,23 +1,86 @@
+import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
+import '../models/movie_model.dart';
 
 class MoviesController extends GetxController {
-  //TODO: Implement MoviesController
+  var movies = <Movie>[].obs;
+  var isLoading = true.obs;
+  var isFetchingMore = false.obs;
+  late Box<Movie> movieBox;
+  var currentPage = 0;
+  final int pageSize = 100;
+  var allPagesLoaded = false.obs;
 
-  final count = 0.obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await Hive.openBox<Movie>('moviesBox');
+    movieBox = Hive.box<Movie>('moviesBox');
+    loadMoviesFromCache();
+    fetchMovieLists();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> loadMoviesFromCache() async {
+    final cachedMovies = movieBox.values.toList();
+    if (cachedMovies.isNotEmpty) {
+      movies.value = cachedMovies;
+    }
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  Future<void> fetchMovieLists() async {
+    if (isFetchingMore.value || allPagesLoaded.value) return;
+
+    isLoading(true);
+    isFetchingMore(true);
+    final url = Uri.parse('https://iptv-be-production.up.railway.app/api/movies?page=$currentPage&size=$pageSize');
+
+    try {
+      print('Fetching movies from: $url');
+
+      final response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        print('Fetched movies: $data');
+        var movieResponse = MovieResponse.fromJson(data);
+        if (movieResponse.results.isEmpty) {
+          allPagesLoaded(true);
+        } else {
+          movies.addAll(movieResponse.results);
+          currentPage++;
+          cacheMovies(movieResponse.results);
+        }
+      } else {
+        final data = json.decode(response.body);
+        print('Error response data: $data');
+        Get.snackbar('Error', 'Failed to fetch Movie lists: ${response.statusCode}');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
+      print('Movie List error: $e');
+    } finally {
+      isLoading(false);
+      isFetchingMore(false);
+    }
   }
 
-  void increment() => count.value++;
+  void cacheMovies(List<Movie> movies) {
+    movieBox.clear();
+    movieBox.addAll(movies);
+  }
+
+  Future<void> fetchNextPage() async {
+    if (isFetchingMore.value || allPagesLoaded.value) return;
+    await fetchMovieLists();
+  }
 }

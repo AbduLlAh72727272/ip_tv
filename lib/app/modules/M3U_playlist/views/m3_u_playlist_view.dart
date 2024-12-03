@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
-import '../controllers/m3_u_playlist_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/image_strings.dart';
+import '../controllers/m3_u_playlist_controller.dart'; // Import ScreenUtil
+
 
 class M3UPlaylistView extends GetView<M3UPlaylistController> {
   const M3UPlaylistView({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'), // Background image
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
@@ -31,12 +35,12 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
             left: 16.w,
             child: GestureDetector(
               onTap: () {
-                Get.back(); // Navigate to the previous screen
+                Get.back();
               },
               child: Image.asset(
-                'assets/images/back_button.png',
-                height: 36.h, // Adjusted size using ScreenUtil
-                width: 36.w, // Adjusted size using ScreenUtil
+               VoidImages.back,
+                height: 36.h,
+                width: 36.w,
               ),
             ),
           ),
@@ -45,60 +49,67 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
             child: Center(
               child: SingleChildScrollView(
                 child: Container(
-                  width: 250.w, // Adjusted width using ScreenUtil
-                  padding: EdgeInsets.all(16.0.w), // Padding using ScreenUtil
+                  width: 250.w,
+                  padding: EdgeInsets.all(16.0.w),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'M3U playlist via URL',
+                        // 'M3U playlist via URL',
+                        LocaleKeys.MUPlaylist.tr,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 10.sp, // Font size using ScreenUtil
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20.h), // Spacing using ScreenUtil
+                      SizedBox(height: 20.h),
                       Row(
                         children: [
-                          Expanded(child: _buildTextField('Playlist name', playlistNameController)),
+                          Expanded(child: _buildTextField(LocaleKeys.PlayListName.tr, playlistNameController)),
                           SizedBox(width: 10.w), // Spacing using ScreenUtil
-                          Expanded(child: _buildTextField('Playlist URL', playlistUrlController)),
+                          Expanded(child: _buildTextField(LocaleKeys.PlayListUrl.tr, playlistUrlController)),
                         ],
                       ),
-                      SizedBox(height: 20.h), // Spacing using ScreenUtil
+                      SizedBox(height: 20.h),
                       Row(
                         children: [
-                          Expanded(child: _buildTextField('User name', userNameController)),
+                          Expanded(child: _buildTextField(LocaleKeys.UserName.tr, userNameController)),
                           SizedBox(width: 10.w), // Spacing using ScreenUtil
-                          Expanded(child: _buildTextField('Password', passwordController)),
+                          Expanded(child: _buildTextField(LocaleKeys.Password.tr, passwordController)),
                         ],
                       ),
-                      SizedBox(height: 20.h), // Spacing using ScreenUtil
+                      SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black.withOpacity(0.4),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0.w, // Padding using ScreenUtil
-                                vertical: 6.0.h, // Padding using ScreenUtil
-                              ),
-                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
-                              ),
-                            ),
-                            child: Text('Cancel'),
-                          ),
+                        ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black.withOpacity(0.4),
+                        padding: EdgeInsets.symmetric(
+                        horizontal: 8.0.w, // Padding using ScreenUtil
+                        vertical: 6.0.h, // Padding using ScreenUtil
+                        ),
+                        textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                        ),
+                        ),
+                        child: Text(
+                          LocaleKeys.Cancel.tr,
+                        ),
+                        ),
+
+                          // _buildButton('Cancel', Colors.black.withOpacity(0.4), Colors.white, () {
+                          //   Get.back(); // Navigate back without saving
+                          // }),
                           ElevatedButton(
                             onPressed: () {
                               Get.back(result: {
@@ -110,15 +121,17 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
                             },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 8.0.w, // Padding using ScreenUtil
-                                vertical: 6.0.h, // Padding using ScreenUtil
+                                horizontal: 8.0.w,
+                                vertical: 6.0.h,
                               ),
-                              textStyle: TextStyle(fontSize: 10.sp), // Font size using ScreenUtil
+                              textStyle: TextStyle(fontSize: 10.sp),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
                             ),
-                            child: Text('Save'),
+                            child: Text(
+                              LocaleKeys.Save.tr,
+                            ),
                           ),
                         ],
                       ),
@@ -138,15 +151,15 @@ class M3UPlaylistView extends GetView<M3UPlaylistController> {
       controller: controller,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey), // Grey hint text
+        hintStyle: TextStyle(color: Colors.grey),
         filled: true,
-        fillColor: Colors.white, // White background
+        fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.r), // Border radius using ScreenUtil
+          borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(color: Colors.white),
         ),
       ),
-      style: TextStyle(color: Colors.black), // Black text color
+      style: TextStyle(color: Colors.black),
     );
   }
 }

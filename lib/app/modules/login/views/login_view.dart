@@ -1,98 +1,120 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../generated/locales.g.dart';
 import '../../../routes/app_pages.dart';
-import '../../playlist/views/playlist_view.dart';
 import '../../../utils/constraints/colors.dart';
-import '../../../utils/theme/custom_themes/theme.dart';
-//import 'app_pages.dart'; // Import the routes
+import '../../../utils/constraints/image_strings.dart';
+import '../controllers/login_controller.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
+  final LoginController loginController = Get.put(LoginController());
 
-  final TextEditingController macAddressController = TextEditingController();
-  final TextEditingController pinController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'), // Ensure the correct image path
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           // Form content
           Center(
-            child: Container(
-              width: 200.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.r), // Adjusted border radius using ScreenUtil
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextField(
-                    controller: macAddressController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: 'Mac Address',
-                      labelStyle: TextStyle(color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  TextField(
-                    controller: pinController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: 'Pin',
-                      labelStyle: TextStyle(color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+              child: Container(
+                width: 200.w,
+                padding: EdgeInsets.all(16.0.w),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: loginController.macAddressController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.MacAddress.tr,
+                        labelStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Navigate to PlaylistView using named route
-                        Get.offNamed(Routes.PLAYLIST);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: VoidColors.primary,
-                        padding: EdgeInsets.symmetric(vertical: 15.h),
-                        textStyle: TextStyle(fontSize: 8.sp),
-                      ),
-                      child: Text(
-                        'Add Playlist',
-                        style: TextStyle(color: Colors.white),
+                    SizedBox(height: 20.h),
+                    TextField(
+                      controller: loginController.pinController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: LocaleKeys.Pin.tr,
+                        labelStyle: const TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 20.h),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          String macAddress = loginController.macAddressController.text.trim();
+                          String pin = loginController.pinController.text.trim();
+
+                          if (loginController.validateCredentials(macAddress, pin)) {
+                            // Credentials are correct, navigate to PlaylistView
+                            Get.offNamed(Routes.PLAYLIST);
+                            Get.snackbar(
+                              duration: const Duration(milliseconds: 700),
+                              "Success",
+                              "WELCOME TO ARK VIP!!!",
+                              snackPosition: SnackPosition.TOP,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
+                              colorText: Colors.white,
+                            );
+                          } else {
+                            // Credentials are incorrect, show error snack-bar
+                            Get.snackbar(
+                              "Error",
+                              "Incorrect MAC Address or PIN",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
+                              colorText: Colors.white,
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: VoidColors.primary,
+                          padding: EdgeInsets.symmetric(vertical: 15.h),
+                          textStyle: TextStyle(fontSize: 8.sp),
+                        ),
+                        child: Text(
+                          LocaleKeys.AddPlaylist.tr,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

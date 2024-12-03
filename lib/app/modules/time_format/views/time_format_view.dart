@@ -1,46 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import '../../../../generated/locales.g.dart';
+import '../../../utils/constraints/image_strings.dart';
 import '../controllers/time_format_controller.dart';
 
 class TimeFormatView extends GetView<TimeFormatController> {
-  const TimeFormatView({Key? key}) : super(key: key);
+  const TimeFormatView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil
-    //ScreenUtil.init(context, designSize: Size(360, 690), minTextAdapt: true, splitScreenMode: true);
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.png'),
+                image: AssetImage(VoidImages.background1),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           // Settings title
           Positioned(
-            top: 20.h, // Adjusted position using ScreenUtil
-            left: 25.w, // Adjusted position using ScreenUtil
+            top: 20.h,
+            left: 25.w,
             child: Text(
-              'Settings',
+              LocaleKeys.Settings.tr,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 10.sp, // Adjusted font size using ScreenUtil
+                fontSize: 10.sp,
               ),
             ),
           ),
           // Form content
           Center(
             child: Container(
-              width: 300.w, // Adjusted width using ScreenUtil
-              padding: EdgeInsets.all(16.0.w), // Adjusted padding using ScreenUtil
+              width: 300.w,
+              padding: EdgeInsets.all(16.0.w),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
               ),
@@ -48,24 +47,24 @@ class TimeFormatView extends GetView<TimeFormatController> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Time Format',
+                    LocaleKeys.TimeFormat.tr,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 12.sp, // Adjusted font size using ScreenUtil
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  _buildCheckboxItem('12 Hour'),
-                  SizedBox(height: 20.h), // Adjusted spacing using ScreenUtil
-                  _buildCheckboxItem('24 Hour'),
+                  SizedBox(height: 20.h),
+                  _buildCheckboxItem(LocaleKeys.Hr.tr, '12'),
+                  SizedBox(height: 20.h),
+                  _buildCheckboxItem(LocaleKeys.twentyFourHr.tr, '24'),
                 ],
               ),
             ),
           ),
           // Buttons
           Positioned(
-            bottom: 10.h, // Adjusted position using ScreenUtil
+            bottom: 10.h,
             left: MediaQuery.of(context).size.width / 4,
             right: MediaQuery.of(context).size.width / 4,
             child: Row(
@@ -73,35 +72,36 @@ class TimeFormatView extends GetView<TimeFormatController> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Get.back(); // Navigate back to previous screen
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black.withOpacity(0.4),
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    backgroundColor: Colors.white.withOpacity(0.4),
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
-                    'Back',
+                    LocaleKeys.Back.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Handle save action
+                    // Save selected time format
+                    controller.setTimeFormat(controller.selectedTimeFormat.value);
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
-                    // backgroundColor: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h), // Adjusted padding using ScreenUtil
-                    textStyle: TextStyle(fontSize: 9.sp), // Adjusted font size using ScreenUtil
+                    padding: EdgeInsets.symmetric(horizontal: 22.0.w, vertical: 10.0.h),
+                    textStyle: TextStyle(fontSize: 9.sp),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.r), // Adjusted border radius using ScreenUtil
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    LocaleKeys.Save.tr,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -113,31 +113,28 @@ class TimeFormatView extends GetView<TimeFormatController> {
     );
   }
 
-  Widget _buildCheckboxItem(String title) {
-    bool isChecked = title == '12 Hour';
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Checkbox(
-              value: isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  isChecked = value ?? false;
-                });
-              },
-              checkColor: Colors.black,
-              activeColor: Colors.white,
-            ),
-            SizedBox(width: 10.w), // Adjusted spacing using ScreenUtil
-            Text(
-              title,
-              style: TextStyle(color: Colors.white, fontSize: 9.sp), // Adjusted font size using ScreenUtil
-            ),
-          ],
-        );
-      },
-    );
+  Widget _buildCheckboxItem(String title, String format) {
+    return Obx(() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Checkbox(
+            value: controller.selectedTimeFormat.value == format,
+            onChanged: (bool? value) {
+              if (value != null && value) {
+                controller.setTimeFormat(format);
+              }
+            },
+            checkColor: Colors.black,
+            activeColor: Colors.white,
+          ),
+          SizedBox(width: 10.w),
+          Text(
+            title,
+            style: TextStyle(color: Colors.white, fontSize: 9.sp),
+          ),
+        ],
+      );
+    });
   }
 }
